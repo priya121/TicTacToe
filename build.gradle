@@ -1,0 +1,61 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'com.github.kt3k.coveralls'
+
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile 'junit:junit:4.+'
+}
+
+checkstyle {
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        configProperties = [suppressionsFile: rootProject.file('config/checkstyle/suppressions.xml')]
+        toolVersion = '6.6'
+}
+
+findbugs {
+    ignoreFailures = false
+        toolVersion = '3.0.1'
+        sourceSets = [sourceSets.main, sourceSets.test]
+        reportsDir = file("$project.buildDir/reports/findbugs")
+        effort = 'max'
+
+        includeFilter = file("$rootProject.projectDir/config/findbugs/includeFilter.xml")
+        excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
+}
+
+findbugsTest {
+    enabled = true
+}
+
+pmd {
+    ignoreFailures = false
+        sourceSets = [sourceSets.main, sourceSets.test]
+        ruleSetFiles = files("$rootProject.projectDir/config/pmd/ruleSets.xml")
+        reportsDir = file("$project.buildDir/reports/pmd")
+        toolVersion = '5.0.5'
+}
+
+
+
