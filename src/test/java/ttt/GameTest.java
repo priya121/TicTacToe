@@ -18,12 +18,15 @@ public class GameTest {
         }
 
     @Test
-        public void placesSymbolOnTwoByTwoBoard() {
+        public void placesSymbolOnBoard() {
             List<String> board = new ArrayList<String>();
             List<String> emptyBoard = new ArrayList<String>();
             Game newGame  = new Game(emptyBoard);
             board.add("O");
             Assert.assertEquals(board, newGame.move("O"));
         }
+
+    @Test
+        public void 
 }
 
