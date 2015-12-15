@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.6">
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/BoardTest.java">
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/ConsoleIOTest.java">
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/DisplayBoardTest.java">
+</file>
 <file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/GameTest.java">
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/PlayerTest.java">
 </file>
 </checkstyle>

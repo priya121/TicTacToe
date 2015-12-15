@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConsoleIO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TicTacToe</a> &gt; <a href="index.source.html" class="el_package">ttt</a> &gt; <span class="el_source">ConsoleIO.java</span></div><h1>ConsoleIO.java</h1><pre class="source lang-java linenums">package ttt;
+
+import java.io.IOException;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.InputStream;
+
+public class ConsoleIO implements IO {
+    BufferedReader input;
+    PrintStream output;
+
+<span class="fc" id="L14">    public ConsoleIO(InputStream input, PrintStream output) {</span>
+<span class="fc" id="L15">        this.input = new BufferedReader(new InputStreamReader(input));</span>
+<span class="fc" id="L16">        this.output = output;</span>
+<span class="fc" id="L17">    }</span>
+
+    @Override
+    public String takeInput() {
+        try {
+<span class="fc" id="L22">            return input.readLine();</span>
+<span class="nc" id="L23">        } catch (IOException e) {</span>
+<span class="nc" id="L24">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    @Override
+    public String showOutput(String message) {
+<span class="fc" id="L30">        output.println(message);</span>
+<span class="fc" id="L31">        return null;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,22 +1,29 @@
+apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-
 
 version = '1.0'
 sourceCompatibility = 1.8
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
     }
+}
+
+task (run, dependsOn: 'classes', type: JavaExec) {
+    main = 'ttt.App'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 repositories {
@@ -25,7 +32,14 @@ repositories {
 
 
 dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.7'
     testCompile 'junit:junit:4.+'
+}
+
+test {
+    testLogging {
+    showStandardStreams = true
+    }
 }
 
 checkstyle {
@@ -50,12 +64,23 @@ findbugsTest {
 }
 
 pmd {
-    ignoreFailures = false
+    ignoreFailures = true
+    consoleOutput = true
         sourceSets = [sourceSets.main, sourceSets.test]
         ruleSetFiles = files("$rootProject.projectDir/config/pmd/ruleSets.xml")
         reportsDir = file("$project.buildDir/reports/pmd")
         toolVersion = '5.0.5'
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        html.destination "$project.buildDir/reports/coverage"
+    }
+}
 
+run {
+    standardInput = System.in
+}
 

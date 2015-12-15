@@ -1,3 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.0.5" timestamp="2015-12-08T15:12:01.963">
+<pmd version="5.0.5" timestamp="2015-12-15T14:18:17.319">
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/DisplayBoardTest.java">
+<violation beginline="34" endline="34" begincolumn="13" endcolumn="28" rule="SystemPrintln" ruleset="Java Logging" package="ttt" class="DisplayBoardTest" method="displaysCurrentBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="35" endline="35" begincolumn="13" endcolumn="28" rule="SystemPrintln" ruleset="Java Logging" package="ttt" class="DisplayBoardTest" method="displaysCurrentBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/GameTest.java">
+<violation beginline="35" endline="35" begincolumn="51" endcolumn="53" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;0&quot; appears 9 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="35" endline="35" begincolumn="61" endcolumn="63" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;1&quot; appears 8 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="35" endline="35" begincolumn="71" endcolumn="73" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;2&quot; appears 4 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="35" endline="35" begincolumn="56" endcolumn="58" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;3&quot; appears 7 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="35" endline="35" begincolumn="66" endcolumn="68" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;6&quot; appears 8 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="46" endline="46" begincolumn="61" endcolumn="63" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinLastRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;5&quot; appears 4 times in this file; the first occurrence is on line 46
+</violation>
+<violation beginline="46" endline="46" begincolumn="66" endcolumn="68" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinLastRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;7&quot; appears 5 times in this file; the first occurrence is on line 46
+</violation>
+<violation beginline="46" endline="46" begincolumn="76" endcolumn="78" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinLastRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;8&quot; appears 7 times in this file; the first occurrence is on line 46
+</violation>
+<violation beginline="57" endline="57" begincolumn="61" endcolumn="63" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="GameTest" method="checksWinSecondRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;4&quot; appears 7 times in this file; the first occurrence is on line 57
+</violation>
+<violation beginline="163" endline="163" begincolumn="20" endcolumn="25" rule="UnusedLocalVariable" ruleset="Unused Code" package="ttt" class="GameTest" method="tellsUserWhenGameOver" variable="player" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'player'.
+</violation>
+<violation beginline="170" endline="170" begincolumn="13" endcolumn="30" rule="LooseCoupling" ruleset="Coupling" package="ttt" class="FakeIOTwo" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/coupling.html#LooseCoupling" priority="5">
+Avoid using implementation types like 'LinkedList'; use the interface instead
+</violation>
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/PlayerTest.java">
+<violation beginline="25" endline="25" begincolumn="56" endcolumn="58" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="PlayerTest" method="playerMarksMove" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;0&quot; appears 6 times in this file; the first occurrence is on line 25
+</violation>
+<violation beginline="35" endline="35" begincolumn="61" endcolumn="63" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt" class="PlayerTest" method="boardChangedWhenPlayerMakesMove" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;1&quot; appears 4 times in this file; the first occurrence is on line 35
+</violation>
+<violation beginline="71" endline="71" begincolumn="22" endcolumn="33" rule="UnusedLocalVariable" ruleset="Unused Code" package="ttt" class="PlayerTest" method="getsThePlayerWhoJustPlayed" variable="changedBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'changedBoard'.
+</violation>
+<violation beginline="83" endline="83" begincolumn="13" endcolumn="30" rule="LooseCoupling" ruleset="Coupling" package="ttt" class="FakeIO" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/coupling.html#LooseCoupling" priority="5">
+Avoid using implementation types like 'LinkedList'; use the interface instead
+</violation>
+</file>
 </pmd>
