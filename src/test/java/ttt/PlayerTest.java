@@ -2,13 +2,19 @@ package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.LinkedList;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.PrintStream;
+import java.io.InputStream;
+
 public class PlayerTest {
-    String empty = "";
+    String empty = "-";
     String nought = "O";
     String cross = "X";
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
@@ -39,6 +45,7 @@ public class PlayerTest {
             Assert.assertEquals(changedBoard, currentBoard.getCurrentBoard());
         }
 
+    @Ignore
     @Test
         public void switchesPlayersFromCrossToNought() {
         List<String> changedBoard = Arrays.asList(cross, nought, empty,
@@ -77,6 +84,23 @@ public class PlayerTest {
             player.markBoard();
             Assert.assertEquals("O", player.getSymbol());
         }
+
+    @Ignore
+    @Test
+        public void playerOnlyMakesValidMove() {
+        ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(recordedOutput);
+        List<String> newBoard = Arrays.asList(empty, cross, empty,
+                                              empty, nought, empty,
+                                              empty, nought, cross);
+        InputStream inputStream = new ByteArrayInputStream("1\n1\n".getBytes());
+        ConsoleIO io = new ConsoleIO(inputStream, out);
+        Board currentBoard  = new Board(newBoard);
+        Game newGame = new Game(currentBoard, io);
+        Player player = new Player(io, currentBoard);
+        player.markBoard();
+        Assert.assertTrue(recordedOutput.toString().contains("that position is already taken, try again"));
+        }
 }
 
 class FakeIO implements IO {
@@ -92,7 +116,7 @@ class FakeIO implements IO {
         }
 
     @Override
-    public String showOutput(String message) {
-        return message;
-    }
+        public String showOutput(String message) {
+            return message;
+        }
 }

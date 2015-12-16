@@ -20,10 +20,25 @@ public class Player {
     }
 
     public void markBoard() {
-        int indexChosen = Integer.parseInt(takesUserInput());
+        int indexChosen = checkDigitInput();
+        while (!board.isValid(indexChosen)) {
+            io.showOutput("that position is already taken, try again.");
+            indexChosen = Integer.parseInt(takesUserInput());
+        }
         board.markPlayer(indexChosen, symbol);
         symbolJustPlayed = symbol;
         switchPlayers();
+    }
+
+    public int checkDigitInput() {
+        try {
+            int indexChosen = Integer.parseInt(takesUserInput());
+            return indexChosen;
+        } catch (Exception e) {
+            io.showOutput("Please enter a number from 0-8:");
+            int indexChosen = Integer.parseInt(takesUserInput());
+            return indexChosen;
+        }
     }
 
     public void switchPlayers() {

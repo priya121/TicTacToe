@@ -2,12 +2,14 @@ package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardTest {
-    String empty = " ";
+    String empty = "-";
     String cross = "X";
     String nought = "O";
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
@@ -35,11 +37,40 @@ public class BoardTest {
 
         @Test
         public void getsPositionOfCell() {
-        List<String> boardAfterTwoMoves =
-        Arrays.asList(cross, nought, empty,
-                      empty, empty, empty,
-                      empty, empty, empty);
-        Board newBoard = new Board(boardAfterTwoMoves);
-        Assert.assertEquals(cross, newBoard.get(0));
+            List<String> boardAfterTwoMoves =
+            Arrays.asList(cross, nought, empty,
+                          empty, empty, empty,
+                          empty, empty, empty);
+            Board newBoard = new Board(boardAfterTwoMoves);
+            Assert.assertEquals(cross, newBoard.get(0));
+        }
+
+        @Ignore
+        @Test(expected = RuntimeException.class)
+        public void throwsAnExceptionIfMoveIsNotAvailable() {
+            Board newBoard = new Board(emptyBoard);
+            newBoard.markPlayer(1337, cross);
+        }
+
+        @Test
+        public void largerThanBoardIsInvalid() {
+            Board newBoard = new Board(emptyBoard);
+            Assert.assertFalse(newBoard.isValid(37));
+        }
+
+        @Test
+        public void returnsListOfValidMoves() {
+            Board newBoard = new Board(emptyBoard);
+            List<Integer> validMoves = moves(0, 9);
+            Assert.assertEquals(validMoves, newBoard.validMoves());
+        }
+
+        public List<Integer> moves(int from, int to) {
+            List<Integer> result = new ArrayList<Integer>();
+            for (int i = from; i < to; i++) {
+                result.add(i);
+            }
+            return result;
         }
 }
+

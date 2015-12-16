@@ -13,13 +13,13 @@ public class Game {
     private String nought;
     IO io;
 
-    public enum Status {
+    public enum Symbol {
         CROSS("X"),
         NOUGHT("O");
 
         private String symbol;
 
-        Status(String symbol) {
+        Symbol(String symbol) {
             this.symbol = symbol;
         }
 
@@ -33,8 +33,8 @@ public class Game {
         emptyBoard = Arrays.asList(empty, empty, empty,
                                    empty, empty, empty,
                                    empty, empty, empty);
-        cross = Status.CROSS.getSymbol();
-        nought = Status.NOUGHT.getSymbol();
+        cross = String.valueOf(Symbol.CROSS.getSymbol());
+        nought = String.valueOf(Symbol.NOUGHT.getSymbol());
         this.board = board;
         this.io = io;
         this.player = new Player(io, board);

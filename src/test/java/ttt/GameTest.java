@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class GameTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    String empty = " ";
+    String empty = "-";
     List<String> board = Arrays.asList(empty, empty, empty,
                                        empty, empty, empty,
                                        empty, empty, empty);
@@ -51,6 +51,7 @@ public class GameTest {
             }
             Assert.assertEquals(true, newGame.isWinningRow(nought));
     }
+
 
     @Test
     public void checksWinSecondRowForCross() {
@@ -164,6 +165,16 @@ public class GameTest {
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("game over"));
         }
+
+    @Test(expected = Exception.class)
+        public void userMustEnterDigits() {
+            InputStream inputStream = new ByteArrayInputStream("a\n3\n".getBytes());
+            ConsoleIO io = new ConsoleIO(inputStream, out);
+            Game newGame = new Game(newBoard, io);
+            Player player = new Player(io, newBoard);
+            newGame.gameLoop();
+            Assert.assertTrue(recordedOutput.toString().contains("please enter a number from 0-8"));
+    }
 }
 
 class FakeIOTwo implements IO {
@@ -174,9 +185,9 @@ class FakeIOTwo implements IO {
     }
 
     @Override
-                public String takeInput() {
-                    return input.pop();
-                }
+         public String takeInput() {
+            return input.pop();
+         }
 
     @Override
         public String showOutput(String message) {
