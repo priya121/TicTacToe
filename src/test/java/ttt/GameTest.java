@@ -161,7 +161,6 @@ public class GameTest {
             InputStream inputStream = new ByteArrayInputStream("2\n1\n5\n3\n8\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
             Game newGame = new Game(newBoard, io);
-            Player player = new Player(io, newBoard);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("game over"));
         }
@@ -171,7 +170,6 @@ public class GameTest {
             InputStream inputStream = new ByteArrayInputStream("a\n3\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
             Game newGame = new Game(newBoard, io);
-            Player player = new Player(io, newBoard);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("please enter a number from 0-8"));
     }

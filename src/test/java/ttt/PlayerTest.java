@@ -2,7 +2,6 @@ package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +17,8 @@ public class PlayerTest {
     String nought = "O";
     String cross = "X";
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
-            empty, empty, empty,
-            empty, empty, empty);
+                                            empty, empty, empty,
+                                            empty, empty, empty);
     Board currentBoard = new Board(emptyBoard);
 
     private FakeIO getFakeIO(List<String> input) {
@@ -45,7 +44,6 @@ public class PlayerTest {
             Assert.assertEquals(changedBoard, currentBoard.getCurrentBoard());
         }
 
-    @Ignore
     @Test
         public void switchesPlayersFromCrossToNought() {
         List<String> changedBoard = Arrays.asList(cross, nought, empty,
@@ -75,9 +73,6 @@ public class PlayerTest {
 
     @Test
         public void getsThePlayerWhoJustPlayed() {
-        List<String> changedBoard = Arrays.asList(cross, cross, empty,
-                                                  empty, nought, empty,
-                                                  empty, nought, cross);
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "7", "8", "4", "1"));
             Player player = new Player(fakeInput, currentBoard);
             player.markBoard();
@@ -85,21 +80,19 @@ public class PlayerTest {
             Assert.assertEquals("O", player.getSymbol());
         }
 
-    @Ignore
-    @Test
+    @Test(expected = Exception.class)
         public void playerOnlyMakesValidMove() {
         ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(recordedOutput);
         List<String> newBoard = Arrays.asList(empty, cross, empty,
                                               empty, nought, empty,
                                               empty, nought, cross);
-        InputStream inputStream = new ByteArrayInputStream("1\n1\n".getBytes());
+        InputStream inputStream = new ByteArrayInputStream("a\n1\n".getBytes());
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Board currentBoard  = new Board(newBoard);
-        Game newGame = new Game(currentBoard, io);
         Player player = new Player(io, currentBoard);
         player.markBoard();
-        Assert.assertTrue(recordedOutput.toString().contains("that position is already taken, try again"));
+        Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0-8:"));
         }
 }
 

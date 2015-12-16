@@ -23,8 +23,6 @@ public class DisplayBoardTest {
                 empty, empty, empty,
                 empty, empty, empty);
         DisplayBoard initialDisplay = new DisplayBoard(emptyBoard);
-        System.out.print(expectedBoard);
-        System.out.print(initialDisplay.showBoard());
         Assert.assertEquals(expectedBoard, initialDisplay.showBoard());
     }
 
@@ -38,8 +36,6 @@ public class DisplayBoardTest {
                                                             cross, nought, cross,
                                                             empty, cross, cross);
             DisplayBoard currentDisplay = new DisplayBoard(intermediateBoard);
-            System.out.print(expectedBoard);
-            System.out.print(currentDisplay.showBoard());
             Assert.assertEquals(expectedBoard, currentDisplay.showBoard());
         }
 }
