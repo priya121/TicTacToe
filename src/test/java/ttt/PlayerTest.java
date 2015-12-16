@@ -13,9 +13,24 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class PlayerTest {
-    String empty = "-";
-    String nought = "O";
-    String cross = "X";
+    public enum Symbol {
+        EMPTY("-"),
+        CROSS("X"),
+        NOUGHT("O");
+
+        private String symbol;
+
+        Symbol(String symbol) {
+            this.symbol = symbol;
+        }
+
+        public String getSymbol() {
+            return symbol;
+        }
+    }
+    String nought = String.valueOf(Symbol.NOUGHT.getSymbol());
+    String cross = String.valueOf(Symbol.CROSS.getSymbol());
+    String empty = String.valueOf(Symbol.EMPTY.getSymbol());
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);

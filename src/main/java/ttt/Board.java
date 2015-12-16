@@ -30,6 +30,11 @@ public class Board {
         return validMoves().contains(move);
     }
 
+    public boolean boardFull() {
+        return board.contains(empty);
+    }
+
+
     public List<Integer> validMoves() {
         List<Integer> validMoves = new ArrayList<Integer>();
         for (int i = 0; i < board.size(); i++) {
@@ -39,4 +44,6 @@ public class Board {
         }
         return validMoves;
     }
+
+
  }

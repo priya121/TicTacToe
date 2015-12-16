@@ -22,7 +22,7 @@ public class Player {
     public void markBoard() {
         int indexChosen = checkDigitInput();
         while (!board.isValid(indexChosen)) {
-            io.showOutput("that position is already taken, try again.");
+            io.showOutput("That position is already taken, try again.");
             indexChosen = Integer.parseInt(takesUserInput());
         }
         board.markPlayer(indexChosen, symbol);

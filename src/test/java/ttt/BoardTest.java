@@ -14,38 +14,35 @@ public class BoardTest {
     String nought = "O";
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
                                              empty, empty, empty,
-                                            empty, empty, empty);
-    List<String> expectedBoard = Arrays.asList(cross, empty, empty,
-            empty, empty, empty,
-            empty, empty, empty);
+                                             empty, empty, empty);
         Board currentBoard = new Board(emptyBoard);
 
         @Test
         public void setsUpThreeByThreeBoard() {
-            Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, cross));
+        List<String> expectedBoard = Arrays.asList(cross, empty, empty,
+                                                   empty, empty, empty,
+                                                   empty, empty, empty);
+        Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, cross));
         }
 
         @Test
         public void returnsCurrentStateOfTheBoard() {
-        List<String> boardAfterTwoPlayerMoves =
-        Arrays.asList(cross, nought, empty,
-                      empty, empty, empty,
-                      empty, empty, empty);
+        List<String> boardAfterTwoPlayerMoves = Arrays.asList(cross, nought, empty,
+                                                              empty, empty, empty,
+                                                              empty, empty, empty);
             currentBoard.markPlayer(1, nought);
             Assert.assertEquals(boardAfterTwoPlayerMoves, currentBoard.markPlayer(0, cross));
         }
 
         @Test
         public void getsPositionOfCell() {
-            List<String> boardAfterTwoMoves =
-            Arrays.asList(cross, nought, empty,
-                          empty, empty, empty,
-                          empty, empty, empty);
+            List<String> boardAfterTwoMoves = Arrays.asList(cross, nought, empty,
+                                                            empty, empty, empty,
+                                                            empty, empty, empty);
             Board newBoard = new Board(boardAfterTwoMoves);
             Assert.assertEquals(cross, newBoard.get(0));
         }
 
-        @Ignore
         @Test(expected = RuntimeException.class)
         public void throwsAnExceptionIfMoveIsNotAvailable() {
             Board newBoard = new Board(emptyBoard);
@@ -63,6 +60,25 @@ public class BoardTest {
             Board newBoard = new Board(emptyBoard);
             List<Integer> validMoves = moves(0, 9);
             Assert.assertEquals(validMoves, newBoard.validMoves());
+        }
+
+        @Test
+        public void checksBoardFull() {
+            List<String> fullBoard = Arrays.asList(empty, empty, empty,
+                                                   empty, empty, empty,
+                                                   empty, empty, empty);
+            Board board = new Board(fullBoard);
+            Assert.assertTrue(board.boardFull());
+        }
+
+        @Ignore
+        @Test
+        public void checksBoardNotFull() {
+            List<String> emptyBoard  = Arrays.asList(empty, empty, empty,
+                                                     empty, empty, empty,
+                                                     empty, empty, empty);
+            Board board = new Board(emptyBoard);
+            Assert.assertFalse(board.boardFull());
         }
 
         public List<Integer> moves(int from, int to) {
