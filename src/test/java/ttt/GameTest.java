@@ -23,8 +23,8 @@ public class GameTest {
                                             empty, empty, empty);
     Board newBoard = new Board(emptyBoard);
     DisplayBoard newDisplay = new DisplayBoard(newBoard.getCurrentBoard());
-    String cross = "X";
-    String nought = "O";
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
 
     private FakeIOTwo getFakeIOTwo(List<String> input) {
         return new FakeIOTwo(input);

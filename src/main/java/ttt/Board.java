@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public class Board {
     List<String> board;
     String empty = "-";
-    String playerCross = "X";
-    String playerNought = "O";
 
     public Board(List<String> board) {
         this.board = board;
@@ -30,10 +28,9 @@ public class Board {
         return validMoves().contains(move);
     }
 
-    public boolean boardFull() {
+    public boolean boardNotFull() {
         return board.contains(empty);
     }
-
 
     public List<Integer> validMoves() {
         List<Integer> validMoves = new ArrayList<Integer>();
@@ -44,6 +41,4 @@ public class Board {
         }
         return validMoves;
     }
-
-
  }

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.0.5" timestamp="2015-12-15T13:34:22.338">
-<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/App.java">
-<violation beginline="15" endline="15" begincolumn="16" endcolumn="21" rule="UnusedLocalVariable" ruleset="Unused Code" package="ttt" class="App" method="main" variable="player" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedLocalVariable" priority="3">
-Avoid unused local variables such as 'player'.
-</violation>
-</file>
+<pmd version="5.0.5" timestamp="2015-12-21T11:43:41.211">
 <file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/DisplayBoard.java">
 <violation beginline="26" endline="26" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="ttt" class="DisplayBoard" method="clearScreen" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.print is used
 </violation>
 </file>
 <file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/Game.java">
-<violation beginline="8" endline="8" begincolumn="26" endcolumn="35" rule="UnusedPrivateField" ruleset="Unused Code" package="ttt" class="Game" variable="emptyBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedPrivateField" priority="3">
-Avoid unused private fields such as 'emptyBoard'.
-</violation>
-<violation beginline="8" endline="8" begincolumn="13" endcolumn="36" rule="SingularField" ruleset="Design" package="ttt" class="Game" variable="emptyBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html#SingularField" priority="4">
-Perhaps 'emptyBoard' could be replaced by a local variable.
-</violation>
-<violation beginline="10" endline="10" begincolumn="26" endcolumn="32" rule="UnusedPrivateField" ruleset="Unused Code" package="ttt" class="Game" variable="display" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedPrivateField" priority="3">
+<violation beginline="6" endline="6" begincolumn="26" endcolumn="32" rule="UnusedPrivateField" ruleset="Unused Code" package="ttt" class="Game" variable="display" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'display'.
+</violation>
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/Player.java">
+<violation beginline="36" endline="36" begincolumn="13" endcolumn="31" rule="UnnecessaryLocalBeforeReturn" ruleset="Design" package="ttt" class="Player" method="checkDigitInput" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html#UnnecessaryLocalBeforeReturn" priority="3">
+Consider simply returning the value vs storing it in local variable 'indexChosen'
+</violation>
+<violation beginline="40" endline="40" begincolumn="13" endcolumn="31" rule="UnnecessaryLocalBeforeReturn" ruleset="Design" package="ttt" class="Player" method="checkDigitInput" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html#UnnecessaryLocalBeforeReturn" priority="3">
+Consider simply returning the value vs storing it in local variable 'indexChosen'
 </violation>
 </file>
 </pmd>

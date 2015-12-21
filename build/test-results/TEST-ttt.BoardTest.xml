@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ttt.BoardTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-12-15T14:18:19" hostname="Priyas-MacBook-Pro-2.local" time="0.002">
+<testsuite name="ttt.BoardTest" tests="8" skipped="1" failures="0" errors="0" timestamp="2015-12-21T11:43:43" hostname="Priyas-MacBook-Pro-2.local" time="0.007">
   <properties/>
-  <testcase name="returnsCurrentStateOfTheBoard" classname="ttt.BoardTest" time="0.001"/>
+  <testcase name="returnsCurrentStateOfTheBoard" classname="ttt.BoardTest" time="0.003"/>
+  <testcase name="checksBoardFull" classname="ttt.BoardTest" time="0.0"/>
+  <testcase name="checksBoardNotFull" classname="ttt.BoardTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="throwsAnExceptionIfMoveIsNotAvailable" classname="ttt.BoardTest" time="0.0"/>
+  <testcase name="largerThanBoardIsInvalid" classname="ttt.BoardTest" time="0.0"/>
   <testcase name="getsPositionOfCell" classname="ttt.BoardTest" time="0.0"/>
   <testcase name="setsUpThreeByThreeBoard" classname="ttt.BoardTest" time="0.0"/>
+  <testcase name="returnsListOfValidMoves" classname="ttt.BoardTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

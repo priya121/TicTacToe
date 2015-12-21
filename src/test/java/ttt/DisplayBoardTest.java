@@ -38,6 +38,4 @@ public class DisplayBoardTest {
             DisplayBoard currentDisplay = new DisplayBoard(intermediateBoard);
             Assert.assertEquals(expectedBoard, currentDisplay.showBoard());
         }
-
-
 }

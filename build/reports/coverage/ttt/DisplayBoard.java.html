@@ -20,5 +20,11 @@ public class DisplayBoard {
         }
 <span class="fc" id="L21">        return display;</span>
     }
+
+    public void clearScreen() {
+<span class="fc" id="L25">        String clear = &quot;\033[2J\033[1;1H&quot;;</span>
+<span class="fc" id="L26">        System.out.println(clear);</span>
+<span class="fc" id="L27">        System.out.flush();</span>
+<span class="fc" id="L28">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

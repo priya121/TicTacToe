@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardTest {
-    String empty = "-";
-    String cross = "X";
-    String nought = "O";
+    String empty = Symbol.EMPTY.getSymbol();
+    String cross = Symbol.CROSS.getSymbol();
+    String nought = Symbol.NOUGHT.getSymbol();
     List<String> emptyBoard = Arrays.asList(empty, empty, empty,
-                                             empty, empty, empty,
-                                             empty, empty, empty);
+                                            empty, empty, empty,
+                                            empty, empty, empty);
         Board currentBoard = new Board(emptyBoard);
 
         @Test
@@ -68,7 +68,7 @@ public class BoardTest {
                                                    empty, empty, empty,
                                                    empty, empty, empty);
             Board board = new Board(fullBoard);
-            Assert.assertTrue(board.boardFull());
+            Assert.assertTrue(board.boardNotFull());
         }
 
         @Ignore
@@ -78,7 +78,7 @@ public class BoardTest {
                                                      empty, empty, empty,
                                                      empty, empty, empty);
             Board board = new Board(emptyBoard);
-            Assert.assertFalse(board.boardFull());
+            Assert.assertFalse(board.boardNotFull());
         }
 
         public List<Integer> moves(int from, int to) {

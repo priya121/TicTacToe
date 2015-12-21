@@ -12,7 +12,6 @@ public class App {
                                                 empty, empty, empty);
         Board board = new Board(emptyBoard);
         IO io = new ConsoleIO(System.in, System.out);
-        Player player = new Player(io, board);
         Game newGame = new Game(board, io);
         newGame.gameLoop();
     }

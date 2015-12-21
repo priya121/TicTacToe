@@ -1,47 +1,25 @@
 package ttt;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Game {
     private int counter = 0;
-    private List<String> emptyBoard;
     private Board board;
     private DisplayBoard display;
     private Player player;
-    private String cross;
-    private String nought;
+    private Symbol cross;
+    private Symbol nought;
     IO io;
 
-    public enum Symbol {
-        CROSS("X"),
-        NOUGHT("O");
-
-        private String symbol;
-
-        Symbol(String symbol) {
-            this.symbol = symbol;
-        }
-
-        public String getSymbol() {
-            return symbol;
-        }
-    }
-
     public Game(Board board, IO io) {
-        String empty = "-";
-        emptyBoard = Arrays.asList(empty, empty, empty,
-                                   empty, empty, empty,
-                                   empty, empty, empty);
-        cross = String.valueOf(Symbol.CROSS.getSymbol());
-        nought = String.valueOf(Symbol.NOUGHT.getSymbol());
+        cross = Symbol.CROSS;
+        nought = Symbol.NOUGHT;
         this.board = board;
         this.io = io;
         this.player = new Player(io, board);
     }
 
     public void gameLoop() {
-        while (!checkForWin() && counter < 9) {
+        initialDisplay();
+        while (!checkForWin() && board.boardNotFull()) {
             io.showOutput("Player as symbol " + player.getSymbol() + " make your move:");
             player.markBoard();
             DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());
@@ -50,6 +28,11 @@ public class Game {
         }
         io.showOutput("Player " + player.getSymbol() + " has won!");
         io.showOutput("game over");
+    }
+
+    public void initialDisplay() {
+        DisplayBoard initialDisplay = new DisplayBoard(board.getCurrentBoard());
+        io.showOutput(initialDisplay.showBoard());
     }
 
     public boolean checkForWin() {
@@ -62,38 +45,38 @@ public class Game {
         return false;
     }
 
-    public boolean isWinningRow(String symbol) {
-        if (board.get(0).equals(symbol) && board.get(1).equals(symbol) && board.get(2).equals(symbol)) {
+    public boolean isWinningRow(Symbol symbol) {
+        if (board.get(0).equals(symbol.getSymbol()) && board.get(1).equals(symbol.getSymbol()) && board.get(2).equals(symbol.getSymbol())) {
             return true;
         }
-        if (board.get(3).equals(symbol) && board.get(4).equals(symbol) && board.get(5).equals(symbol)) {
+        if (board.get(3).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(5).equals(symbol.getSymbol())) {
             return true;
         }
-        if (board.get(6).equals(symbol) && board.get(7).equals(symbol) && board.get(8).equals(symbol)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isWinningColumn(String symbol) {
-        if (board.get(0).equals(symbol) && board.get(3).equals(symbol) && board.get(6).equals(symbol)) {
-            return true;
-        }
-        if (board.get(1).equals(symbol) && board.get(4).equals(symbol) && board.get(7).equals(symbol)) {
-            return true;
-        }
-        if (board.get(2).equals(symbol) && board.get(5).equals(symbol) && board.get(8).equals(symbol)) {
+        if (board.get(6).equals(symbol.getSymbol()) && board.get(7).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
             return true;
         }
         return false;
     }
 
-
-    public boolean isWinningDiagonal(String symbol) {
-        if (board.get(0).equals(symbol) && board.get(4).equals(symbol) && board.get(8).equals(symbol)) {
+    public boolean isWinningColumn(Symbol symbol) {
+        if (board.get(0).equals(symbol.getSymbol()) && board.get(3).equals(symbol.getSymbol()) && board.get(6).equals(symbol.getSymbol())) {
             return true;
         }
-        if (board.get(2).equals(symbol) && board.get(4).equals(symbol) && board.get(6).equals(symbol)) {
+        if (board.get(1).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(7).equals(symbol.getSymbol())) {
+            return true;
+        }
+        if (board.get(2).equals(symbol.getSymbol()) && board.get(5).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean isWinningDiagonal(Symbol symbol) {
+        if (board.get(0).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
+            return true;
+        }
+        if (board.get(2).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(6).equals(symbol.getSymbol())) {
             return true;
         }
         return false;
