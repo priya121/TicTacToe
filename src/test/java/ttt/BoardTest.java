@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardTest {
-    String empty = Symbol.EMPTY.getSymbol();
-    String cross = Symbol.CROSS.getSymbol();
-    String nought = Symbol.NOUGHT.getSymbol();
-    List<String> emptyBoard = Arrays.asList(empty, empty, empty,
+    Symbol empty = Symbol.EMPTY;
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
+    List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);
         Board currentBoard = new Board(emptyBoard);
 
         @Test
         public void setsUpThreeByThreeBoard() {
-        List<String> expectedBoard = Arrays.asList(cross, empty, empty,
+        List<Symbol> expectedBoard = Arrays.asList(cross, empty, empty,
                                                    empty, empty, empty,
                                                    empty, empty, empty);
         Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, cross));
@@ -27,7 +27,7 @@ public class BoardTest {
 
         @Test
         public void returnsCurrentStateOfTheBoard() {
-        List<String> boardAfterTwoPlayerMoves = Arrays.asList(cross, nought, empty,
+        List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(cross, nought, empty,
                                                               empty, empty, empty,
                                                               empty, empty, empty);
             currentBoard.markPlayer(1, nought);
@@ -36,7 +36,7 @@ public class BoardTest {
 
         @Test
         public void getsPositionOfCell() {
-            List<String> boardAfterTwoMoves = Arrays.asList(cross, nought, empty,
+            List<Symbol> boardAfterTwoMoves = Arrays.asList(cross, nought, empty,
                                                             empty, empty, empty,
                                                             empty, empty, empty);
             Board newBoard = new Board(boardAfterTwoMoves);
@@ -64,7 +64,7 @@ public class BoardTest {
 
         @Test
         public void checksBoardFull() {
-            List<String> fullBoard = Arrays.asList(empty, empty, empty,
+            List<Symbol> fullBoard = Arrays.asList(empty, empty, empty,
                                                    empty, empty, empty,
                                                    empty, empty, empty);
             Board board = new Board(fullBoard);
@@ -74,7 +74,7 @@ public class BoardTest {
         @Ignore
         @Test
         public void checksBoardNotFull() {
-            List<String> emptyBoard  = Arrays.asList(empty, empty, empty,
+            List<Symbol> emptyBoard  = Arrays.asList(empty, empty, empty,
                                                      empty, empty, empty,
                                                      empty, empty, empty);
             Board board = new Board(emptyBoard);

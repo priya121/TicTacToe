@@ -8,20 +8,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DisplayBoardTest {
-    String cross = "X";
-    String nought = "O";
-    String empty = "-";
+    Symbol empty = Symbol.EMPTY;
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
 
     @Ignore
     @Test
     public void displaysEmptyBoard() {
-        String empty = "-";
         String expectedBoard =   " -  -  -  \n"
                                + " -  -  -  \n"
                                + " -  -  -  \n";
-        List<String> emptyBoard = Arrays.asList(empty, empty, empty,
-                empty, empty, empty,
-                empty, empty, empty);
+        List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
+                                                empty, empty, empty,
+                                                empty, empty, empty);
         DisplayBoard initialDisplay = new DisplayBoard(emptyBoard);
         Assert.assertEquals(expectedBoard, initialDisplay.showBoard());
     }
@@ -32,7 +31,7 @@ public class DisplayBoardTest {
             String expectedBoard =    " O  X  O \n"
                                     + " X  O  X \n"
                                     + " -  X  X \n";
-            List<String> intermediateBoard = Arrays.asList(nought, cross, nought,
+            List<Symbol> intermediateBoard = Arrays.asList(nought, cross, nought,
                                                             cross, nought, cross,
                                                             empty, cross, cross);
             DisplayBoard currentDisplay = new DisplayBoard(intermediateBoard);

@@ -4,23 +4,23 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Board {
-    List<String> board;
-    String empty = "-";
+    List<Symbol> board;
+    Symbol empty = Symbol.EMPTY;
 
-    public Board(List<String> board) {
+    public Board(List<Symbol> board) {
         this.board = board;
     }
 
-    public List<String> markPlayer(int indexPosition, String player) {
+    public List<Symbol> markPlayer(int indexPosition, Symbol player) {
         board.set(indexPosition, player);
         return board;
     }
 
-    public List<String> getCurrentBoard() {
+    public List<Symbol> getCurrentBoard() {
         return board;
     }
 
-    public String get(int index) {
+    public Symbol get(int index) {
         return board.get(index);
     }
 
@@ -41,4 +41,4 @@ public class Board {
         }
         return validMoves;
     }
- }
+}

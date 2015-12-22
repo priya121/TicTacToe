@@ -46,26 +46,26 @@ public class Game {
     }
 
     public boolean isWinningRow(Symbol symbol) {
-        if (board.get(0).equals(symbol.getSymbol()) && board.get(1).equals(symbol.getSymbol()) && board.get(2).equals(symbol.getSymbol())) {
+        if (board.get(0).equals(symbol) && board.get(1).equals(symbol) && board.get(2).equals(symbol)) {
             return true;
         }
-        if (board.get(3).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(5).equals(symbol.getSymbol())) {
+        if (board.get(3).equals(symbol) && board.get(4).equals(symbol) && board.get(5).equals(symbol)) {
             return true;
         }
-        if (board.get(6).equals(symbol.getSymbol()) && board.get(7).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
+        if (board.get(6).equals(symbol) && board.get(7).equals(symbol) && board.get(8).equals(symbol)) {
             return true;
         }
         return false;
     }
 
     public boolean isWinningColumn(Symbol symbol) {
-        if (board.get(0).equals(symbol.getSymbol()) && board.get(3).equals(symbol.getSymbol()) && board.get(6).equals(symbol.getSymbol())) {
+        if (board.get(0).equals(symbol) && board.get(3).equals(symbol) && board.get(6).equals(symbol)) {
             return true;
         }
-        if (board.get(1).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(7).equals(symbol.getSymbol())) {
+        if (board.get(1).equals(symbol) && board.get(4).equals(symbol) && board.get(7).equals(symbol)) {
             return true;
         }
-        if (board.get(2).equals(symbol.getSymbol()) && board.get(5).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
+        if (board.get(2).equals(symbol) && board.get(5).equals(symbol) && board.get(8).equals(symbol)) {
             return true;
         }
         return false;
@@ -73,10 +73,10 @@ public class Game {
 
 
     public boolean isWinningDiagonal(Symbol symbol) {
-        if (board.get(0).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(8).equals(symbol.getSymbol())) {
+        if (board.get(0).equals(symbol) && board.get(4).equals(symbol) && board.get(8).equals(symbol)) {
             return true;
         }
-        if (board.get(2).equals(symbol.getSymbol()) && board.get(4).equals(symbol.getSymbol()) && board.get(6).equals(symbol.getSymbol())) {
+        if (board.get(2).equals(symbol) && board.get(4).equals(symbol) && board.get(6).equals(symbol)) {
             return true;
         }
         return false;

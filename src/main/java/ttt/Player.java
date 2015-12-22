@@ -1,9 +1,9 @@
 package ttt;
 
 public class Player {
-    String cross = "X";
-    String nought = "O";
-    String symbol = cross;
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
+    Symbol symbol = cross;
     String symbolJustPlayed = "";
     IO io;
     Board board;
@@ -12,7 +12,7 @@ public class Player {
         this.symbol = cross;
         this.io = io;
         this.board = board;
-        this.symbolJustPlayed = symbol;
+        this.symbolJustPlayed = cross.getSymbol();
     }
 
     public String takesUserInput() {
@@ -26,7 +26,7 @@ public class Player {
             indexChosen = Integer.parseInt(takesUserInput());
         }
         board.markPlayer(indexChosen, symbol);
-        symbolJustPlayed = symbol;
+        symbolJustPlayed = symbol.getSymbol();
         switchPlayers();
     }
 
@@ -42,11 +42,7 @@ public class Player {
     }
 
     public void switchPlayers() {
-        if (symbol.equals(cross)) {
-            symbol = nought;
-        } else if (symbol.equals(nought)) {
-            symbol = cross;
-        }
+        symbol = symbol.equals(cross) ? nought : cross;
     }
 
     public String getSymbol() {

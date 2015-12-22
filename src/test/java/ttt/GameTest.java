@@ -12,19 +12,19 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class GameTest {
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
+    Symbol empty = Symbol.EMPTY;
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    String empty = "-";
-    List<String> board = Arrays.asList(empty, empty, empty,
+    List<Symbol> board = Arrays.asList(empty, empty, empty,
                                        empty, empty, empty,
                                        empty, empty, empty);
-    List<String> emptyBoard = Arrays.asList(empty, empty, empty,
+    List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);
     Board newBoard = new Board(emptyBoard);
     DisplayBoard newDisplay = new DisplayBoard(newBoard.getCurrentBoard());
-    Symbol cross = Symbol.CROSS;
-    Symbol nought = Symbol.NOUGHT;
 
     private FakeIOTwo getFakeIOTwo(List<String> input) {
         return new FakeIOTwo(input);

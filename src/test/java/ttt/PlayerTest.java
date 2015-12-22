@@ -13,25 +13,10 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class PlayerTest {
-    public enum Symbol {
-        EMPTY("-"),
-        CROSS("X"),
-        NOUGHT("O");
-
-        private String symbol;
-
-        Symbol(String symbol) {
-            this.symbol = symbol;
-        }
-
-        public String getSymbol() {
-            return symbol;
-        }
-    }
-    String nought = String.valueOf(Symbol.NOUGHT.getSymbol());
-    String cross = String.valueOf(Symbol.CROSS.getSymbol());
-    String empty = String.valueOf(Symbol.EMPTY.getSymbol());
-    List<String> emptyBoard = Arrays.asList(empty, empty, empty,
+    Symbol nought = (Symbol.NOUGHT);
+    Symbol cross = (Symbol.CROSS);
+    Symbol empty = (Symbol.EMPTY);
+    List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);
     Board currentBoard = new Board(emptyBoard);
@@ -49,7 +34,7 @@ public class PlayerTest {
 
     @Test
         public void boardChangedWhenPlayerMakesMove() {
-        List<String> changedBoard = Arrays.asList(cross, nought, empty,
+        List<Symbol> changedBoard = Arrays.asList(cross, nought, empty,
                                                   empty, empty, empty,
                                                   empty, empty, empty);
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "1"));
@@ -61,7 +46,7 @@ public class PlayerTest {
 
     @Test
         public void switchesPlayersFromCrossToNought() {
-        List<String> changedBoard = Arrays.asList(cross, nought, empty,
+        List<Symbol> changedBoard = Arrays.asList(cross, nought, empty,
                                                   empty, empty, empty,
                                                   empty, empty, empty);
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "1"));
@@ -73,7 +58,7 @@ public class PlayerTest {
 
     @Test
         public void switchesPlayerFromNoughtToCross() {
-        List<String> changedBoard = Arrays.asList(cross, cross, empty,
+        List<Symbol> changedBoard = Arrays.asList(cross, cross, empty,
                                                   empty, nought, empty,
                                                   empty, nought, cross);
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "7", "8", "4", "1"));
@@ -99,7 +84,7 @@ public class PlayerTest {
         public void playerOnlyMakesValidMove() {
         ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(recordedOutput);
-        List<String> newBoard = Arrays.asList(empty, cross, empty,
+        List<Symbol> newBoard = Arrays.asList(empty, cross, empty,
                                               empty, nought, empty,
                                               empty, nought, cross);
         InputStream inputStream = new ByteArrayInputStream("a\n1\n".getBytes());

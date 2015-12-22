@@ -3,16 +3,16 @@ package ttt;
 import java.util.List;
 
 public class DisplayBoard {
-    List<String> board;
+    List<Symbol> board;
     String display = "";
 
-    public DisplayBoard(List<String> board) {
+    public DisplayBoard(List<Symbol> board) {
         this.board = board;
     }
 
     public String showBoard() {
         for (int i = 0; i < board.size(); i++) {
-            display += " " + board.get(i) + " ";
+            display += " " + board.get(i).getSymbol() + " ";
             if ((i + 1) % 3 == 0) {
                 display += "\n";
             }
