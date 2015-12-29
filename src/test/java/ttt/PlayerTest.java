@@ -72,12 +72,23 @@ public class PlayerTest {
         }
 
     @Test
+        public void getsThePlayerWhoseTurnItIs() {
+            FakeIO fakeInput = getFakeIO(Arrays.asList("0", "7", "8", "4", "1"));
+            Player player = new Player(fakeInput, currentBoard);
+            player.markBoard();
+            player.markBoard();
+            player.markBoard();
+            Assert.assertEquals(nought, player.getNextSymbol());
+        }
+
+    @Test
         public void getsThePlayerWhoJustPlayed() {
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "7", "8", "4", "1"));
             Player player = new Player(fakeInput, currentBoard);
             player.markBoard();
             player.markBoard();
-            Assert.assertEquals("O", player.getSymbol());
+            player.markBoard();
+            Assert.assertEquals(cross, player.getPreviousSymbol());
         }
 
     @Test(expected = Exception.class)

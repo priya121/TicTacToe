@@ -20,13 +20,13 @@ public class Game {
     public void gameLoop() {
         initialDisplay();
         while (!checkForWin() && board.boardNotFull()) {
-            io.showOutput("Player as symbol " + player.getSymbol() + " make your move:");
+            io.showOutput("Player as symbol " + player.getNextSymbol() + " make your move:");
             player.markBoard();
             DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());
             counter += 1;
             io.showOutput(currentDisplay.showBoard());
         }
-        io.showOutput("Player " + player.getSymbol() + " has won!");
+        io.showOutput("Player " + player.getPreviousSymbol() + " has won!");
         io.showOutput("game over");
     }
 
@@ -81,4 +81,5 @@ public class Game {
         }
         return false;
     }
+
 }

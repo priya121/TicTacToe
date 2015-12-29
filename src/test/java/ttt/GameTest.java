@@ -2,6 +2,7 @@ package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Ignore;
 import java.util.Arrays;
 import java.util.List;
 import java.util.LinkedList;
@@ -52,7 +53,6 @@ public class GameTest {
             Assert.assertEquals(true, newGame.isWinningRow(nought));
     }
 
-
     @Test
     public void checksWinSecondRowForCross() {
         FakeIOTwo io = getFakeIOTwo(Arrays.asList("3", "0", "4", "6", "5"));
@@ -63,7 +63,6 @@ public class GameTest {
             }
             Assert.assertEquals(true, newGame.isWinningRow(cross));
     }
-
 
     @Test
         public void checksNoughtWinsDiagonally() {
@@ -167,11 +166,20 @@ public class GameTest {
 
     @Test(expected = Exception.class)
         public void userMustEnterDigits() {
-            InputStream inputStream = new ByteArrayInputStream("a\n3\n".getBytes());
+            InputStream inputStream = new ByteArrayInputStream("a\n1\n1\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
             Game newGame = new Game(newBoard, io);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("please enter a number from 0-8"));
+    }
+
+    @Test
+        public void userMustEnterEmptyPositionIndex() {
+            InputStream inputStream = new ByteArrayInputStream("0\n1\n1\n3\n2\n6\n2\n".getBytes());
+            ConsoleIO io = new ConsoleIO(inputStream, out);
+            Game newGame = new Game(newBoard, io);
+            newGame.gameLoop();
+            Assert.assertTrue(recordedOutput.toString().contains("That position is already taken, try again."));
     }
 }
 

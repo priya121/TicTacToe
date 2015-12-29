@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class Board {
     List<Symbol> board;
     Symbol empty = Symbol.EMPTY;
+    Symbol cross = Symbol.CROSS;
+    Symbol nought = Symbol.NOUGHT;
 
     public Board(List<Symbol> board) {
         this.board = board;
