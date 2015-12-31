@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.LinkedList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -13,9 +12,9 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class PlayerTest {
-    Symbol nought = (Symbol.NOUGHT);
-    Symbol cross = (Symbol.CROSS);
-    Symbol empty = (Symbol.EMPTY);
+    Symbol nought = Symbol.NOUGHT;
+    Symbol cross = Symbol.CROSS;
+    Symbol empty = Symbol.EMPTY;
     List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);
@@ -107,20 +106,3 @@ public class PlayerTest {
         }
 }
 
-class FakeIO implements IO {
-    private LinkedList<String> input;
-
-    public FakeIO(List<String> input) {
-        this.input = new LinkedList<String>(input);
-    }
-
-    @Override
-        public String takeInput() {
-            return input.pop();
-        }
-
-    @Override
-        public String showOutput(String message) {
-            return message;
-        }
-}

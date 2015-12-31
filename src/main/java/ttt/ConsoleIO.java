@@ -31,4 +31,3 @@ public class ConsoleIO implements IO {
         return null;
     }
 }
-
