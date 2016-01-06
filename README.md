@@ -2,6 +2,6 @@
 
 # Human vs RandomComputerPlayer
 
-Clone the reop: https://github.com/priya121/TicTacToe.git
-Build the game using gradle build
-Run the game using gradle run
+1. Clone the reop: https://github.com/priya121/TicTacToe.git
+2. Build the game using gradle build
+3. Run the game using gradle run
