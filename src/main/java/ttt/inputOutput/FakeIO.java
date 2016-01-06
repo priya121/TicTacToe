@@ -1,9 +1,9 @@
-package ttt;
+package ttt.inputOutput;
 
 import java.util.List;
 import java.util.LinkedList;
 
-class FakeIO implements IO {
+public class FakeIO implements IO {
     private LinkedList<String> input;
 
     public FakeIO(List<String> input) {

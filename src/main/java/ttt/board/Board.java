@@ -1,4 +1,6 @@
-package ttt;
+package ttt.board;
+
+import ttt.Symbol;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class Board {
     }
 
     public List<Integer> validMoves() {
-        List<Integer> validMoves = new ArrayList<Integer>();
+        List<Integer> validMoves = new ArrayList<>();
         for (int i = 0; i < board.size(); i++) {
             if (board.get(i).equals(empty)) {
                 validMoves.add(i);

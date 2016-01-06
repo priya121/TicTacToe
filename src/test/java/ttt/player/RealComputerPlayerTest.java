@@ -1,7 +1,10 @@
-package ttt;
+package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ttt.Symbol;
+import ttt.board.Board;
+import ttt.player.RealComputerPlayer;
 
 import java.util.Arrays;
 import java.util.List;

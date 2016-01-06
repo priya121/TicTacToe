@@ -1,14 +1,9 @@
-package ttt;
-
-import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+package ttt.inputOutput;
 
 import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.*;
 
 public class ConsoleIOTest {
     OutputStream recordedOutputStream = new ByteArrayOutputStream();
@@ -19,6 +14,14 @@ public class ConsoleIOTest {
     InputStream input = new ByteArrayInputStream("0\n".getBytes());
     ConsoleIO console = new ConsoleIO(input, null);
     Assert.assertEquals("0", console.takeInput());
+    }
+
+    @Test
+    public void displaysMessage() {
+        InputStream input = new ByteArrayInputStream("0\n".getBytes());
+        ConsoleIO console = new ConsoleIO(input, actualOutput);
+        console.showOutput("Make your move:");
+        Assert.assertEquals(recordedOutputStream.toString(), "Make your move:\n");
     }
 }
 

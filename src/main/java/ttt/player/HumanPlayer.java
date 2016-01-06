@@ -1,8 +1,11 @@
-package ttt;
+package ttt.player;
 
-public class HumanPlayer implements Player{
+import ttt.board.Board;
+import ttt.Symbol;
+import ttt.inputOutput.IO;
+
+public class HumanPlayer implements Player {
     Symbol cross = Symbol.CROSS;
-    Symbol symbol = cross;
     IO io;
     Board board;
     int indexChosen = 0;
@@ -32,7 +35,6 @@ public class HumanPlayer implements Player{
                 digitInput = true;
             } catch (Exception e) {
                 io.showOutput("Please enter a number from 0-8:");
-                continue;
             }
         }
         return indexChosen;

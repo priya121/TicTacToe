@@ -1,15 +1,19 @@
-package ttt;
+package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ttt.Symbol;
+import ttt.board.Board;
+import ttt.Game;
+import ttt.inputOutput.ConsoleIO;
+import ttt.inputOutput.FakeIO;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
-
-import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.PrintStream;
-import java.io.InputStream;
 
 public class HumanPlayerTest {
     Symbol nought = Symbol.NOUGHT;
@@ -38,11 +42,10 @@ public class HumanPlayerTest {
     @Test
         public void boardChangedWhenPlayerMakesMove() {
         List<Symbol> changedBoard = Arrays.asList(cross, nought, empty,
-                                                  empty, empty, empty,
-                                                  empty, empty, empty);
+                empty, empty, empty,
+                empty, empty, empty);
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "2"));
             ComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(1, 7));
-            HumanPlayer humanPlayer = new HumanPlayer(fakeInput, currentBoard);
             Game game = new Game(currentBoard, fakeInput, fakeComputerMoves);
             game.markBoard();
             Assert.assertEquals(changedBoard, currentBoard.getCurrentBoard());
@@ -90,11 +93,10 @@ public class HumanPlayerTest {
         public void getsThePlayerWhoJustPlayed() {
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "8", "1"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(7, 4, 2));
-            HumanPlayer humanPlayer = new HumanPlayer(fakeInput, currentBoard);
             Game game = new Game(currentBoard, fakeInput, fakeComputerMoves);
             game.markBoard();
             game.markBoard();
-            Assert.assertEquals(nought, game.getPreviousSymbol());
+            Assert.assertEquals(cross, game.getPreviousSymbol());
         }
 
     @Test(expected = Exception.class)

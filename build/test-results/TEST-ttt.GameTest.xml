@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ttt.GameTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2015-12-21T11:43:43" hostname="Priyas-MacBook-Pro-2.local" time="0.01">
+<testsuite name="ttt.GameTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-01-06T17:04:56" hostname="Priyas-MacBook-Pro-2.local" time="0.005">
   <properties/>
-  <testcase name="checksAnotherDiagonalWin" classname="ttt.GameTest" time="0.004"/>
-  <testcase name="checksVerticalWinMiddleColumnForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksWinFirstRowForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksNoughtWinsDiagonally" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="userMustEnterDigits" classname="ttt.GameTest" time="0.001"/>
-  <testcase name="checksVerticalWinLastColumn" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksWinSecondRowForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksDiagonalWinForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="returnsFalseIfNoWin" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksWinLastRowForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksVerticalWinFirstColumnForCross" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="checksDiagonalWinForNought" classname="ttt.GameTest" time="0.0"/>
-  <testcase name="tellsUserWhenGameOver" classname="ttt.GameTest" time="0.0"/>
+  <testcase name="userMustEnterDigits" classname="ttt.GameTest" time="0.002"/>
+  <testcase name="markBoardSwitchesPlayersAfterEveryMove" classname="ttt.GameTest" time="0.001"/>
+  <testcase name="tellsUserWhenGameOver" classname="ttt.GameTest" time="0.001"/>
+  <testcase name="userMustEnterEmptyPositionIndex" classname="ttt.GameTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

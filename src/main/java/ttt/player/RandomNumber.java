@@ -1,4 +1,4 @@
-package ttt;
+package ttt.player;
 
 import java.util.Random;
 

@@ -1,5 +1,10 @@
 package ttt;
 
+import ttt.board.Board;
+import ttt.inputOutput.ConsoleIO;
+import ttt.inputOutput.IO;
+import ttt.player.RealComputerPlayer;
+
 import java.util.Arrays;
 import java.util.List;
 

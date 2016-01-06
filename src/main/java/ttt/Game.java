@@ -1,13 +1,17 @@
 package ttt;
 
+import ttt.board.Board;
+import ttt.board.DisplayBoard;
+import ttt.inputOutput.IO;
+import ttt.player.ComputerPlayer;
+import ttt.player.HumanPlayer;
+
 public class Game {
     private Board board;
     private HumanPlayer player;
-    private Symbol symbolTurn;
     private Symbol cross;
     private Symbol nought;
     private Symbol symbol;
-    private Symbol symbolJustPlayed;
     private IO io;
     private ComputerPlayer computerFakeMoves;
 
@@ -23,10 +27,9 @@ public class Game {
 
     public void gameLoop() {
         initialDisplay();
-        while (!board.hasWin() && board.notFull()) {
-            io.showOutput("Make your move:");
-            markBoard();
+        while (board.gameNotOver()) {
             showCurrentBoard();
+            markBoard();
         }
         endOfGameDisplay();
     }
@@ -35,23 +38,24 @@ public class Game {
         if (board.gameNotOver()) {
             int playerMove = player.move();
             board.markPlayer(playerMove, cross);
-            symbolJustPlayed = cross;
+            symbol = cross;
             switchPlayerSymbol();
-            symbolTurn = nought;
+            symbol = nought;
         }
 
         if (board.gameNotOver()) {
             int computerPlayerMove = computerFakeMoves.move();
             board.markPlayer(computerPlayerMove, nought);
-            symbolJustPlayed = nought;
+            symbol = nought;
             switchPlayerSymbol();
-            symbolTurn = cross;
+            symbol = cross;
         }
     }
 
     public void showCurrentBoard() {
         DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());
         io.showOutput(currentDisplay.showBoard());
+        io.showOutput("Make your move:");
     }
 
     public Symbol switchPlayerSymbol() {
@@ -60,16 +64,16 @@ public class Game {
     }
 
     public Symbol getNextSymbol() {
-        return symbolTurn;
+        return symbol;
     }
 
     public Symbol getPreviousSymbol() {
-        return symbolJustPlayed;
+        return symbol;
     }
 
     private void endOfGameDisplay() {
         if (board.hasWin()) {
-            io.showOutput("Player " + getPreviousSymbol() + " has won!");
+            io.showOutput("player " + getPreviousSymbol() + " has won!");
         }
         io.showOutput("game over");
     }

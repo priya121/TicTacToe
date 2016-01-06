@@ -1,4 +1,6 @@
-package ttt;
+package ttt.board;
+
+import ttt.Symbol;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ttt.DisplayBoardTest" tests="2" skipped="2" failures="0" errors="0" timestamp="2015-12-21T11:43:43" hostname="Priyas-MacBook-Pro-2.local" time="0.0">
+<testsuite name="ttt.DisplayBoardTest" tests="2" skipped="2" failures="0" errors="0" timestamp="2016-01-06T17:04:56" hostname="Priyas-MacBook-Pro-2.local" time="0.0">
   <properties/>
   <testcase name="displaysEmptyBoard" classname="ttt.DisplayBoardTest" time="0.0">
     <skipped/>

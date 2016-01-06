@@ -1,4 +1,8 @@
-package ttt;
+package ttt.player;
+
+import ttt.board.Board;
+import ttt.Symbol;
+import ttt.inputOutput.IO;
 
 public class RealComputerPlayer implements ComputerPlayer {
     IO io;

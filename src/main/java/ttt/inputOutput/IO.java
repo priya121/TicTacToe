@@ -1,4 +1,4 @@
-package ttt;
+package ttt.inputOutput;
 
 public interface IO {
     String takeInput();

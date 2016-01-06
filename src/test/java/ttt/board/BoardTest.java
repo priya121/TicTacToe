@@ -1,10 +1,15 @@
-package ttt;
+package ttt.board;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ttt.Symbol;
+import ttt.Game;
+import ttt.inputOutput.FakeIO;
+import ttt.player.FakeComputerPlayer;
+import ttt.player.HumanPlayer;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BoardTest {
@@ -207,7 +212,7 @@ public class BoardTest {
         }
 
     public List<Integer> moves(int from, int to) {
-        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<>();
         for (int i = from; i < to; i++) {
             result.add(i);
         }

@@ -33,6 +33,7 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="ParameterAssignment"/>
+            <property name="severity" value="warning"/>
         <module name="LineLength">
             <property name="max" value="180"/>
             <property name="tabWidth" value="1"/>

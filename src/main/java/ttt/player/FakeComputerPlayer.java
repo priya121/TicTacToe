@@ -1,7 +1,7 @@
-package ttt;
+package ttt.player;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public class FakeComputerPlayer implements ComputerPlayer {
     private LinkedList<Integer> input;

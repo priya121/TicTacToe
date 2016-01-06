@@ -1,8 +1,8 @@
-package ttt;
+package ttt.board;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Ignore;
+import ttt.Symbol;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +12,11 @@ public class DisplayBoardTest {
     Symbol cross = Symbol.CROSS;
     Symbol nought = Symbol.NOUGHT;
 
-    @Ignore
     @Test
     public void displaysEmptyBoard() {
-        String expectedBoard =   " -  -  -  \n"
-                               + " -  -  -  \n"
-                               + " -  -  -  \n";
+        String expectedBoard =   " -  -  - \n"
+                               + " -  -  - \n"
+                               + " -  -  - \n";
         List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                                 empty, empty, empty,
                                                 empty, empty, empty);
@@ -25,7 +24,6 @@ public class DisplayBoardTest {
         Assert.assertEquals(expectedBoard, initialDisplay.showBoard());
     }
 
-    @Ignore
     @Test
         public void displaysCurrentBoard() {
             String expectedBoard =    " O  X  O \n"
