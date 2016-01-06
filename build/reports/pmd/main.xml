@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.0.5" timestamp="2015-12-21T11:43:41.211">
+<pmd version="5.0.5" timestamp="2016-01-06T17:04:54.289">
+<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/Board.java">
+<violation beginline="60" endline="60" begincolumn="9" endcolumn="63" rule="IfStmtsMustUseBraces" ruleset="Braces" package="ttt" class="Board" method="hasWin" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/braces.html#IfStmtsMustUseBraces" priority="3">
+Avoid using if statements without curly braces
+</violation>
+</file>
 <file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/DisplayBoard.java">
-<violation beginline="26" endline="26" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="ttt" class="DisplayBoard" method="clearScreen" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
+<violation beginline="25" endline="25" begincolumn="9" endcolumn="26" rule="SystemPrintln" ruleset="Java Logging" package="ttt" class="DisplayBoard" method="clearScreen" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
 System.out.print is used
 </violation>
 </file>
-<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/Game.java">
-<violation beginline="6" endline="6" begincolumn="26" endcolumn="32" rule="UnusedPrivateField" ruleset="Unused Code" package="ttt" class="Game" variable="display" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedPrivateField" priority="3">
-Avoid unused private fields such as 'display'.
+<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/FakeComputerPlayer.java">
+<violation beginline="7" endline="7" begincolumn="13" endcolumn="31" rule="LooseCoupling" ruleset="Coupling" package="ttt" class="FakeComputerPlayer" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/coupling.html#LooseCoupling" priority="5">
+Avoid using implementation types like 'LinkedList'; use the interface instead
 </violation>
 </file>
-<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/Player.java">
-<violation beginline="36" endline="36" begincolumn="13" endcolumn="31" rule="UnnecessaryLocalBeforeReturn" ruleset="Design" package="ttt" class="Player" method="checkDigitInput" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html#UnnecessaryLocalBeforeReturn" priority="3">
-Consider simply returning the value vs storing it in local variable 'indexChosen'
-</violation>
-<violation beginline="40" endline="40" begincolumn="13" endcolumn="31" rule="UnnecessaryLocalBeforeReturn" ruleset="Design" package="ttt" class="Player" method="checkDigitInput" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html#UnnecessaryLocalBeforeReturn" priority="3">
-Consider simply returning the value vs storing it in local variable 'indexChosen'
+<file name="/Users/priyapatil/TicTacToe/src/main/java/ttt/FakeIO.java">
+<violation beginline="7" endline="7" begincolumn="13" endcolumn="30" rule="LooseCoupling" ruleset="Coupling" package="ttt" class="FakeIO" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/coupling.html#LooseCoupling" priority="5">
+Avoid using implementation types like 'LinkedList'; use the interface instead
 </violation>
 </file>
 </pmd>

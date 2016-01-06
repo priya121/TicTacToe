@@ -1,102 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TicTacToe</a> &gt; <a href="index.source.html" class="el_package">ttt</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package ttt;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Game {
-<span class="fc" id="L7">    private int counter = 0;</span>
-    private List&lt;String&gt; emptyBoard;
     private Board board;
-    private DisplayBoard display;
     private Player player;
-    private String cross;
-    private String nought;
-    IO io;
+    private Symbol symbolTurn;
+    private Symbol cross;
+    private Symbol nought;
+    private Symbol symbol;
+    private Symbol symbolJustPlayed;
+    private IO io;
+    private FakeComputerPlayer computerFakeMoves;
 
-<span class="pc" id="L16">    public enum Symbol {</span>
-<span class="fc" id="L17">        CROSS(&quot;X&quot;),</span>
-<span class="fc" id="L18">        NOUGHT(&quot;O&quot;);</span>
-
-        private String symbol;
-
-<span class="fc" id="L22">        Symbol(String symbol) {</span>
-<span class="fc" id="L23">            this.symbol = symbol;</span>
-<span class="fc" id="L24">        }</span>
-
-        public String getSymbol() {
-<span class="fc" id="L27">            return symbol;</span>
-        }
-    }
-
-<span class="fc" id="L31">    public Game(Board board, IO io) {</span>
-<span class="fc" id="L32">        String empty = &quot;-&quot;;</span>
-<span class="fc" id="L33">        emptyBoard = Arrays.asList(empty, empty, empty,</span>
-                                   empty, empty, empty,
-                                   empty, empty, empty);
-<span class="fc" id="L36">        cross = String.valueOf(Symbol.CROSS.getSymbol());</span>
-<span class="fc" id="L37">        nought = String.valueOf(Symbol.NOUGHT.getSymbol());</span>
-<span class="fc" id="L38">        this.board = board;</span>
-<span class="fc" id="L39">        this.io = io;</span>
-<span class="fc" id="L40">        this.player = new Player(io, board);</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L14">    public Game(Board board, IO io, FakeComputerPlayer computerFakeMoves) {</span>
+<span class="fc" id="L15">        cross = Symbol.CROSS;</span>
+<span class="fc" id="L16">        nought = Symbol.NOUGHT;</span>
+<span class="fc" id="L17">        this.symbol = cross;</span>
+<span class="fc" id="L18">        this.board = board;</span>
+<span class="fc" id="L19">        this.io = io;</span>
+<span class="fc" id="L20">        this.computerFakeMoves = computerFakeMoves;</span>
+<span class="fc" id="L21">        this.player = new Player(io, board);</span>
+<span class="fc" id="L22">    }</span>
 
     public void gameLoop() {
-<span class="pc bpc" id="L44" title="1 of 4 branches missed.">        while (!checkForWin() &amp;&amp; counter &lt; 9) {</span>
-<span class="fc" id="L45">            io.showOutput(&quot;Player as symbol &quot; + player.getSymbol() + &quot; make your move:&quot;);</span>
-<span class="fc" id="L46">            player.markBoard();</span>
-<span class="fc" id="L47">            DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());</span>
-<span class="fc" id="L48">            counter += 1;</span>
-<span class="fc" id="L49">            io.showOutput(currentDisplay.showBoard());</span>
-<span class="fc" id="L50">        }</span>
-<span class="fc" id="L51">        io.showOutput(&quot;Player &quot; + player.getSymbol() + &quot; has won!&quot;);</span>
-<span class="fc" id="L52">        io.showOutput(&quot;game over&quot;);</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L25">        initialDisplay();</span>
+<span class="pc bpc" id="L26" title="1 of 4 branches missed.">        while (!board.hasWin() &amp;&amp; board.notFull()) {</span>
+<span class="fc" id="L27">            markBoard();</span>
+<span class="fc" id="L28">            DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());</span>
+<span class="fc" id="L29">            io.showOutput(currentDisplay.showBoard());</span>
+<span class="fc" id="L30">            io.showOutput(&quot;Make your move:&quot;);</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">        endOfGame();</span>
+<span class="fc" id="L33">    }</span>
 
-    public boolean checkForWin() {
-<span class="pc bpc" id="L56" title="1 of 6 branches missed.">        if (isWinningRow(cross) || isWinningDiagonal(cross) || isWinningColumn(cross))  {</span>
-<span class="fc" id="L57">            return true;</span>
+    public void markBoard() {
+<span class="pc bpc" id="L36" title="1 of 4 branches missed.">        if (!board.hasWin() &amp;&amp; board.notFull()) {</span>
+<span class="fc" id="L37">            int playerMove = player.move();</span>
+<span class="fc" id="L38">            board.markPlayer(playerMove, cross);</span>
+<span class="fc" id="L39">            symbolJustPlayed = cross;</span>
+<span class="fc" id="L40">            switchPlayers();</span>
+<span class="fc" id="L41">            symbolTurn = nought;</span>
         }
-<span class="pc bpc" id="L59" title="2 of 6 branches missed.">        if (isWinningRow(nought) || isWinningDiagonal(nought) || isWinningColumn(nought)) {</span>
-<span class="fc" id="L60">            return true;</span>
+
+<span class="pc bpc" id="L44" title="1 of 4 branches missed.">        if (!board.hasWin() &amp;&amp; board.notFull()) {</span>
+<span class="fc" id="L45">            int computerPlayerMove = computerFakeMoves.takeInput();</span>
+<span class="fc" id="L46">            board.markPlayer(computerPlayerMove, nought);</span>
+<span class="fc" id="L47">            symbolJustPlayed = nought;</span>
+<span class="fc" id="L48">            switchPlayers();</span>
+<span class="fc" id="L49">            symbolTurn = cross;</span>
         }
-<span class="fc" id="L62">        return false;</span>
+<span class="fc" id="L51">    }</span>
+
+    public Symbol switchPlayers() {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        symbol = symbol.equals(cross) ? nought : cross;</span>
+<span class="fc" id="L55">        return symbol;</span>
     }
 
-    public boolean isWinningRow(String symbol) {
-<span class="pc bpc" id="L66" title="1 of 6 branches missed.">        if (board.get(0).equals(symbol) &amp;&amp; board.get(1).equals(symbol) &amp;&amp; board.get(2).equals(symbol)) {</span>
-<span class="fc" id="L67">            return true;</span>
-        }
-<span class="pc bpc" id="L69" title="1 of 6 branches missed.">        if (board.get(3).equals(symbol) &amp;&amp; board.get(4).equals(symbol) &amp;&amp; board.get(5).equals(symbol)) {</span>
-<span class="fc" id="L70">            return true;</span>
-        }
-<span class="pc bpc" id="L72" title="1 of 6 branches missed.">        if (board.get(6).equals(symbol) &amp;&amp; board.get(7).equals(symbol) &amp;&amp; board.get(8).equals(symbol)) {</span>
-<span class="fc" id="L73">            return true;</span>
-        }
-<span class="fc" id="L75">        return false;</span>
+    public Symbol getNextSymbol() {
+<span class="fc" id="L59">        return symbolTurn;</span>
     }
 
-    public boolean isWinningColumn(String symbol) {
-<span class="fc bfc" id="L79" title="All 6 branches covered.">        if (board.get(0).equals(symbol) &amp;&amp; board.get(3).equals(symbol) &amp;&amp; board.get(6).equals(symbol)) {</span>
-<span class="fc" id="L80">            return true;</span>
-        }
-<span class="pc bpc" id="L82" title="1 of 6 branches missed.">        if (board.get(1).equals(symbol) &amp;&amp; board.get(4).equals(symbol) &amp;&amp; board.get(7).equals(symbol)) {</span>
-<span class="fc" id="L83">            return true;</span>
-        }
-<span class="fc bfc" id="L85" title="All 6 branches covered.">        if (board.get(2).equals(symbol) &amp;&amp; board.get(5).equals(symbol) &amp;&amp; board.get(8).equals(symbol)) {</span>
-<span class="fc" id="L86">            return true;</span>
-        }
-<span class="fc" id="L88">        return false;</span>
+    public Symbol getPreviousSymbol() {
+<span class="fc" id="L63">        return symbolJustPlayed;</span>
     }
 
+    public void endOfGame() {
+<span class="fc" id="L67">        io.showOutput(&quot;Player &quot; + getPreviousSymbol() + &quot; has won!&quot;);</span>
+<span class="fc" id="L68">        io.showOutput(&quot;game over&quot;);</span>
+<span class="fc" id="L69">    }</span>
 
-    public boolean isWinningDiagonal(String symbol) {
-<span class="pc bpc" id="L93" title="1 of 6 branches missed.">        if (board.get(0).equals(symbol) &amp;&amp; board.get(4).equals(symbol) &amp;&amp; board.get(8).equals(symbol)) {</span>
-<span class="fc" id="L94">            return true;</span>
-        }
-<span class="pc bpc" id="L96" title="1 of 6 branches missed.">        if (board.get(2).equals(symbol) &amp;&amp; board.get(4).equals(symbol) &amp;&amp; board.get(6).equals(symbol)) {</span>
-<span class="fc" id="L97">            return true;</span>
-        }
-<span class="fc" id="L99">        return false;</span>
-    }
+    public void initialDisplay() {
+<span class="fc" id="L72">        DisplayBoard initialDisplay = new DisplayBoard(board.getCurrentBoard());</span>
+<span class="fc" id="L73">        io.showOutput(initialDisplay.showBoard());</span>
+<span class="fc" id="L74">        io.showOutput(&quot;Player as symbol &quot; + symbol + &quot; make your move:&quot;);</span>
+<span class="fc" id="L75">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -26,9 +26,9 @@ public class Game {
     }
 
     public void gameLoop() {
-        initialDisplay();
         while (board.gameNotOver()) {
             showCurrentBoard();
+            io.showOutput("Player " + symbol + " Make your move:");
             markBoard();
         }
         endOfGameDisplay();
@@ -38,9 +38,6 @@ public class Game {
         if (board.gameNotOver()) {
             int playerMove = player.move();
             board.markPlayer(playerMove, cross);
-            symbol = cross;
-            switchPlayerSymbol();
-            symbol = nought;
         }
 
         if (board.gameNotOver()) {
@@ -48,14 +45,12 @@ public class Game {
             board.markPlayer(computerPlayerMove, nought);
             symbol = nought;
             switchPlayerSymbol();
-            symbol = cross;
         }
     }
 
     public void showCurrentBoard() {
         DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());
         io.showOutput(currentDisplay.showBoard());
-        io.showOutput("Make your move:");
     }
 
     public Symbol switchPlayerSymbol() {
@@ -73,14 +68,9 @@ public class Game {
 
     private void endOfGameDisplay() {
         if (board.hasWin()) {
-            io.showOutput("player " + getPreviousSymbol() + " has won!");
+            showCurrentBoard();
+            io.showOutput("player " + symbol + " has won!");
         }
         io.showOutput("game over");
-    }
-
-    private void initialDisplay() {
-        DisplayBoard initialDisplay = new DisplayBoard(board.getCurrentBoard());
-        io.showOutput(initialDisplay.showBoard());
-        io.showOutput("You are playing as the symbol " + symbol + " make your move:");
     }
 }

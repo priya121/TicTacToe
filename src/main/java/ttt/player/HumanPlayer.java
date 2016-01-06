@@ -21,7 +21,7 @@ public class HumanPlayer implements Player {
 
     public int isValidMove(int indexChosen) {
         while (!board.isValid(indexChosen)) {
-            io.showOutput("That position is already taken, try again.");
+            io.showOutput("That position is already taken or is not on the board, try again.");
             indexChosen = Integer.parseInt(takesUserInput());
         }
         return indexChosen;

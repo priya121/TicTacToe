@@ -6,15 +6,17 @@ import java.util.List;
 <span class="nc" id="L6">public class App {</span>
 
     public static void main(String[] args) {
-<span class="nc" id="L9">        String empty = &quot;-&quot;;</span>
-<span class="nc" id="L10">        List&lt;String&gt; emptyBoard = Arrays.asList(empty, empty, empty,</span>
-                                                empty, empty, empty,
-                                                empty, empty, empty);
-<span class="nc" id="L13">        Board board = new Board(emptyBoard);</span>
-<span class="nc" id="L14">        IO io = new ConsoleIO(System.in, System.out);</span>
-<span class="nc" id="L15">        Player player = new Player(io, board);</span>
-<span class="nc" id="L16">        Game newGame = new Game(board, io);</span>
-<span class="nc" id="L17">        newGame.gameLoop();</span>
-<span class="nc" id="L18">    }</span>
+<span class="nc" id="L9">        Symbol empty = Symbol.EMPTY;</span>
+<span class="nc" id="L10">        List&lt;Symbol&gt; emptyBoard = Arrays.asList(empty, empty, empty,</span>
+                                               empty, empty, empty,
+                                               empty, empty, empty);
+
+<span class="nc" id="L14">        Board board = new Board(emptyBoard);</span>
+<span class="nc" id="L15">        IO io = new ConsoleIO(System.in, System.out);</span>
+<span class="nc" id="L16">        ComputerPlayer computerPlayer = new ComputerPlayer(board);</span>
+<span class="nc" id="L17">        FakeComputerPlayer fakeComputerMoves = new FakeComputerPlayer(Arrays.asList(computerPlayer.numberGenerated(), computerPlayer.numberGenerated(), computerPlayer.numberGenerated()));</span>
+<span class="nc" id="L18">        Game newGame = new Game(board, io, fakeComputerMoves);</span>
+<span class="nc" id="L19">        newGame.gameLoop();</span>
+<span class="nc" id="L20">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

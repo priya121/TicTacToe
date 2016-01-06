@@ -81,7 +81,6 @@ public class HumanPlayerTest {
         public void getsThePlayerWhoseTurnItIs() {
             FakeIO fakeInput = getFakeIO(Arrays.asList("0", "8", "1"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(7, 4, 2));
-            HumanPlayer humanPlayer = new HumanPlayer(fakeInput, currentBoard);
             Game game = new Game(currentBoard, fakeInput, fakeComputerMoves);
             game.markBoard();
             game.markBoard();
@@ -114,5 +113,21 @@ public class HumanPlayerTest {
         game.markBoard();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0-8:"));
         }
+
+    @Test(expected = Exception.class)
+    public void playerOnlyMakesAMoveOnTheBoard() {
+        ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(recordedOutput);
+        List<Symbol> newBoard = Arrays.asList(empty, cross, empty,
+                                              empty, nought, empty,
+                                              empty, nought, cross);
+        InputStream inputStream = new ByteArrayInputStream("100\n".getBytes());
+        FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(5));
+        ConsoleIO io = new ConsoleIO(inputStream, out);
+        Board currentBoard = new Board(newBoard);
+        Game game = new Game(currentBoard, io, fakeComputerMoves);
+        game.markBoard();
+        Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0-8:"));
+    }
 }
 

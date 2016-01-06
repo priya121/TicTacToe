@@ -4,40 +4,66 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Board {
-    List&lt;String&gt; board;
-<span class="fc" id="L8">    String empty = &quot;-&quot;;</span>
-<span class="fc" id="L9">    String playerCross = &quot;X&quot;;</span>
-<span class="fc" id="L10">    String playerNought = &quot;O&quot;;</span>
+    List&lt;Symbol&gt; board;
+<span class="fc" id="L8">    Symbol empty = Symbol.EMPTY;</span>
+<span class="fc" id="L9">    Symbol cross = Symbol.CROSS;</span>
+<span class="fc" id="L10">    Symbol nought = Symbol.NOUGHT;</span>
+<span class="fc" id="L11">    private int[][] winningLines = new int[][] {{0, 1, 2},</span>
+                                                {3, 4, 5},
+                                                {6, 7, 8},
+                                                {0, 4, 8},
+                                                {2, 4, 6},
+                                                {0, 3, 6},
+                                                {1, 4, 7},
+                                                {2, 5, 8}};
 
-<span class="fc" id="L12">    public Board(List&lt;String&gt; board) {</span>
-<span class="fc" id="L13">        this.board = board;</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L20">    public Board(List&lt;Symbol&gt; board) {</span>
+<span class="fc" id="L21">        this.board = board;</span>
+<span class="fc" id="L22">    }</span>
 
-    public List&lt;String&gt; markPlayer(int indexPosition, String player) {
-<span class="fc" id="L17">        board.set(indexPosition, player);</span>
-<span class="fc" id="L18">        return board;</span>
+    public List&lt;Symbol&gt; markPlayer(int indexPosition, Symbol player) {
+<span class="fc" id="L25">        board.set(indexPosition, player);</span>
+<span class="fc" id="L26">        return board;</span>
     }
 
-    public List&lt;String&gt; getCurrentBoard() {
-<span class="fc" id="L22">        return board;</span>
+    public List&lt;Symbol&gt; getCurrentBoard() {
+<span class="fc" id="L30">        return board;</span>
     }
 
-    public String get(int index) {
-<span class="fc" id="L26">        return board.get(index);</span>
+    public Symbol get(int index) {
+<span class="fc" id="L34">        return board.get(index);</span>
     }
 
     public boolean isValid(int move) {
-<span class="fc" id="L30">        return validMoves().contains(move);</span>
+<span class="fc" id="L38">        return validMoves().contains(move);</span>
+    }
+
+    public boolean notFull() {
+<span class="fc" id="L42">        return board.contains(empty);</span>
     }
 
     public List&lt;Integer&gt; validMoves() {
-<span class="fc" id="L34">        List&lt;Integer&gt; validMoves = new ArrayList&lt;Integer&gt;();</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (int i = 0; i &lt; board.size(); i++) {</span>
-<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (board.get(i).equals(empty)) {</span>
-<span class="fc" id="L37">                validMoves.add(i);</span>
+<span class="fc" id="L46">        List&lt;Integer&gt; validMoves = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (int i = 0; i &lt; board.size(); i++) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (board.get(i).equals(empty)) {</span>
+<span class="fc" id="L49">                validMoves.add(i);</span>
             }
         }
-<span class="fc" id="L40">        return validMoves;</span>
+<span class="fc" id="L52">        return validMoves;</span>
     }
- }
+
+    public boolean hasWin() {
+<span class="fc bfc" id="L56" title="All 4 branches covered.">        if (lineIsWin(cross) || lineIsWin(nought)) return true;</span>
+<span class="fc" id="L57">        return false;</span>
+    }
+
+    public boolean lineIsWin(Symbol symbol) {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (int[] winningLine : winningLines) {</span>
+<span class="fc bfc" id="L62" title="All 6 branches covered.">            if (board.get(winningLine[0]).equals(symbol) &amp;&amp; board.get(winningLine[1]).equals(symbol) &amp;&amp; board.get(winningLine[2]).equals(symbol)) {</span>
+<span class="fc" id="L63">                return true;</span>
+            }
+        }
+<span class="fc" id="L66">        return false;</span>
+    }
+}
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

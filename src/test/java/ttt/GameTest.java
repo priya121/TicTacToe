@@ -53,17 +53,7 @@ public class GameTest {
             ConsoleIO io = new ConsoleIO(inputStream, out);
             Game newGame = new Game(newBoard, io, fakeComputerMoves);
             newGame.gameLoop();
-            Assert.assertTrue(recordedOutput.toString().contains("That position is already taken, try again."));
+            Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }
-
-    @Test
-        public void markBoardSwitchesPlayersAfterEveryMove() {
-            InputStream inputStream = new ByteArrayInputStream("0\n0\n1\n2\n".getBytes());
-            FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(8, 4, 7));
-            ConsoleIO io = new ConsoleIO(inputStream, out);
-            Game newGame = new Game(newBoard, io, fakeComputerMoves);
-            newGame.gameLoop();
-            Assert.assertTrue(recordedOutput.toString().contains("That position is already taken, try again."));
-        }
 }
 
