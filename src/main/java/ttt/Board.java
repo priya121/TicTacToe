@@ -52,6 +52,10 @@ public class Board {
         return validMoves;
     }
 
+    public boolean gameNotOver() {
+        return !hasWin() && notFull();
+    }
+
     public boolean hasWin() {
         if (lineIsWin(cross) || lineIsWin(nought)) return true;
         return false;

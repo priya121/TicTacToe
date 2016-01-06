@@ -16,7 +16,6 @@ public class DisplayBoard {
             if ((i + 1) % 3 == 0) {
                 display += "\n";
             }
-
         }
         return display;
     }

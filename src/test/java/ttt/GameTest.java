@@ -11,25 +11,24 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class GameTest {
-    Symbol cross = Symbol.CROSS;
-    Symbol nought = Symbol.NOUGHT;
     Symbol empty = Symbol.EMPTY;
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    List<Symbol> board = Arrays.asList(empty, empty, empty,
-                                       empty, empty, empty,
-                                       empty, empty, empty);
     List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
                                             empty, empty, empty,
                                             empty, empty, empty);
     Board newBoard = new Board(emptyBoard);
-    DisplayBoard newDisplay = new DisplayBoard(newBoard.getCurrentBoard());
+
+    private FakeComputerPlayer getFakeComputerMoves(List<Integer> input) {
+        return new FakeComputerPlayer(input);
+    }
 
     @Test
         public void tellsUserWhenGameOver() {
-            InputStream inputStream = new ByteArrayInputStream("2\n1\n5\n3\n8\n".getBytes());
+            InputStream inputStream = new ByteArrayInputStream("2\n5\n8\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
-            Game newGame = new Game(newBoard, io);
+            FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(1, 3));
+            Game newGame = new Game(newBoard, io, fakeComputerMoves);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("game over"));
         }
@@ -38,18 +37,31 @@ public class GameTest {
         public void userMustEnterDigits() {
             InputStream inputStream = new ByteArrayInputStream("a\n1\n1\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
-            Game newGame = new Game(newBoard, io);
+            FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(1));
+            Game newGame = new Game(newBoard, io, fakeComputerMoves);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("please enter a number from 0-8"));
     }
 
     @Test
         public void userMustEnterEmptyPositionIndex() {
-            InputStream inputStream = new ByteArrayInputStream("0\n1\n1\n3\n2\n6\n2\n".getBytes());
+            InputStream inputStream = new ByteArrayInputStream("0\n0\n1\n2\n".getBytes());
             ConsoleIO io = new ConsoleIO(inputStream, out);
-            Game newGame = new Game(newBoard, io);
+            FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(8, 4, 7));
+            HumanPlayer humanPlayer = new HumanPlayer(io, newBoard);
+            Game newGame = new Game(newBoard, io, fakeComputerMoves);
             newGame.gameLoop();
             Assert.assertTrue(recordedOutput.toString().contains("That position is already taken, try again."));
     }
+
+    @Test
+        public void markBoardSwitchesPlayersAfterEveryMove() {
+            InputStream inputStream = new ByteArrayInputStream("0\n0\n1\n2\n".getBytes());
+            ConsoleIO io = new ConsoleIO(inputStream, out);
+            FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(8, 4, 7));
+            Game newGame = new Game(newBoard, io, fakeComputerMoves);
+            newGame.gameLoop();
+            Assert.assertTrue(recordedOutput.toString().contains("That position is already taken, try again."));
+        }
 }
 
