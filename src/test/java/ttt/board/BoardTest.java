@@ -2,11 +2,10 @@ package ttt.board;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Symbol;
 import ttt.Game;
+import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
 import ttt.player.FakeComputerPlayer;
-import ttt.player.HumanPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ public class BoardTest {
     }
 
     @Test
-        public void checksWinFirstRowForCross() {
+    public void checksWinFirstRowForCross() {
             FakeIO io = getFakeIO(Arrays.asList("0", "1", "2"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(3, 6));
             Game game = new Game(board, io, fakeComputerMoves);
@@ -42,7 +41,7 @@ public class BoardTest {
         }
 
     @Test
-        public void checksWinLastRowForCross() {
+    public void checksWinLastRowForCross() {
             FakeIO io = getFakeIO(Arrays.asList("1", "5", "2"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(6, 7, 8));
             Game game = new Game(currentBoard, io, fakeComputerMoves);
@@ -53,7 +52,7 @@ public class BoardTest {
         }
 
     @Test
-        public void checksWinSecondRowForCross() {
+    public void checksWinSecondRowForCross() {
             FakeIO io = getFakeIO(Arrays.asList("3", "4", "5"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(0, 6));
             Game game = new Game(currentBoard, io, fakeComputerMoves);
@@ -94,7 +93,7 @@ public class BoardTest {
             for (int i = 0; i < 5; i++) {
                 game.markBoard();
             }
-            Assert.assertEquals(true, board.hasWin());
+            Assert.assertEquals(true, board.isWin());
         }
 
     @Test
@@ -105,19 +104,18 @@ public class BoardTest {
             for (int i = 0; i < 3; i++) {
                 game.markBoard();
             }
-            Assert.assertEquals(true, board.hasWin());
+            Assert.assertEquals(true, board.isWin());
         }
 
     @Test
         public void checksVerticalWinMiddleColumnForCross() {
             FakeIO io = getFakeIO(Arrays.asList("1", "4", "7"));
             FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(0, 6));
-            HumanPlayer humanPlayer = new HumanPlayer(io, currentBoard);
             Game game = new Game(currentBoard, io, fakeComputerMoves);
             for (int i = 0; i < 5; i++) {
                 game.markBoard();
             }
-            Assert.assertEquals(true, board.hasWin());
+            Assert.assertEquals(true, board.isWin());
         }
 
     @Test
@@ -128,7 +126,7 @@ public class BoardTest {
             for (int i = 0; i < 3; i++) {
                 game.markBoard();
             }
-            Assert.assertEquals(false, board.hasWin());
+            Assert.assertEquals(false, board.isWin());
         }
 
     @Test
@@ -158,16 +156,16 @@ public class BoardTest {
     @Test
         public void setsUpThreeByThreeBoard() {
             List<Symbol> expectedBoard = Arrays.asList(cross, empty, empty,
-                                                       empty, empty, empty,
-                                                       empty, empty, empty);
+                    empty, empty, empty,
+                    empty, empty, empty);
             Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, cross));
         }
 
     @Test
         public void returnsCurrentStateOfTheBoard() {
             List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(cross, nought, empty,
-                                                                  empty, empty, empty,
-                                                                  empty, empty, empty);
+                    empty, empty, empty,
+                    empty, empty, empty);
             currentBoard.markPlayer(1, nought);
             Assert.assertEquals(boardAfterTwoPlayerMoves, currentBoard.markPlayer(0, cross));
         }
@@ -175,8 +173,8 @@ public class BoardTest {
     @Test
         public void getsPositionOfCell() {
             List<Symbol> boardAfterTwoMoves = Arrays.asList(cross, nought, empty,
-                                                            empty, empty, empty,
-                                                            empty, empty, empty);
+                    empty, empty, empty,
+                    empty, empty, empty);
             Board newBoard = new Board(boardAfterTwoMoves);
             Assert.assertEquals(cross, newBoard.get(0));
         }
@@ -190,7 +188,7 @@ public class BoardTest {
     @Test
         public void largerThanBoardIsInvalid() {
             Board newBoard = new Board(emptyBoard);
-            Assert.assertFalse(newBoard.isValid(37));
+            Assert.assertFalse(newBoard.isPositionEmpty(37));
         }
 
     @Test

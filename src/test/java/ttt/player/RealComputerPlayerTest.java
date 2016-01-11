@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import ttt.Symbol;
 import ttt.board.Board;
-import ttt.player.RealComputerPlayer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,7 @@ public class RealComputerPlayerTest {
         }
 
     @Test
-        public void vaildComputerMoveGenerated() {
+        public void validComputerMoveGenerated() {
             List<Symbol> changedBoard = Arrays.asList(nought, cross, nought,
                                                       nought, cross, nought,
                                                       nought, empty, cross);

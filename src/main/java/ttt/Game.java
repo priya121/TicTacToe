@@ -1,24 +1,23 @@
 package ttt;
-
 import ttt.board.Board;
 import ttt.board.DisplayBoard;
 import ttt.inputOutput.IO;
 import ttt.player.ComputerPlayer;
 import ttt.player.HumanPlayer;
+import ttt.player.Player;
+
+import static ttt.Symbol.CROSS;
+import static ttt.Symbol.NOUGHT;
 
 public class Game {
     private Board board;
     private HumanPlayer player;
-    private Symbol cross;
-    private Symbol nought;
-    private Symbol symbol;
+    private Symbol currentSymbol;
     private IO io;
     private ComputerPlayer computerFakeMoves;
 
     public Game(Board board, IO io, ComputerPlayer computerFakeMoves) {
-        cross = Symbol.CROSS;
-        nought = Symbol.NOUGHT;
-        this.symbol = cross;
+        this.currentSymbol = CROSS;
         this.board = board;
         this.io = io;
         this.computerFakeMoves = computerFakeMoves;
@@ -26,25 +25,30 @@ public class Game {
     }
 
     public void gameLoop() {
+        io.showOutput("You are the cross symbol (Enter a position from 0 - 8:)");
         while (board.gameNotOver()) {
             showCurrentBoard();
-            io.showOutput("Player " + symbol + " Make your move:");
             markBoard();
         }
         endOfGameDisplay();
     }
 
     public void markBoard() {
+        playerMove();
+        computerMove();
+    }
+
+    private void playerMove() {
         if (board.gameNotOver()) {
             int playerMove = player.move();
-            board.markPlayer(playerMove, cross);
+            board.markPlayer(playerMove, CROSS);
         }
+    }
 
+    private void computerMove() {
         if (board.gameNotOver()) {
             int computerPlayerMove = computerFakeMoves.move();
-            board.markPlayer(computerPlayerMove, nought);
-            symbol = nought;
-            switchPlayerSymbol();
+            board.markPlayer(computerPlayerMove, NOUGHT);
         }
     }
 
@@ -53,24 +57,11 @@ public class Game {
         io.showOutput(currentDisplay.showBoard());
     }
 
-    public Symbol switchPlayerSymbol() {
-        symbol = symbol.equals(cross) ? nought : cross;
-        return symbol;
-    }
-
-    public Symbol getNextSymbol() {
-        return symbol;
-    }
-
-    public Symbol getPreviousSymbol() {
-        return symbol;
-    }
-
     private void endOfGameDisplay() {
-        if (board.hasWin()) {
-            showCurrentBoard();
-            io.showOutput("player " + symbol + " has won!");
+        showCurrentBoard();
+            if (board.isWin()) {
+             io.showOutput("player " + currentSymbol + " has won!");
         }
-        io.showOutput("game over");
+            io.showOutput("game over");
     }
 }

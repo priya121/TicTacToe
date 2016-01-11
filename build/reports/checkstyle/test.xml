@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.6">
-<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/BoardTest.java">
-</file>
-<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/ConsoleIOTest.java">
-</file>
-<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/DisplayBoardTest.java">
-</file>
 <file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/GameTest.java">
 </file>
-<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/HumanPlayerTest.java">
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/board/BoardTest.java">
 </file>
-<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/RealComputerPlayerTest.java">
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/board/DisplayBoardTest.java">
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/inputOutput/ConsoleIOTest.java">
+<error line="6" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - java.io.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/player/HumanPlayerTest.java">
+</file>
+<file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/player/RealComputerPlayerTest.java">
 </file>
 </checkstyle>

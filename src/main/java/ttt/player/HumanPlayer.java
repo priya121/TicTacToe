@@ -4,11 +4,13 @@ import ttt.board.Board;
 import ttt.Symbol;
 import ttt.inputOutput.IO;
 
+import static ttt.Symbol.CROSS;
+
 public class HumanPlayer implements Player {
-    Symbol cross = Symbol.CROSS;
-    IO io;
-    Board board;
-    int indexChosen = 0;
+    private IO io;
+    private Board board;
+    private int indexChosen;
+    private String userInput;
 
     public HumanPlayer(IO io, Board board) {
         this.io = io;
@@ -16,37 +18,39 @@ public class HumanPlayer implements Player {
     }
 
     public String takesUserInput() {
-        return io.takeInput();
+        userInput = io.takeInput();
+        return userInput;
     }
 
-    public int isValidMove(int indexChosen) {
-        while (!board.isValid(indexChosen)) {
+    public int validMove() {
+        while (!digitInput(userInput) || !board.isPositionEmpty(Integer.parseInt(userInput))) {
             io.showOutput("That position is already taken or is not on the board, try again.");
-            indexChosen = Integer.parseInt(takesUserInput());
+            takesUserInput();
+            indexChosen = Integer.parseInt(userInput);
         }
         return indexChosen;
     }
 
-    public int checkDigitInput() {
+    public boolean digitInput(String userInput) {
         boolean digitInput = false;
         while (!digitInput) {
             try {
-                indexChosen = Integer.parseInt(takesUserInput());
+                indexChosen = Integer.parseInt(userInput);
                 digitInput = true;
             } catch (Exception e) {
-                io.showOutput("Please enter a number from 0-8:");
+                io.showOutput("Please enter a number from 0 - 8:");
+                userInput = takesUserInput();
             }
         }
-        return indexChosen;
+        return digitInput;
     }
 
     public int move() {
-        int indexChosen = checkDigitInput();
-        indexChosen = isValidMove(indexChosen);
-        return indexChosen;
+        takesUserInput();
+        return validMove();
     }
 
     public Symbol getSymbol() {
-        return cross;
+        return CROSS;
     }
 }

@@ -1,11 +1,9 @@
 package ttt.player;
 
-import ttt.board.Board;
 import ttt.Symbol;
-import ttt.inputOutput.IO;
+import ttt.board.Board;
 
 public class RealComputerPlayer implements ComputerPlayer {
-    IO io;
     Board board;
     int number;
     Symbol symbol;
@@ -18,7 +16,7 @@ public class RealComputerPlayer implements ComputerPlayer {
     public int move() {
     RandomNumber random = new RandomNumber();
     number = random.generate(8);
-        while (!board.isValid(number)) {
+        while (!board.isPositionEmpty(number)) {
             number = random.generate(8);
         }
     return number;

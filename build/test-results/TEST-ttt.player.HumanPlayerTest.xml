@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ttt.player.HumanPlayerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-01-11T11:58:41" hostname="Priyas-MacBook-Pro-2.local" time="0.003">
+  <properties/>
+  <testcase name="playerOnlyMakesValidDigitMove" classname="ttt.player.HumanPlayerTest" time="0.001"/>
+  <testcase name="playerOnlyMakesAMoveOnTheBoard" classname="ttt.player.HumanPlayerTest" time="0.0"/>
+  <testcase name="playerGivesMove" classname="ttt.player.HumanPlayerTest" time="0.0"/>
+  <testcase name="userMustEnterEmptyPositionIndex" classname="ttt.player.HumanPlayerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

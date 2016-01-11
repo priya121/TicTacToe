@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ttt.board.BoardTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2016-01-11T11:58:41" hostname="Priyas-MacBook-Pro-2.local" time="0.013">
+  <properties/>
+  <testcase name="checksAnotherDiagonalWin" classname="ttt.board.BoardTest" time="0.004"/>
+  <testcase name="returnsCurrentStateOfTheBoard" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="checksBoardFull" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksVerticalWinMiddleColumnForCross" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksBoardNotFull" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="checksWinFirstRowForCross" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksNoughtWinsDiagonally" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="throwsAnExceptionIfMoveIsNotAvailable" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="largerThanBoardIsInvalid" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="getsPositionOfCell" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="checksVerticalWinLastColumn" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksWinSecondRowForCross" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksDiagonalWinForCross" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="returnsFalseIfNoWin" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="checksWinLastRowForCross" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="checksVerticalWinFirstColumnForCross" classname="ttt.board.BoardTest" time="0.001"/>
+  <testcase name="checksDiagonalWinForNought" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="setsUpThreeByThreeBoard" classname="ttt.board.BoardTest" time="0.0"/>
+  <testcase name="returnsListOfValidMoves" classname="ttt.board.BoardTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
