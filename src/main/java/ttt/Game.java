@@ -18,28 +18,28 @@ public class Game {
     private IO io;
     private Player player;
     private List<Player> players = new ArrayList<>();
-    private Player computerFakeMoves;
+    private Player computerPlayer;
 
-    public Game(Board board, IO io, ComputerPlayer computerFakeMoves) {
+    public Game(Board board, IO io, ComputerPlayer computerPlayer) {
         this.board = board;
         this.io = io;
-        this.computerFakeMoves = computerFakeMoves;
+        this.computerPlayer = computerPlayer;
         this.player = new HumanPlayer(io, board);
         this.currentSymbol = player.getSymbol();
         players.add(player);
-        players.add(computerFakeMoves);
+        players.add(computerPlayer);
     }
 
     public void gameLoop() {
         io.showOutput("You are the cross symbol (Enter a position from 0 - 8:)");
         int currentPlayer = 0;
-            while (board.gameNotOver()) {
-                showCurrentBoard();
-                board.markPlayer(players.get(currentPlayer).move(), currentSymbol);
-                currentPlayer = switchPlayers(currentPlayer);
-                switchSymbol();
-            }
-            endOfGameDisplay();
+        while (board.gameNotOver()) {
+            showCurrentBoard();
+            board.markPlayer(players.get(currentPlayer).move(), currentSymbol);
+            currentPlayer = switchPlayers(currentPlayer);
+            switchSymbol();
+        }
+        endOfGameDisplay();
     }
 
     public int switchPlayers(int currentPlayer) {
