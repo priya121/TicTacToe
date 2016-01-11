@@ -36,14 +36,14 @@ public class Game {
             while (board.gameNotOver()) {
                 showCurrentBoard();
                 board.markPlayer(players.get(currentPlayer).move(), currentSymbol);
-                if (currentPlayer == 0) {
-                    currentPlayer = 1;
-                } else {
-                    currentPlayer = 0;
-                }
+                currentPlayer = switchPlayers(currentPlayer);
                 switchSymbol();
             }
             endOfGameDisplay();
+    }
+
+    public int switchPlayers(int currentPlayer) {
+        return currentPlayer =  (currentPlayer == 0) ? 1 : 0;
     }
 
     public Symbol switchSymbol() {
