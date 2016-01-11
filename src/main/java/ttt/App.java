@@ -4,6 +4,8 @@ import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.IO;
 import ttt.player.RealComputerPlayer;
+import static ttt.Symbol.EMPTY;
+import static ttt.Symbol.NOUGHT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +13,9 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) {
-        Symbol empty = Symbol.EMPTY;
-        List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
-                                               empty, empty, empty,
-                                               empty, empty, empty);
+        List<Symbol> emptyBoard = Arrays.asList(EMPTY, EMPTY, EMPTY,
+                                               EMPTY, EMPTY, EMPTY,
+                                               EMPTY, EMPTY, EMPTY);
 
         Board board = new Board(emptyBoard);
         IO io = new ConsoleIO(System.in, System.out);

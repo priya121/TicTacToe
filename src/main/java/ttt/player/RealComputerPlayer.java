@@ -2,6 +2,7 @@ package ttt.player;
 
 import ttt.Symbol;
 import ttt.board.Board;
+import static ttt.Symbol.NOUGHT;
 
 public class RealComputerPlayer implements ComputerPlayer {
     Board board;
@@ -20,5 +21,9 @@ public class RealComputerPlayer implements ComputerPlayer {
             number = random.generate(8);
         }
     return number;
+    }
+
+    public Symbol getSymbol() {
+        return NOUGHT;
     }
 }

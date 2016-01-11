@@ -15,15 +15,16 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static ttt.Symbol.CROSS;
+import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.EMPTY;
+
 public class HumanPlayerTest {
-    Symbol nought = Symbol.NOUGHT;
-    Symbol cross = Symbol.CROSS;
-    Symbol empty = Symbol.EMPTY;
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    List<Symbol> emptyBoard = Arrays.asList(empty, empty, empty,
-            empty, empty, empty,
-            empty, empty, empty);
+    List<Symbol> emptyBoard = Arrays.asList(EMPTY, EMPTY, EMPTY,
+            EMPTY, EMPTY, EMPTY,
+            EMPTY, EMPTY, EMPTY);
     Board currentBoard = new Board(emptyBoard);
 
     private FakeIO getFakeIO(List<String> input) {
@@ -55,30 +56,30 @@ public class HumanPlayerTest {
     public void playerOnlyMakesValidDigitMove() {
         ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(recordedOutput);
-        List<Symbol> newBoard = Arrays.asList(empty, cross, empty,
-                empty, nought, empty,
-                empty, nought, cross);
+        List<Symbol> newBoard = Arrays.asList(EMPTY, CROSS, EMPTY,
+                EMPTY, NOUGHT, EMPTY,
+                EMPTY, NOUGHT, CROSS);
         InputStream inputStream = new ByteArrayInputStream("a\na\n1".getBytes());
         FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(5));
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Board currentBoard  = new Board(newBoard);
         Game game = new Game(currentBoard, io, fakeComputerMoves);
-        game.markBoard();
+        game.gameLoop();
     }
 
     @Test(expected = Exception.class)
     public void playerOnlyMakesAMoveOnTheBoard() {
         ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(recordedOutput);
-        List<Symbol> currentBoard = Arrays.asList(empty, cross, empty,
-                empty, nought, empty,
-                empty, nought, cross);
+        List<Symbol> currentBoard = Arrays.asList(EMPTY, CROSS, EMPTY,
+                EMPTY, NOUGHT, EMPTY,
+                EMPTY, NOUGHT, CROSS);
         InputStream inputStream = new ByteArrayInputStream("100\n".getBytes());
         FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(5));
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Board board = new Board(currentBoard);
         Game game = new Game(board, io, fakeComputerMoves);
-        game.markBoard();
+        game.gameLoop();
     }
 }
 

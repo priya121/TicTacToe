@@ -1,6 +1,9 @@
 package ttt.board;
 
 import ttt.Symbol;
+import static ttt.Symbol.CROSS;
+import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.EMPTY;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class Board {
     public List<Integer> validMoves() {
         List<Integer> validMoves = new ArrayList<>();
         for (int i = 0; i < board.size(); i++) {
-            if (board.get(i).equals(Symbol.EMPTY)) {
+            if (board.get(i).equals(EMPTY)) {
                 validMoves.add(i);
             }
         }
@@ -56,7 +59,7 @@ public class Board {
     }
 
     public boolean isWin() {
-        return (lineIsWin(Symbol.CROSS) || lineIsWin(Symbol.NOUGHT));
+        return (lineIsWin(CROSS) || lineIsWin(NOUGHT));
     }
 
     public boolean lineIsWin(Symbol symbol) {
