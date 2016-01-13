@@ -192,7 +192,6 @@ public class BoardTest {
         public void returnsListOfValidMoves() {
             Board newBoard = new Board(emptyBoard);
             List<Integer> validMoves = moves(0, 9);
-            System.out.print(newBoard.validMoves());
             Assert.assertEquals(validMoves, newBoard.validMoves());
         }
 

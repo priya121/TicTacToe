@@ -49,9 +49,11 @@ public class Board {
 
     public List<Integer> validMoves() {
         List<Integer> validMoves = new ArrayList<Integer>();
-        board.stream()
-            .filter(cell -> (cell.equals(EMPTY)))
-            .forEach(index -> validMoves.add(board.indexOf(index)));
+        for (int i = 0; i < board.size(); i++) {
+            if (board.get(i).equals(EMPTY)) {
+            validMoves.add(i);
+            }
+        }
         return validMoves;
     }
 
@@ -64,6 +66,6 @@ public class Board {
     }
 
     public boolean lineIsWin(Symbol symbol) {
-       return Arrays.stream(winningLines).anyMatch(winningLine -> Arrays.stream(winningLine).allMatch(index -> board.get(index).equals(symbol)));
+        return Arrays.stream(winningLines).anyMatch(winningLine -> Arrays.stream(winningLine).allMatch(index -> board.get(index).equals(symbol)));
     }
 }
