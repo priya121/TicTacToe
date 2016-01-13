@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.0.5" timestamp="2016-01-11T11:58:38.955">
+<pmd version="5.0.5" timestamp="2016-01-13T11:51:50.160">
 <file name="/Users/priyapatil/TicTacToe/src/test/java/ttt/board/BoardTest.java">
-<violation beginline="34" endline="34" begincolumn="49" endcolumn="51" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;0&quot; appears 4 times in this file; the first occurrence is on line 34
+<violation beginline="52" endline="52" begincolumn="49" endcolumn="51" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;0&quot; appears 5 times in this file; the first occurrence is on line 52
 </violation>
-<violation beginline="34" endline="34" begincolumn="54" endcolumn="56" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;1&quot; appears 6 times in this file; the first occurrence is on line 34
+<violation beginline="52" endline="52" begincolumn="54" endcolumn="56" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;1&quot; appears 6 times in this file; the first occurrence is on line 52
 </violation>
-<violation beginline="45" endline="45" begincolumn="54" endcolumn="56" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinLastRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;5&quot; appears 4 times in this file; the first occurrence is on line 45
+<violation beginline="52" endline="52" begincolumn="59" endcolumn="61" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinFirstRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;2&quot; appears 4 times in this file; the first occurrence is on line 52
 </violation>
-<violation beginline="56" endline="56" begincolumn="49" endcolumn="51" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinSecondRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;3&quot; appears 6 times in this file; the first occurrence is on line 56
+<violation beginline="61" endline="61" begincolumn="54" endcolumn="56" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinLastRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;5&quot; appears 4 times in this file; the first occurrence is on line 61
 </violation>
-<violation beginline="56" endline="56" begincolumn="54" endcolumn="56" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinSecondRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;4&quot; appears 4 times in this file; the first occurrence is on line 56
+<violation beginline="70" endline="70" begincolumn="49" endcolumn="51" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksWinSecondRowForCross" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;3&quot; appears 7 times in this file; the first occurrence is on line 70
 </violation>
-<violation beginline="67" endline="67" begincolumn="59" endcolumn="61" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksNoughtWinsDiagonally" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
-The String literal &quot;7&quot; appears 4 times in this file; the first occurrence is on line 67
+<violation beginline="79" endline="79" begincolumn="59" endcolumn="61" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer" package="ttt.board" class="BoardTest" method="checksNoughtWinsDiagonally" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;7&quot; appears 4 times in this file; the first occurrence is on line 79
+</violation>
+<violation beginline="93" endline="93" begincolumn="13" endcolumn="28" rule="SystemPrintln" ruleset="Java Logging" package="ttt.board" class="BoardTest" method="checksAnotherDiagonalWin" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="163" endline="163" begincolumn="27" endcolumn="38" rule="UnusedLocalVariable" ruleset="Unused Code" package="ttt.board" class="BoardTest" method="returnsCurrentStateOfTheBoard" variable="changedBoard" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.5/rules/java/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'changedBoard'.
 </violation>
 </file>
 </pmd>

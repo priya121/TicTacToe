@@ -7,6 +7,9 @@ import static ttt.Symbol.EMPTY;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public class Board {
     List<Symbol> board;
@@ -45,12 +48,10 @@ public class Board {
     }
 
     public List<Integer> validMoves() {
-        List<Integer> validMoves = new ArrayList<>();
-        for (int i = 0; i < board.size(); i++) {
-            if (board.get(i).equals(EMPTY)) {
-                validMoves.add(i);
-            }
-        }
+        List<Integer> validMoves = new ArrayList<Integer>();
+        board.stream()
+            .filter(cell -> (cell.equals(EMPTY)))
+            .forEach(index -> validMoves.add(board.indexOf(index)));
         return validMoves;
     }
 
@@ -63,11 +64,6 @@ public class Board {
     }
 
     public boolean lineIsWin(Symbol symbol) {
-        for (int[] winningLine : winningLines) {
-            if (board.get(winningLine[0]).equals(symbol) && board.get(winningLine[1]).equals(symbol) && board.get(winningLine[2]).equals(symbol)) {
-                return true;
-            }
-        }
-        return false;
+       return Arrays.stream(winningLines).anyMatch(winningLine -> Arrays.stream(winningLine).allMatch(index -> board.get(index).equals(symbol)));
     }
 }

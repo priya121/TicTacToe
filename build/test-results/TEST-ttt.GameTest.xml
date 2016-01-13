@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ttt.GameTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-01-11T11:58:41" hostname="Priyas-MacBook-Pro-2.local" time="0.004">
+<testsuite name="ttt.GameTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-01-13T11:51:52" hostname="Priyas-MacBook-Pro-2.local" time="0.006">
   <properties/>
   <testcase name="switchesPlayersFromCrossToNought" classname="ttt.GameTest" time="0.001"/>
   <testcase name="userMustEnterDigits" classname="ttt.GameTest" time="0.002"/>
-  <testcase name="boardChangedWhenPlayerMakesMove" classname="ttt.GameTest" time="0.0"/>
+  <testcase name="boardChangedWhenPlayerMakesMove" classname="ttt.GameTest" time="0.001"/>
   <testcase name="tellsUserWhenGameOver" classname="ttt.GameTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
