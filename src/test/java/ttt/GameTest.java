@@ -35,7 +35,7 @@ public class GameTest {
 
     public List<Symbol> emptyBoard(int height, int width) {
         List<Symbol> board = new ArrayList<Symbol>();
-        for (int i = 0; i < height*width; i++) {
+        for (int i = 0; i < height * width; i++) {
             board.add(EMPTY);
         }
         return board;
@@ -74,12 +74,11 @@ public class GameTest {
     @Test
     public void userMustEnterDigits() {
         InputStream inputStream = new ByteArrayInputStream("a\n1\n1\n0\n2\n".getBytes());
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(5,7,8));
+        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(5, 7, 8));
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Game newGame = new Game(currentBoard, io, computerMoves);
         newGame.gameLoop();
-        Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0 - 8:\n"+
-        "That position is already taken or is not on the board, try again."));
+        Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0 - 8:"));
     }
 }
 

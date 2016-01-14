@@ -17,6 +17,7 @@ public class Game {
     private Symbol currentSymbol;
     private IO io;
     private Player player;
+    private int currentPlayer;
     private List<Player> players = new ArrayList<>();
     private Player computerPlayer;
 
@@ -32,17 +33,16 @@ public class Game {
 
     public void gameLoop() {
         io.showOutput("You are the cross symbol (Enter a position from 0 - 8:)");
-        int currentPlayer = 0;
         while (board.gameNotOver()) {
             showCurrentBoard();
             board.markPlayer(players.get(currentPlayer).move(), currentSymbol);
-            currentPlayer = switchPlayers(currentPlayer);
+            currentPlayer = switchPlayers();
             switchSymbol();
         }
         endOfGameDisplay();
     }
 
-    public int switchPlayers(int currentPlayer) {
+    public int switchPlayers() {
         return currentPlayer =  (currentPlayer == 0) ? 1 : 0;
     }
 

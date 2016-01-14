@@ -15,7 +15,7 @@ public class GameSetup {
 
     public List<Symbol> emptyBoard(int height, int width) {
         List<Symbol> board = new ArrayList<Symbol>();
-        for (int i = 0; i < height*width; i++) {
+        for (int i = 0; i < height * width; i++) {
             board.add(EMPTY);
         }
         return board;

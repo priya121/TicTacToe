@@ -3,7 +3,11 @@ package ttt.inputOutput;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class ConsoleIOTest {
     OutputStream recordedOutputStream = new ByteArrayOutputStream();

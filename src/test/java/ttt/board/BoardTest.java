@@ -30,7 +30,7 @@ public class BoardTest {
 
     public List<Symbol> emptyBoard(int height, int width) {
         List<Symbol> board = new ArrayList<Symbol>();
-        for (int i = 0; i < height*width; i++) {
+        for (int i = 0; i < height * width; i++) {
             board.add(EMPTY);
         }
         return board;
@@ -159,7 +159,6 @@ public class BoardTest {
 
     @Test
         public void returnsCurrentStateOfTheBoard() {
-            List <Symbol> changedBoard = placeSymbols(Arrays.asList(0), Arrays.asList(1));
             List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
                     EMPTY, EMPTY, EMPTY,
                     EMPTY, EMPTY, EMPTY);

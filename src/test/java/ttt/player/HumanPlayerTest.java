@@ -24,7 +24,7 @@ public class HumanPlayerTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     GameSetup initialSetup = new GameSetup();
-    List<Symbol> emptyBoard = initialSetup.emptyBoard(3,3);
+    List<Symbol> emptyBoard = initialSetup.emptyBoard(3, 3);
     Board currentBoard = new Board(emptyBoard);
     Game game;
 
@@ -61,7 +61,7 @@ public class HumanPlayerTest {
                 EMPTY, NOUGHT, EMPTY,
                 EMPTY, NOUGHT, CROSS);
         InputStream inputStream = new ByteArrayInputStream("a\na\n1\n0\n2".getBytes());
-        FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(5,7,8));
+        FakeComputerPlayer fakeComputerMoves = getFakeComputerMoves(Arrays.asList(5, 7, 8));
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Board currentBoard  = new Board(newBoard);
         Game game = new Game(currentBoard, io, fakeComputerMoves);

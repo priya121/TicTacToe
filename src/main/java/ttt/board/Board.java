@@ -1,14 +1,15 @@
 package ttt.board;
 
 import ttt.Symbol;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static ttt.Symbol.CROSS;
 import static ttt.Symbol.NOUGHT;
 import static ttt.Symbol.EMPTY;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 public class Board {
     List<Symbol> board;
@@ -47,7 +48,7 @@ public class Board {
     }
 
     public List<Integer> validMoves() {
-        List<Integer> validMoves = new ArrayList<Integer>();
+    List<Integer> validMoves = new ArrayList<Integer>();
         IntStream.range(0,9)
             .filter(index -> board.get(index).equals(EMPTY))
             .forEach(i -> validMoves.add(i));
