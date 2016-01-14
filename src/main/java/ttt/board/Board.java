@@ -8,7 +8,6 @@ import static ttt.Symbol.EMPTY;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 import java.util.stream.IntStream;
 
 public class Board {
@@ -49,13 +48,11 @@ public class Board {
 
     public List<Integer> validMoves() {
         List<Integer> validMoves = new ArrayList<Integer>();
-        for (int i = 0; i < board.size(); i++) {
-            if (board.get(i).equals(EMPTY)) {
-            validMoves.add(i);
-            }
-        }
+        IntStream.range(0,9)
+            .filter(index -> board.get(index).equals(EMPTY))
+            .forEach(i -> validMoves.add(i));
         return validMoves;
-    }
+        }
 
     public boolean gameNotOver() {
         return !isWin() && notFull();
