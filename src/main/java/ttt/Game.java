@@ -20,6 +20,7 @@ public class Game {
     private int currentPlayer;
     private List<Player> players = new ArrayList<>();
     private Player computerPlayer;
+    private int move;
 
     public Game(Board board, IO io, ComputerPlayer computerPlayer) {
         this.board = board;
@@ -36,18 +37,14 @@ public class Game {
         while (board.gameNotOver()) {
             showCurrentBoard();
             board.markPlayer(players.get(currentPlayer).move(), currentSymbol);
-            currentPlayer = switchPlayers();
-            switchSymbol();
+            switchPlayers();
         }
         endOfGameDisplay();
     }
 
-    public int switchPlayers() {
-        return currentPlayer =  (currentPlayer == 0) ? 1 : 0;
-    }
-
-    public Symbol switchSymbol() {
-        return currentSymbol = currentSymbol.equals(CROSS) ? NOUGHT : CROSS;
+    public void switchPlayers() {
+        currentSymbol = currentSymbol.equals(CROSS) ? NOUGHT : CROSS;
+        currentPlayer =  (currentPlayer == 0) ? 1 : 0;
     }
 
     public void showCurrentBoard() {
@@ -57,7 +54,6 @@ public class Game {
 
     private void endOfGameDisplay() {
         showCurrentBoard();
-        switchSymbol();
         if (board.isWin()) {
             io.showOutput("player " + currentSymbol + " has won!");
         }

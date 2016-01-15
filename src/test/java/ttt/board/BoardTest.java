@@ -130,80 +130,80 @@ public class BoardTest {
         }
 
     @Test
-        public void checksVerticalWinFirstColumnForCross() {
-            FakeIO io = getFakeIO(Arrays.asList("0", "3", "6"));
-            FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 8));
-            Game game = new Game(currentBoard, io, computerMoves);
-            game.gameLoop();
-            Assert.assertEquals(true, board.lineIsWin(CROSS));
-            Assert.assertEquals(false, board.lineIsWin(NOUGHT));
-        }
+    public void checksVerticalWinFirstColumnForCross() {
+        FakeIO io = getFakeIO(Arrays.asList("0", "3", "6"));
+        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 8));
+        Game game = new Game(currentBoard, io, computerMoves);
+        game.gameLoop();
+        Assert.assertEquals(true, board.lineIsWin(CROSS));
+        Assert.assertEquals(false, board.lineIsWin(NOUGHT));
+    }
 
     @Test
-        public void checksVerticalWinLastColumn() {
-            FakeIO io = getFakeIO(Arrays.asList("2", "1", "5", "3", "8"));
-            FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 3));
-            Game game = new Game(currentBoard, io, computerMoves);
-            game.gameLoop();
-            Assert.assertEquals(true, board.lineIsWin(CROSS));
-            Assert.assertEquals(false, board.lineIsWin(NOUGHT));
-        }
+    public void checksVerticalWinLastColumn() {
+        FakeIO io = getFakeIO(Arrays.asList("2", "1", "5", "3", "8"));
+        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 3));
+        Game game = new Game(currentBoard, io, computerMoves);
+        game.gameLoop();
+        Assert.assertEquals(true, board.lineIsWin(CROSS));
+        Assert.assertEquals(false, board.lineIsWin(NOUGHT));
+    }
 
     @Test
-        public void setsUpThreeByThreeBoard() {
-            List<Symbol> expectedBoard = Arrays.asList(CROSS, EMPTY, EMPTY,
-                    EMPTY, EMPTY, EMPTY,
-                    EMPTY, EMPTY, EMPTY);
-            Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, CROSS));
-        }
+    public void setsUpThreeByThreeBoard() {
+        List<Symbol> expectedBoard = Arrays.asList(CROSS, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY);
+        Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, CROSS));
+    }
 
     @Test
-        public void returnsCurrentStateOfTheBoard() {
-            List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
-                    EMPTY, EMPTY, EMPTY,
-                    EMPTY, EMPTY, EMPTY);
-            currentBoard.markPlayer(1, NOUGHT);
-            Assert.assertEquals(boardAfterTwoPlayerMoves, currentBoard.markPlayer(0, CROSS));
-        }
+    public void returnsCurrentStateOfTheBoard() {
+        List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY);
+        currentBoard.markPlayer(1, NOUGHT);
+        Assert.assertEquals(boardAfterTwoPlayerMoves, currentBoard.markPlayer(0, CROSS));
+    }
 
     @Test
-        public void getsPositionOfCell() {
-            List<Symbol> boardAfterTwoMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
-                    EMPTY, EMPTY, EMPTY,
-                    EMPTY, EMPTY, EMPTY);
-            Board newBoard = new Board(boardAfterTwoMoves);
-            Assert.assertEquals(CROSS, newBoard.get(0));
-        }
+    public void getsPositionOfCell() {
+        List<Symbol> boardAfterTwoMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
+                EMPTY, EMPTY, EMPTY,
+                EMPTY, EMPTY, EMPTY);
+        Board newBoard = new Board(boardAfterTwoMoves);
+        Assert.assertEquals(CROSS, newBoard.get(0));
+    }
 
     @Test(expected = RuntimeException.class)
-        public void throwsAnExceptionIfMoveIsNotAvailable() {
-            Board newBoard = new Board(emptyBoard);
-            newBoard.markPlayer(1337, CROSS);
-        }
+    public void throwsAnExceptionIfMoveIsNotAvailable() {
+        Board newBoard = new Board(emptyBoard);
+        newBoard.markPlayer(1337, CROSS);
+    }
 
     @Test
-        public void largerThanBoardIsInvalid() {
-            Board newBoard = new Board(emptyBoard);
-            Assert.assertFalse(newBoard.isPositionEmpty(37));
-        }
+    public void largerThanBoardIsInvalid() {
+        Board newBoard = new Board(emptyBoard);
+        Assert.assertFalse(newBoard.isPositionEmpty(37));
+    }
 
     @Test
-        public void returnsListOfValidMoves() {
-            Board newBoard = new Board(emptyBoard);
-            List<Integer> validMoves = moves(0, 9);
-            Assert.assertEquals(validMoves, newBoard.validMoves());
-        }
+    public void returnsListOfValidMoves() {
+        Board newBoard = new Board(emptyBoard);
+        List<Integer> validMoves = moves(0, 9);
+        Assert.assertEquals(validMoves, newBoard.validMoves());
+    }
 
     @Test
-        public void checksBoardFull() {
-            Assert.assertTrue(board.notFull());
-        }
+    public void checksBoardFull() {
+        Assert.assertTrue(board.notFull());
+    }
 
     @Test
-        public void checksBoardNotFull() {
-            Board board = new Board(emptyBoard);
-            Assert.assertTrue(board.notFull());
-        }
+    public void checksBoardNotFull() {
+        Board board = new Board(emptyBoard);
+        Assert.assertTrue(board.notFull());
+    }
 
     public List<Integer> moves(int from, int to) {
         List<Integer> result = new ArrayList<>();

@@ -8,7 +8,6 @@ import static ttt.Symbol.CROSS;
 import static ttt.Symbol.NOUGHT;
 
 public class GameSetup {
-    private List<Symbol> initialBoard;
 
     public GameSetup() {
     }

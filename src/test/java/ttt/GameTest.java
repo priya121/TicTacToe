@@ -1,8 +1,8 @@
 package ttt;
 
+import ttt.board.Board;
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.player.ComputerPlayer;
@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static ttt.Symbol.EMPTY;
+import static ttt.Symbol.CROSS;
 
 public class GameTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();

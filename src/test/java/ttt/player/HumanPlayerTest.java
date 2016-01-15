@@ -50,7 +50,7 @@ public class HumanPlayerTest {
         ConsoleIO io = new ConsoleIO(inputStream, out);
         Game newGame = new Game(currentBoard, io, fakeComputerMoves);
         newGame.gameLoop();
-        Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
+        Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the ttt.board, try again."));
     }
 
     @Test
