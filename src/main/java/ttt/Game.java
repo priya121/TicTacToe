@@ -6,6 +6,11 @@ import ttt.player.ComputerPlayer;
 import ttt.player.HumanPlayer;
 import ttt.player.Player;
 
+import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static ttt.Symbol.*;
 
 public class Game {
@@ -36,13 +41,12 @@ public class Game {
     }
 
     public void getCurrentPlayer(Board board) {
-        int emptyCells = 0;
-        for (Symbol symbol : board.getCurrentBoard()) {
-            if (symbol == EMPTY) {
-                emptyCells++;
-            }
-        }
-        switchPlayers(emptyCells);
+        List<Integer> emptyCells = new ArrayList<>();
+        IntStream.range(0,9)
+            .filter(cell -> board.get(cell).equals(EMPTY))
+            .forEach(i -> emptyCells.add(i));
+
+        switchPlayers(emptyCells.size());
     }
 
     private void switchPlayers(int emptyCells) {
