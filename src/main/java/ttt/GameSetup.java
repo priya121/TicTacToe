@@ -20,13 +20,10 @@ public class GameSetup {
         return board;
     }
 
-    public List<Symbol> placeSymbols(List<Integer> crossPositions, List<Integer> noughtPositions) {
-        List<Symbol> board = emptyBoard(3, 3);
-        for (int i = 0; i < crossPositions.size(); i++) {
-            for (int j = 0; j < noughtPositions.size(); j++) {
-                board.set(noughtPositions.get(j), NOUGHT);
-            }
-            board.set(crossPositions.get(i), CROSS);
+    public List<Symbol> placeSymbols(List<Symbol> symbols) {
+        List<Symbol> board = new ArrayList<Symbol>();
+        for (int i = 0; i < symbols.size(); i++) {
+                board.add(symbols.get(i));
         }
         return board;
     }

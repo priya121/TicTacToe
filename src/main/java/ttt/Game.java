@@ -10,8 +10,6 @@ import java.util.stream.IntStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
 import static ttt.Symbol.EMPTY;
 
 public class Game {
@@ -35,23 +33,22 @@ public class Game {
         io.showOutput("You are the cross symbol (Enter a position from 0 - 8:)");
         while (board.gameNotOver()) {
             showCurrentBoard();
-            getCurrentPlayer(board);
+            computeCurrentPlayer(board);
             board.markPlayer(currentPlayer.move(), currentPlayer.getSymbol());
         }
         endOfGameDisplay();
     }
 
-    public void getCurrentPlayer(Board board) {
+    public void computeCurrentPlayer(Board board) {
         List<Integer> emptyCells = new ArrayList<>();
         IntStream.range(0, 9)
             .filter(cell -> board.get(cell).equals(EMPTY))
             .forEach(i -> emptyCells.add(i));
-
         switchPlayers(emptyCells.size());
     }
 
     private void switchPlayers(int emptyCells) {
-        if ((emptyCells % 2) == 0 ) {
+        if ((emptyCells % 2) == 0) {
             currentPlayer = computerPlayer;
         } else {
             currentPlayer = humanPlayer;
@@ -69,5 +66,9 @@ public class Game {
             io.showOutput("player " + currentSymbol + " has won!");
         }
         io.showOutput("game over");
+    }
+
+    public Symbol getPlayer() {
+        return currentPlayer.getSymbol();
     }
 }

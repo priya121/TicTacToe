@@ -1,9 +1,8 @@
-package ttt.board;
+package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Game;
-import ttt.Symbol;
+import ttt.board.Board;
 import ttt.inputOutput.FakeIO;
 import ttt.player.FakeComputerPlayer;
 import ttt.player.HumanPlayer;
@@ -17,9 +16,8 @@ import static ttt.Symbol.CROSS;
 import static ttt.Symbol.NOUGHT;
 
 public class BoardTest {
-    List<Symbol> emptyBoard = emptyBoard(3, 3);
-    Board currentBoard = new Board();
     Board board = new Board();
+    GameSetup expected = new GameSetup();
 
     private FakeIO getFakeIO(List<String> input) {
         return new FakeIO(input);
@@ -29,50 +27,43 @@ public class BoardTest {
         return new FakeComputerPlayer(input);
     }
 
-    public List<Symbol> emptyBoard(int height, int width) {
-        List<Symbol> board = new ArrayList<Symbol>();
-        for (int i = 0; i < height * width; i++) {
-            board.add(EMPTY);
-        }
-        return board;
+    private Game getGame(FakeIO humanMoves, FakeComputerPlayer computerMoves) {
+        HumanPlayer human = new HumanPlayer(humanMoves, board);
+        return new Game(board, humanMoves, computerMoves, human);
+    }
+
+    public FakeIO humanMoves(List<String> moves) {
+        return getFakeIO(moves);
+    }
+
+    public FakeComputerPlayer computerMoves(List<Integer> moves) {
+        return getFakeComputerMoves(moves);
     }
 
     @Test
     public void checksWinFirstRowForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("0", "1", "2"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(3, 6));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("0", "1", "2")), computerMoves(Arrays.asList(3, 6)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(CROSS));
     }
 
     @Test
     public void checksWinLastRowForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("1", "5", "2"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(6, 7, 8));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("1", "5", "2")), computerMoves(Arrays.asList(6, 7, 8)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(NOUGHT));
     }
 
     @Test
     public void checksWinSecondRowForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("3", "4", "5"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(0, 6));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("3", "4", "5")), computerMoves(Arrays.asList(0, 6)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(CROSS));
     }
 
     @Test
     public void checksNoughtWinsDiagonally() {
-        FakeIO io = getFakeIO(Arrays.asList("1", "3", "7"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(0, 4, 8));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
         game.gameLoop();
         Assert.assertEquals(false, board.lineIsWin(CROSS));
         Assert.assertEquals(true, board.lineIsWin(NOUGHT));
@@ -80,60 +71,42 @@ public class BoardTest {
 
     @Test
     public void checksAnotherDiagonalWin() {
-        FakeIO io = getFakeIO(Arrays.asList("1", "3", "7"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(0, 4, 8));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(NOUGHT));
     }
 
     @Test
     public void checksDiagonalWinForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("0", "4", "8"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 6));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("0", "4", "8")), computerMoves(Arrays.asList(1, 6)));
         game.gameLoop();
         Assert.assertEquals(true, board.isWin());
     }
 
     @Test
     public void checksDiagonalWinForNought() {
-        FakeIO io = getFakeIO(Arrays.asList("3", "0", "5"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(2, 6, 4));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("3", "0", "5")), computerMoves(Arrays.asList(2, 6, 4)));
         game.gameLoop();
         Assert.assertEquals(true, board.isWin());
     }
 
     @Test
     public void checksVerticalWinMiddleColumnForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("1", "4", "7"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(0, 6));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("1", "4", "7")), computerMoves(Arrays.asList(0, 6)));
         game.gameLoop();
         Assert.assertEquals(true, board.isWin());
     }
 
     @Test
     public void returnsFalseIfNoWin() {
-        FakeIO io = getFakeIO(Arrays.asList("0", "2", "3", "7", "8"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 4, 5, 6));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(currentBoard, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("0", "2", "3", "7", "8")), computerMoves(Arrays.asList(1, 4, 5, 6)));
         game.gameLoop();
         Assert.assertEquals(false, board.isWin());
     }
 
     @Test
     public void checksVerticalWinFirstColumnForCross() {
-        FakeIO io = getFakeIO(Arrays.asList("0", "3", "6"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 8));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("0", "3", "6")), computerMoves(Arrays.asList(1, 8)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(CROSS));
         Assert.assertEquals(false, board.lineIsWin(NOUGHT));
@@ -141,10 +114,7 @@ public class BoardTest {
 
     @Test
     public void checksVerticalWinLastColumn() {
-        FakeIO io = getFakeIO(Arrays.asList("2", "1", "5", "3", "8"));
-        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 3));
-        HumanPlayer human = new HumanPlayer(io, board);
-        Game game = new Game(board, io, computerMoves, human);
+        Game game = getGame(humanMoves(Arrays.asList("2", "1", "5", "3", "8")), computerMoves(Arrays.asList(1, 3)));
         game.gameLoop();
         Assert.assertEquals(true, board.lineIsWin(CROSS));
         Assert.assertEquals(false, board.lineIsWin(NOUGHT));
@@ -152,19 +122,15 @@ public class BoardTest {
 
     @Test
     public void setsUpThreeByThreeBoard() {
-        List<Symbol> expectedBoard = Arrays.asList(CROSS, EMPTY, EMPTY,
-                EMPTY, EMPTY, EMPTY,
-                EMPTY, EMPTY, EMPTY);
-        Assert.assertEquals(expectedBoard, currentBoard.markPlayer(0, CROSS));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
+        Assert.assertEquals(expectedBoard, board.markPlayer(0, CROSS));
     }
 
     @Test
     public void returnsCurrentStateOfTheBoard() {
-        List<Symbol> boardAfterTwoPlayerMoves = Arrays.asList(CROSS, NOUGHT, EMPTY,
-                EMPTY, EMPTY, EMPTY,
-                EMPTY, EMPTY, EMPTY);
-        currentBoard.markPlayer(1, NOUGHT);
-        Assert.assertEquals(boardAfterTwoPlayerMoves, currentBoard.markPlayer(0, CROSS));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, NOUGHT, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
+        board.markPlayer(1, NOUGHT);
+        Assert.assertEquals(expectedBoard, board.markPlayer(0, CROSS));
     }
 
     @Test
@@ -203,7 +169,7 @@ public class BoardTest {
         Assert.assertTrue(board.notFull());
     }
 
-    public List<Integer> moves(int from, int to) {
+    private List<Integer> moves(int from, int to) {
         List<Integer> result = new ArrayList<>();
         for (int i = from; i < to; i++) {
             result.add(i);

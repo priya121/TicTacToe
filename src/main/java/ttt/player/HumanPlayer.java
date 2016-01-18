@@ -24,7 +24,7 @@ public class HumanPlayer implements Player {
 
     private int validMove() {
         while (!digitInput(userInput) || !board.isPositionEmpty(indexChosen)) {
-            io.showOutput("That position is already taken or is not on the ttt.board, try again.");
+            io.showOutput("That position is already taken or is not on the board, try again.");
             takesUserInput();
             indexChosen = Integer.parseInt(userInput);
         }

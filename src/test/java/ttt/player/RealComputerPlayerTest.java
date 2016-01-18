@@ -2,15 +2,10 @@ package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Symbol;
 import ttt.board.Board;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static ttt.Symbol.CROSS;
 import static ttt.Symbol.NOUGHT;
-import static ttt.Symbol.EMPTY;
 
 public class RealComputerPlayerTest {
     Board board = new Board();
