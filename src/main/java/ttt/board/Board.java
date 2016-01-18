@@ -64,6 +64,8 @@ public class Board {
     }
 
     public boolean lineIsWin(Symbol symbol) {
-        return Arrays.stream(winningLines).anyMatch(winningLine -> Arrays.stream(winningLine).allMatch(index -> board.get(index).equals(symbol)));
+        return Arrays.stream(winningLines)
+            .anyMatch(winningLine -> Arrays.stream(winningLine)
+            .allMatch(index -> board.get(index).equals(symbol)));
     }
 }

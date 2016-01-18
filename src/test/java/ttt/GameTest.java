@@ -1,12 +1,13 @@
 package ttt;
 
-import ttt.board.Board;
 import org.junit.Assert;
 import org.junit.Test;
+import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.player.ComputerPlayer;
 import ttt.player.FakeComputerPlayer;
+import ttt.player.HumanPlayer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static ttt.Symbol.EMPTY;
-import static ttt.Symbol.CROSS;
 
 public class GameTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
@@ -47,7 +47,8 @@ public class GameTest {
         List <Symbol> changedBoard = newGame.placeSymbols(Arrays.asList(0, 2, 1), Arrays.asList(3, 7));
         FakeIO fakeInput = getFakeIO(Arrays.asList("0", "2", "1"));
         ComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(3, 7));
-        Game game = new Game(currentBoard, fakeInput, computerMoves);
+        HumanPlayer human = new HumanPlayer(fakeInput, currentBoard);
+        Game game = new Game(currentBoard, fakeInput, computerMoves, human);
         game.gameLoop();
         Assert.assertEquals(changedBoard, currentBoard.getCurrentBoard());
     }
@@ -57,7 +58,8 @@ public class GameTest {
         List <Symbol> changedBoard = newGame.placeSymbols(Arrays.asList(0, 1, 4), Arrays.asList(6, 7, 8));
         FakeIO fakeInput = getFakeIO(Arrays.asList("0", "1", "4"));
         FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(6, 7, 8));
-        Game game = new Game(currentBoard, fakeInput, computerMoves);
+        HumanPlayer human = new HumanPlayer(fakeInput, currentBoard);
+        Game game = new Game(currentBoard, fakeInput, computerMoves, human);
         game.gameLoop();
         Assert.assertEquals(changedBoard, currentBoard.getCurrentBoard());
     }
@@ -67,7 +69,8 @@ public class GameTest {
         InputStream inputStream = new ByteArrayInputStream("2\n5\n8\n".getBytes());
         FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(1, 4, 7));
         ConsoleIO io = new ConsoleIO(inputStream, out);
-        Game newGame = new Game(currentBoard, io, computerMoves);
+        HumanPlayer human = new HumanPlayer(io, currentBoard);
+        Game newGame = new Game(currentBoard, io, computerMoves, human);
         newGame.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("game over"));
     }
@@ -77,9 +80,20 @@ public class GameTest {
         InputStream inputStream = new ByteArrayInputStream("a\n1\n1\n0\n2\n".getBytes());
         FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(5, 7, 8));
         ConsoleIO io = new ConsoleIO(inputStream, out);
-        Game newGame = new Game(currentBoard, io, computerMoves);
+        HumanPlayer human = new HumanPlayer(io, currentBoard);
+        Game newGame = new Game(currentBoard, io, computerMoves, human);
         newGame.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0 - 8:"));
+    }
+
+    @Test
+    public void computesCurrentPlayer() {
+        InputStream inputStream = new ByteArrayInputStream("a\n1\n1\n0\n2\n".getBytes());
+        FakeComputerPlayer computerMoves = getFakeComputerMoves(Arrays.asList(5, 7, 8));
+        ConsoleIO io = new ConsoleIO(inputStream, out);
+        HumanPlayer human = new HumanPlayer(io, currentBoard);
+        Game newGame = new Game(currentBoard, io, computerMoves, human);
+        newGame.gameLoop();
     }
 }
 
