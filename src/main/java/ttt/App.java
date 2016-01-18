@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) {
         GameSetup initialSetup = new GameSetup();
         List<Symbol> empty = initialSetup.emptyBoard(3, 3);
-        Board board = new Board(empty);
+        Board board = new Board();
         IO io = new ConsoleIO(System.in, System.out);
         HumanPlayer human = new HumanPlayer(io, board);
         RealComputerPlayer realComputerPlayer = new RealComputerPlayer(board);

@@ -23,7 +23,7 @@ public class GameTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     List<Symbol> emptyBoard = emptyBoard(3, 3);
-    Board currentBoard = new Board(emptyBoard);
+    Board currentBoard = new Board();
     GameSetup newGame = new GameSetup();
 
     private FakeIO getFakeIO(List<String> input) {

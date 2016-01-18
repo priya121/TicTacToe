@@ -8,10 +8,11 @@ import ttt.player.Player;
 
 import java.util.stream.IntStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static ttt.Symbol.*;
+import static ttt.Symbol.CROSS;
+import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.EMPTY;
 
 public class Game {
     private Board board;
@@ -42,7 +43,7 @@ public class Game {
 
     public void getCurrentPlayer(Board board) {
         List<Integer> emptyCells = new ArrayList<>();
-        IntStream.range(0,9)
+        IntStream.range(0, 9)
             .filter(cell -> board.get(cell).equals(EMPTY))
             .forEach(i -> emptyCells.add(i));
 

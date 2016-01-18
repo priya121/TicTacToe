@@ -12,7 +12,9 @@ import static ttt.Symbol.NOUGHT;
 import static ttt.Symbol.EMPTY;
 
 public class Board {
-    List<Symbol> board;
+    List<Symbol> board = Arrays.asList(EMPTY, EMPTY, EMPTY,
+                                       EMPTY, EMPTY, EMPTY,
+                                       EMPTY, EMPTY, EMPTY);
     private int[][] winningLines = new int[][] {{0, 1, 2},
                                                 {3, 4, 5},
                                                 {6, 7, 8},
@@ -22,7 +24,7 @@ public class Board {
                                                 {1, 4, 7},
                                                 {2, 5, 8}};
 
-    public Board(List<Symbol> board) {
+    public Board() {
         this.board = board;
     }
 
