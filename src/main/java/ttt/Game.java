@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ttt.Symbol.EMPTY;
+import static ttt.Symbol.E;
 
 public class Game {
     private Board board;
@@ -26,7 +26,6 @@ public class Game {
         this.computerPlayer = computerPlayer;
         this.humanPlayer = humanPlayer;
         this.currentPlayer = humanPlayer;
-        this.currentSymbol = currentPlayer.getSymbol();
     }
 
     public void gameLoop() {
@@ -42,7 +41,7 @@ public class Game {
     public void computeCurrentPlayer(Board board) {
         List<Integer> emptyCells = new ArrayList<>();
         IntStream.range(0, 9)
-            .filter(cell -> board.get(cell).equals(EMPTY))
+            .filter(cell -> board.get(cell).equals(E))
             .forEach(i -> emptyCells.add(i));
         switchPlayers(emptyCells.size());
     }

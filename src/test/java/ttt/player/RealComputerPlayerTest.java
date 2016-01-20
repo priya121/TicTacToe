@@ -4,15 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import ttt.board.Board;
 
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.X;
+import static ttt.Symbol.O;
 
 public class RealComputerPlayerTest {
     Board board = new Board();
 
     @Test
         public void computerPlayerIndexGenerated() {
-            board.markPlayer(0, CROSS);
+            board.markPlayer(0, X);
             RealComputerPlayer computer = new RealComputerPlayer(board);
             Assert.assertNotEquals(0, computer.move());
         }
@@ -27,8 +27,7 @@ public class RealComputerPlayerTest {
 
     @Test
     public void returnsNoughtSymbolForComputePlayer() {
-        Board board = new Board();
         RealComputerPlayer computer = new RealComputerPlayer(board);
-        Assert.assertEquals(NOUGHT, computer.getSymbol());
+        Assert.assertEquals(O, computer.getSymbol());
     }
 }

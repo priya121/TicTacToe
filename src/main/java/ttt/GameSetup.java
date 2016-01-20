@@ -3,9 +3,7 @@ package ttt;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ttt.Symbol.EMPTY;
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.E;
 
 public class GameSetup {
 
@@ -15,7 +13,7 @@ public class GameSetup {
     public List<Symbol> emptyBoard(int height, int width) {
         List<Symbol> board = new ArrayList<Symbol>();
         for (int i = 0; i < height * width; i++) {
-            board.add(EMPTY);
+            board.add(E);
         }
         return board;
     }

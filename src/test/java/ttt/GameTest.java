@@ -16,9 +16,9 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
-import static ttt.Symbol.EMPTY;
+import static ttt.Symbol.X;
+import static ttt.Symbol.O;
+import static ttt.Symbol.E;
 
 
 public class GameTest {
@@ -29,7 +29,7 @@ public class GameTest {
 
     @Test
     public void boardChangedWhenPlayerMakesMove() {
-        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, CROSS, CROSS, NOUGHT, EMPTY, EMPTY, EMPTY, NOUGHT, EMPTY));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, X, O, E, E, E, O, E));
         Game game = getGame(humanMoves(Arrays.asList("0", "2", "1")), computerMoves(Arrays.asList(3, 7)));
         game.gameLoop();
         Assert.assertEquals(expectedBoard, board.getCurrentBoard());
@@ -37,7 +37,7 @@ public class GameTest {
 
     @Test
     public void switchesPlayersFromCrossToNought() {
-        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, CROSS, EMPTY, EMPTY, CROSS, EMPTY, NOUGHT, NOUGHT, NOUGHT));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, E, E, X, E, O, O, O));
         Game game = getGame(humanMoves(Arrays.asList("0", "1", "4")), computerMoves(Arrays.asList(6, 7, 8)));
         game.gameLoop();
         Assert.assertEquals(expectedBoard, board.getCurrentBoard());
@@ -62,7 +62,7 @@ public class GameTest {
     public void computesCurrentPlayer() {
         Game game = getGame(convertUserInput(new ByteArrayInputStream("1\n0\n2\n".getBytes())), computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
-        Assert.assertEquals(CROSS, game.getPlayer());
+        Assert.assertEquals(X, game.getPlayer());
     }
 
     private FakeIO getFakeIO(List<String> input) {

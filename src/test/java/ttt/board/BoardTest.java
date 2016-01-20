@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ttt.Symbol.EMPTY;
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.E;
+import static ttt.Symbol.X;
+import static ttt.Symbol.O;
 
 public class BoardTest {
     Board board = new Board();
@@ -44,36 +44,36 @@ public class BoardTest {
     public void checksWinFirstRowForCross() {
         Game game = getGame(humanMoves(Arrays.asList("0", "1", "2")), computerMoves(Arrays.asList(3, 6)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(CROSS));
+        Assert.assertEquals(true, board.lineIsWin(X));
     }
 
     @Test
     public void checksWinLastRowForCross() {
         Game game = getGame(humanMoves(Arrays.asList("1", "5", "2")), computerMoves(Arrays.asList(6, 7, 8)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(NOUGHT));
+        Assert.assertEquals(true, board.lineIsWin(O));
     }
 
     @Test
     public void checksWinSecondRowForCross() {
         Game game = getGame(humanMoves(Arrays.asList("3", "4", "5")), computerMoves(Arrays.asList(0, 6)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(CROSS));
+        Assert.assertEquals(true, board.lineIsWin(X));
     }
 
     @Test
     public void checksNoughtWinsDiagonally() {
         Game game = getGame(humanMoves(Arrays.asList("1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
         game.gameLoop();
-        Assert.assertEquals(false, board.lineIsWin(CROSS));
-        Assert.assertEquals(true, board.lineIsWin(NOUGHT));
+        Assert.assertEquals(false, board.lineIsWin(X));
+        Assert.assertEquals(true, board.lineIsWin(O));
     }
 
     @Test
     public void checksAnotherDiagonalWin() {
         Game game = getGame(humanMoves(Arrays.asList("1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(NOUGHT));
+        Assert.assertEquals(true, board.lineIsWin(O));
     }
 
     @Test
@@ -108,41 +108,41 @@ public class BoardTest {
     public void checksVerticalWinFirstColumnForCross() {
         Game game = getGame(humanMoves(Arrays.asList("0", "3", "6")), computerMoves(Arrays.asList(1, 8)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(CROSS));
-        Assert.assertEquals(false, board.lineIsWin(NOUGHT));
+        Assert.assertEquals(true, board.lineIsWin(X));
+        Assert.assertEquals(false, board.lineIsWin(O));
     }
 
     @Test
     public void checksVerticalWinLastColumn() {
         Game game = getGame(humanMoves(Arrays.asList("2", "1", "5", "3", "8")), computerMoves(Arrays.asList(1, 3)));
         game.gameLoop();
-        Assert.assertEquals(true, board.lineIsWin(CROSS));
-        Assert.assertEquals(false, board.lineIsWin(NOUGHT));
+        Assert.assertEquals(true, board.lineIsWin(X));
+        Assert.assertEquals(false, board.lineIsWin(O));
     }
 
     @Test
     public void setsUpThreeByThreeBoard() {
-        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
-        Assert.assertEquals(expectedBoard, board.markPlayer(0, CROSS));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, E, E, E, E, E, E, E, E));
+        Assert.assertEquals(expectedBoard, board.markPlayer(0, X));
     }
 
     @Test
     public void returnsCurrentStateOfTheBoard() {
-        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(CROSS, NOUGHT, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
-        board.markPlayer(1, NOUGHT);
-        Assert.assertEquals(expectedBoard, board.markPlayer(0, CROSS));
+        List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, O, E, E, E, E, E, E, E));
+        board.markPlayer(1, O);
+        Assert.assertEquals(expectedBoard, board.markPlayer(0, X));
     }
 
     @Test
     public void getsPositionOfCell() {
         Board newBoard = new Board();
-        Assert.assertEquals(EMPTY, newBoard.get(0));
+        Assert.assertEquals(E, newBoard.get(0));
     }
 
     @Test(expected = RuntimeException.class)
     public void throwsAnExceptionIfMoveIsNotAvailable() {
         Board newBoard = new Board();
-        newBoard.markPlayer(1337, CROSS);
+        newBoard.markPlayer(1337, X);
     }
 
     @Test

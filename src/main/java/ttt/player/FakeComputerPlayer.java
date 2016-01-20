@@ -5,7 +5,7 @@ import ttt.Symbol;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.O;
 
 public class FakeComputerPlayer implements ComputerPlayer {
     private LinkedList<Integer> input;
@@ -19,7 +19,7 @@ public class FakeComputerPlayer implements ComputerPlayer {
     }
 
     public Symbol getSymbol() {
-        return NOUGHT;
+        return O;
     }
 }
 

@@ -7,10 +7,9 @@ import java.util.Arrays;
 import ttt.Symbol;
 import java.util.List;
 
-import ttt.Symbol;
-import static ttt.Symbol.EMPTY;
-import static ttt.Symbol.CROSS;
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.E;
+import static ttt.Symbol.X;
+import static ttt.Symbol.O;
 
 public class DisplayBoardTest {
 
@@ -19,9 +18,9 @@ public class DisplayBoardTest {
         String expectedBoard =   " -  -  - \n"
                                + " -  -  - \n"
                                + " -  -  - \n";
-        List<Symbol> emptyBoard = Arrays.asList(EMPTY, EMPTY, EMPTY,
-                                                EMPTY, EMPTY, EMPTY,
-                                                EMPTY, EMPTY, EMPTY);
+        List<Symbol> emptyBoard = Arrays.asList(E, E, E,
+                E, E, E,
+                E, E, E);
         DisplayBoard initialDisplay = new DisplayBoard(emptyBoard);
         Assert.assertEquals(expectedBoard, initialDisplay.showBoard());
     }
@@ -31,9 +30,9 @@ public class DisplayBoardTest {
             String expectedBoard =    " O  X  O \n"
                                     + " X  O  X \n"
                                     + " -  X  X \n";
-            List<Symbol> intermediateBoard = Arrays.asList(NOUGHT, CROSS, NOUGHT,
-                                                            CROSS, NOUGHT, CROSS,
-                                                            EMPTY, CROSS, CROSS);
+            List<Symbol> intermediateBoard = Arrays.asList(O, X, O,
+                    X, O, X,
+                    E, X, X);
             DisplayBoard currentDisplay = new DisplayBoard(intermediateBoard);
             Assert.assertEquals(expectedBoard, currentDisplay.showBoard());
         }

@@ -4,7 +4,7 @@ import ttt.Symbol;
 import ttt.board.Board;
 import ttt.inputOutput.IO;
 
-import static ttt.Symbol.CROSS;
+import static ttt.Symbol.X;
 
 public class HumanPlayer implements Player {
     private IO io;
@@ -51,6 +51,6 @@ public class HumanPlayer implements Player {
     }
 
     public Symbol getSymbol() {
-        return CROSS;
+        return X;
     }
 }

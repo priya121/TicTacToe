@@ -2,28 +2,28 @@ package ttt.player;
 
 import ttt.Symbol;
 import ttt.board.Board;
-import static ttt.Symbol.NOUGHT;
+import static ttt.Symbol.O;
 
 public class RealComputerPlayer implements ComputerPlayer {
     Board board;
-    int number;
+    int move;
     Symbol symbol;
 
     public RealComputerPlayer(Board board) {
     this.board = board;
-    this.symbol = Symbol.NOUGHT;
+    this.symbol = Symbol.O;
     }
 
     public int move() {
     RandomNumber random = new RandomNumber();
-    number = random.generate(8);
-        while (!board.isPositionEmpty(number)) {
-            number = random.generate(8);
+    move = random.generate(8);
+        while (!board.isPositionEmpty(move)) {
+            move = random.generate(8);
         }
-    return number;
+    return move;
     }
 
     public Symbol getSymbol() {
-        return NOUGHT;
+        return O;
     }
 }

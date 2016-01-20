@@ -1,9 +1,9 @@
 package ttt;
 
 public enum Symbol {
-    CROSS("X"),
-    NOUGHT("O"),
-    EMPTY("-");
+    X("X"),
+    O("O"),
+    E("-");
 
     private String symbol;
 
