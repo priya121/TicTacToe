@@ -28,51 +28,23 @@ public class Board {
         this.size = (int) Math.sqrt(board.size());
     }
 
-    public List<List<Symbol>> getRows() {
-        List<List<Symbol>> rows = new ArrayList<>();
-        for (int i = 0; i < size * size; i += size) {
-            List<Symbol> line = new ArrayList<>();
-            for (int j = i; j < i + size; j++) {
-                line.add(contentsOfBoard().get(j));
-            }
-            rows.add(line);
-        }
-        return rows;
+    public List<Line> getRows() {
+        return new RowGenerator().createRow(contentsOfBoard(), size);
     }
 
-    public List<List<Symbol>> getColumns() {
-        List<List<Symbol>> columns = new ArrayList<>();
-        for (int i = 0; i < (size); i++) {
-            List<Symbol> line = new ArrayList<>();
-            for (int j = i; j < (size * size); j += size) {
-                line.add(contentsOfBoard().get(j));
-            }
-            columns.add(line);
-        }
-        return columns;
+    public List<Line> getColumns() {
+        return new ColumnGenerator().createColumn(contentsOfBoard(), size);
     }
 
-    public List<List<Symbol>> getDiagonals() {
-        List<List<Symbol>> diagonals = new ArrayList<>();
-        List<Symbol> leftToRightDiagonal = new ArrayList<>();
-        List<Symbol> rightToLeftDiagonal = new ArrayList<>();
-
-        for (int i = 0; i < size * size; i += size + 1) {
-            leftToRightDiagonal.add(contentsOfBoard().get(i));
-        }
-        for (int j = size - 1; j < size * size - 1; j += size - 1) {
-            rightToLeftDiagonal.add(contentsOfBoard().get(j));
-        }
-        diagonals.add(leftToRightDiagonal);
-        diagonals.add(rightToLeftDiagonal);
-        return diagonals;
+    public List<Line> getDiagonals() {
+        return new DiagonalGenerator().createDiagonal(contentsOfBoard(), size);
     }
 
-    boolean checkWinningLine(List<List<Symbol>> lines, Symbol symbol) {
+    boolean checkWinningLine(List<Line> lines, Symbol symbol) {
         boolean winningLine = false;
-        for (List<Symbol> line : lines) {
-            for (int i = 0; i < line.size(); i++) {
-                winningLine = line.get(i) == symbol;
+        for (Line line : lines) {
+            for (int i = 0; i < line.getSymbols().size(); i++) {
+                winningLine = line.getSymbols().get(i) == symbol;
                 if (!winningLine) break;
             }
             if (winningLine) return true;

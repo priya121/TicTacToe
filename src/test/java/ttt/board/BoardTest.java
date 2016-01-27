@@ -63,7 +63,7 @@ public class BoardTest {
                                                    E, E, E, E,
                                                    E, E, E, E));
         List<List<Symbol>> rows = fillRows(allCrosses, empty, empty, empty);
-        Assert.assertEquals(rows, fourByFour.getRows());
+        Assert.assertEquals(rows, getSymbols(fourByFour.getRows()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class BoardTest {
                                                       X, X, X, E,
                                                       E, E, E, E,
                                                       E, E, E, E));
-        Assert.assertEquals(fillRows(empty, threeCrosses, empty, empty), newFourByFour.getRows());
+        Assert.assertEquals(fillRows(empty, threeCrosses, empty, empty), getSymbols(newFourByFour.getRows()));
         Assert.assertFalse(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
     }
 
@@ -92,7 +92,7 @@ public class BoardTest {
                                                       E, E, E, E,
                                                       X, X, X, X,
                                                       E, E, E, E));
-        Assert.assertEquals(fillRows(empty, empty, allCrosses, empty), newFourByFour.getRows());
+        Assert.assertEquals(fillRows(empty, empty, allCrosses, empty), getSymbols(newFourByFour.getRows()));
         Assert.assertTrue(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
     }
 
@@ -102,7 +102,7 @@ public class BoardTest {
                                                       E, E, E, E,
                                                       E, E, E, E,
                                                       O, O, O, O));
-        Assert.assertEquals(fillRows(empty, empty, empty, allNoughts), newFourByFour.getRows());
+        Assert.assertEquals(fillRows(empty, empty, empty, allNoughts), getSymbols(newFourByFour.getRows()));
         Assert.assertTrue(newFourByFour.checkWinningLine(newFourByFour.getRows(), O));
         Assert.assertFalse(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
     }
@@ -113,7 +113,7 @@ public class BoardTest {
                                                    X, E, E, E,
                                                    X, E, E, E,
                                                    E, E, E, E));
-        Assert.assertEquals(fillColumns(threeCrosses, empty, empty, empty), fourByFour.getColumns());
+        Assert.assertEquals(fillColumns(threeCrosses, empty, empty, empty), getSymbols(fourByFour.getColumns()));
         Assert.assertFalse(fourByFour.checkWinningLine(fourByFour.getRows(), X));
     }
 
@@ -123,7 +123,7 @@ public class BoardTest {
                                                    E, E, X, E,
                                                    E, E, X, E,
                                                    E, E, X, E));
-        Assert.assertEquals(fillColumns(empty, empty, allCrosses, empty), fourByFour.getColumns());
+        Assert.assertEquals(fillColumns(empty, empty, allCrosses, empty), getSymbols(fourByFour.getColumns()));
         Assert.assertTrue(fourByFour.checkWinningLine(fourByFour.getColumns(), X));
     }
 
@@ -133,7 +133,7 @@ public class BoardTest {
                                               E, X, E, E,
                                               E, E, X, E,
                                               E, E, E, X));
-        Assert.assertEquals(fillDiagonals(allCrosses, empty), board.getDiagonals());
+        Assert.assertEquals(fillDiagonals(allCrosses, empty), getSymbols(board.getDiagonals()));
         Assert.assertTrue(board.checkWinningLine(board.getDiagonals(), X));
     }
 
@@ -152,7 +152,6 @@ public class BoardTest {
                                                    E, O, X, E,
                                                    E, O, X, E));
         Assert.assertEquals(true, fourByFour.isWin());
-
     }
 
     @Test
@@ -378,5 +377,13 @@ public class BoardTest {
         }
         return result;
     }
+
+    private List<List<Symbol>> getSymbols(List<Line> lines) {
+        List<List<Symbol>> cells = new ArrayList<>();
+        for (Line line : lines) {
+            cells.add(line.getSymbols());
+        }
+        return cells;
+        }
 }
 
