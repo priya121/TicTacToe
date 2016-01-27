@@ -8,7 +8,7 @@ import static ttt.Symbol.X;
 import static ttt.Symbol.O;
 
 public class RealComputerPlayerTest {
-    Board board = new Board();
+    Board board = new Board(3);
 
     @Test
         public void computerPlayerIndexGenerated() {
@@ -19,7 +19,7 @@ public class RealComputerPlayerTest {
 
     @Test
     public void validComputerMoveGenerated() {
-        Board board = new Board();
+        Board board = new Board(3);
         RealComputerPlayer computer = new RealComputerPlayer(board);
         Assert.assertTrue(computer.move() <= 8);
         Assert.assertTrue(computer.move() >= 0);

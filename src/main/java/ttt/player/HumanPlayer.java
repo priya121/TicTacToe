@@ -11,6 +11,8 @@ public class HumanPlayer implements Player {
     private Board board;
     private int indexChosen;
     private String userInput;
+    private String sizeOfBoardChosen;
+    private int sizeChosen;
 
     public HumanPlayer(IO io, Board board) {
         this.io = io;
@@ -22,11 +24,21 @@ public class HumanPlayer implements Player {
         return userInput;
     }
 
+    public String getSizeOfBoard() {
+        sizeOfBoardChosen = io.takeInput();
+        return sizeOfBoardChosen;
+    }
+
+    public int size() {
+        sizeOfBoardChosen = getSizeOfBoard();
+        sizeChosenValidDigit(sizeOfBoardChosen);
+        return sizeChosen;
+    }
+
     private int validMove() {
         while (!digitInput(userInput) || !board.isPositionEmpty(indexChosen)) {
             io.showOutput("That position is already taken or is not on the board, try again.");
             takesUserInput();
-            indexChosen = Integer.parseInt(userInput);
         }
         return indexChosen;
     }
@@ -38,8 +50,22 @@ public class HumanPlayer implements Player {
                 indexChosen = Integer.parseInt(userInput);
                 digitInput = true;
             } catch (Exception e) {
-                io.showOutput("Please enter a number from 0 - 8:");
+                io.showOutput("Please enter a valid number");
                 userInput = takesUserInput();
+            }
+        }
+        return digitInput;
+    }
+
+    private boolean sizeChosenValidDigit(String sizeOfBoardChosen) {
+        boolean digitInput = false;
+        while (!digitInput) {
+            try {
+                sizeChosen = Integer.parseInt(sizeOfBoardChosen);
+                digitInput = true;
+            } catch (Exception e) {
+                io.showOutput("Please enter a valid number");
+                sizeOfBoardChosen = getSizeOfBoard();
             }
         }
         return digitInput;

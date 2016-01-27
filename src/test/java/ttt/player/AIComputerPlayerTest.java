@@ -1,5 +1,6 @@
 package ttt.player;
 
+import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
 import ttt.board.Board;
@@ -9,19 +10,45 @@ import ttt.inputOutput.IO;
 import java.util.Arrays;
 import java.util.List;
 
-import static ttt.Symbol.E;
-import static ttt.Symbol.O;
-import static ttt.Symbol.X;
+import static ttt.Symbol.*;
 
 public class AIComputerPlayerTest {
 
     @Test
-    public void AIReturnsOptimalMoveOutOfTwoPossibleMoves() {
-        Board intermediateBoard = new Board(Arrays.asList(O, X, X,
-                                                          O, X, X,
+    public void placesAIInWinningPositionOnFirstRow() {
+        Board intermediateBoard = new Board(Arrays.asList(O, O, E,
+                                                          X, X, E,
+                                                          X, E, E));
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(2, computerPlayer.move());
+    }
+
+    @Test
+    public void placesAIInWinningPositionOnSecondRow() {
+        Board intermediateBoard = new Board(Arrays.asList(X, X, E,
+                                                          O, O, E,
+                                                          X, E, E));
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(5, computerPlayer.move());
+    }
+
+    @Test
+    public void placesAIInWinningPosition() {
+        Board intermediateBoard = new Board(Arrays.asList(E, X, E,
+                                                          X, X, E,
+                                                          O, O, E));
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(8, computerPlayer.move());
+    }
+
+    @Test
+    public void placesAInWinningCell() {
+        Board intermediateBoard = new Board(Arrays.asList(E, X, X,
+                                                          E, O, O,
                                                           E, E, O));
         AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
-        //Assert.assertEquals(6, computerPlayer.move());
+        int[] result = computerPlayer.minimax(intermediateBoard, O);
+        Assert.assertEquals(0, result[0]);
     }
 
     @Test
@@ -29,19 +56,26 @@ public class AIComputerPlayerTest {
         Board intermediateBoard = new Board(Arrays.asList(O, X, O,
                                                           E, E, X,
                                                           X, X, O));
-        Game game = getIntermediateGame(humanMoves(Arrays.asList()), intermediateBoard);
-        //game.gameLoop();
-        //Assert.assertEquals(intermediateBoard.get(4), O);
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(4, computerPlayer.move());
+    }
+
+    @Test
+    public void AIMakesWinningMoveInFirstColumn() {
+        Board intermediateBoard = new Board(Arrays.asList(O, X, X,
+                                                          O, E, E,
+                                                          E, X, E));
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        //Assert.assertEquals(6, computerPlayer.move());
     }
 
     @Test
     public void playerMakesCorrectMoveWithFourEmptyCells() {
-        Board intermediateBoard = new Board(Arrays.asList(X, X, O,
+        Board intermediateBoard = new Board(Arrays.asList(E, X, O,
                                                           E, E, O,
-                                                          X, E, E));
-        Game game = getIntermediateGame(humanMoves(Arrays.asList()), intermediateBoard);
-        //game.gameLoop();
-        //Assert.assertEquals(intermediateBoard.get(8), O);
+                                                          X, X, E));
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(8, computerPlayer.move());
     }
 
     @Test
@@ -49,9 +83,8 @@ public class AIComputerPlayerTest {
         Board intermediateBoard = new Board(Arrays.asList(X, X, O,
                                                           O, E, O,
                                                           X, E, X));
-        Game game = getIntermediateGame(humanMoves(Arrays.asList()), intermediateBoard);
-        //game.gameLoop();
-        //Assert.assertEquals(intermediateBoard.get(4), O);
+        AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
+        Assert.assertEquals(4, computerPlayer.move());
     }
 
     private FakeIO getFakeIO(List<String> input) {
@@ -67,7 +100,6 @@ public class AIComputerPlayerTest {
     public FakeIO humanMoves(List<String> moves) {
         return getFakeIO(moves);
     }
-
 }
 
 

@@ -16,9 +16,9 @@ public class RealComputerPlayer implements ComputerPlayer {
 
     public int move() {
     RandomNumber random = new RandomNumber();
-    move = random.generate(8);
+    move = random.generate(board.contentsOfBoard().size());
         while (!board.isPositionEmpty(move)) {
-            move = random.generate(8);
+            move = random.generate(board.contentsOfBoard().size());
         }
     return move;
     }

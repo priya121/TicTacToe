@@ -2,9 +2,8 @@ package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.board.Board;
 import ttt.Game;
-import ttt.inputOutput.IO;
+import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class HumanPlayerTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Board board = new Board();
+    Board board = new Board(3);
 
     private FakeIO getFakeIO(List<String> input) {
         return new FakeIO(input);
@@ -37,9 +36,17 @@ public class HumanPlayerTest {
         return getFakeComputerMoves(moves);
     }
 
-    private Game getGame(IO humanMoves, FakeComputerPlayer computerMoves) {
-        HumanPlayer human = new HumanPlayer(humanMoves, board);
-        return new Game(board, humanMoves, computerMoves, human);
+    private Game getGame(String humanMoves, FakeComputerPlayer computerMoves) {
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
+        HumanPlayer human = new HumanPlayer(io, board);
+        return new Game(board, io, computerMoves, human);
+    }
+
+    @Test
+    public void userDecidesOnGameDimension() {
+        FakeIO fakeInput = getFakeIO(Arrays.asList("4"));
+        HumanPlayer humanPlayer = new HumanPlayer(fakeInput, board);
+        Assert.assertEquals(4, humanPlayer.size());
     }
 
     @Test
@@ -51,21 +58,21 @@ public class HumanPlayerTest {
 
     @Test
     public void userMustEnterEmptyPositionIndex() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("0\n0\n1\n2\n".getBytes())), computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\n0\n0\n1\n2\n", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }
 
     @Test
     public void playerOnlyMakesValidDigitMove() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("a\na\n1\n0\n2".getBytes())), computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\na\na\n1\n0\n2", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
-        Assert.assertTrue(recordedOutput.toString().contains("Please enter a number from 0 - 8:"));
+        Assert.assertTrue(recordedOutput.toString().contains("Please enter a valid number"));
     }
 
     @Test
     public void playerOnlyMakesAMoveOnTheBoard() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("100\n0\n1\n2\n".getBytes())), computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\n100\n1\n2\n0\n", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }

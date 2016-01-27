@@ -15,7 +15,7 @@ public class DisplayBoard {
     public String showBoard() {
         for (int i = 0; i < board.size(); i++) {
             display += " " + board.get(i).getSymbol() + " ";
-            if ((i + 1) % 3 == 0) {
+            if ((i + 1) % Math.sqrt(board.size()) == 0) {
                 display += "\n";
             }
         }

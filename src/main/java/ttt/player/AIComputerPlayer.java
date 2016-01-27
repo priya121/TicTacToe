@@ -7,53 +7,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static ttt.Symbol.E;
-import static ttt.Symbol.O;
-import static ttt.Symbol.X;
+import static ttt.Symbol.*;
 
 public class AIComputerPlayer implements ComputerPlayer {
-    int bestMove;
     Board board;
-    int highestScore;
-    int lowestScore;
     Symbol symbol;
     Symbol symbolToWin;
 
     public AIComputerPlayer(Board board) {
         this.board = board;
         this.symbolToWin = this.symbol;
-        this.highestScore = 0;
-        this.bestMove = 0;
     }
 
-    public int minimax(Board board, Symbol symbol) {
+    public int[] minimax(Board board, Symbol symbol) {
         int index = -1;
         int score = 0;
 
+        if (symbol == O) {
+            score = -100;
+        } else {
+            score = 100;
+        }
+
+        if (!board.gameNotOver()) {
+            int[] result = new int[]{-1, evaluate(board)};
+            return result;
+        }
+
         for (int emptyCell : board.validMoves()) {
-            int newIndex = emptyCell;
-            int temporaryScore = 0;
 
-            Board copyOfBoard = new Board();
+            Board copyOfBoard = new Board(3);
             copyOfBoard.clone(board);
-            copyOfBoard.markPlayer(emptyCell, computeCurrentPlayer(copyOfBoard));
+            Symbol currentPlayer = computeCurrentPlayer(copyOfBoard);
 
-            if (copyOfBoard.isFull() || copyOfBoard.isWin()) {
-                temporaryScore = evaluate(copyOfBoard);
-            } else {
-                int newScore = minimax(copyOfBoard, computeCurrentPlayer(copyOfBoard));
-                temporaryScore = newScore;
-            }
+            copyOfBoard.markPlayer(emptyCell, currentPlayer);
 
-                if (computeCurrentPlayer(copyOfBoard).equals(O) && temporaryScore > highestScore) {
-                    highestScore = temporaryScore;
-                    index = newIndex;
-                } else if (computeCurrentPlayer(copyOfBoard).equals(X) && temporaryScore < lowestScore) {
-                    highestScore = temporaryScore;
-                    index = newIndex;
-                }
+            int[] newScore = minimax(copyOfBoard, computeCurrentPlayer(copyOfBoard));
+            int temporaryScore = newScore[1];
+
+            if (symbol.equals(O) && temporaryScore > score) {
+                index = emptyCell;
+                score = temporaryScore;
+            } else if (symbol.equals(X) && temporaryScore < score) {
+                index = emptyCell;
+                score = temporaryScore;
             }
-        return index;
+        }
+        int[] bestMove = new int[]{index, score};
+        return bestMove;
     }
 
     public int evaluate(Board copyOfBoard) {
@@ -66,7 +67,6 @@ public class AIComputerPlayer implements ComputerPlayer {
         }
         return evaluation;
     }
-
 
     public Symbol getSymbol() {
         return O;
@@ -81,15 +81,13 @@ public class AIComputerPlayer implements ComputerPlayer {
     }
 
     private Symbol switchPlayers(int emptyCells) {
-        if ((emptyCells % 2) == 0) {
-            return O;
-        } else {
-            return X;
-        }
+        if (emptyCells % 2 == 0) return O;
+        return X;
     }
 
     public int move() {
-        return minimax(board, getSymbol());
+        int[] bestMove = minimax(board, getSymbol());
+        return bestMove[0];
     }
 }
 

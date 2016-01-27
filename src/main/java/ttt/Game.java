@@ -1,4 +1,5 @@
 package ttt;
+
 import ttt.board.Board;
 import ttt.board.DisplayBoard;
 import ttt.inputOutput.IO;
@@ -14,11 +15,10 @@ import static ttt.Symbol.E;
 
 public class Game {
     private Board board;
-    private Symbol currentSymbol;
     private IO io;
     private Player currentPlayer;
-    private Player computerPlayer;
-    private Player humanPlayer;
+    private ComputerPlayer computerPlayer;
+    private HumanPlayer humanPlayer;
 
     public Game(Board board, IO io, ComputerPlayer computerPlayer, HumanPlayer humanPlayer) {
         this.board = board;
@@ -29,7 +29,6 @@ public class Game {
     }
 
     public void gameLoop() {
-        io.showOutput("You are the cross symbol (Enter a position from 0 - 8:)");
         while (board.gameNotOver()) {
             showCurrentBoard();
             computeCurrentPlayer(board);
@@ -40,29 +39,37 @@ public class Game {
 
     public void computeCurrentPlayer(Board board) {
         List<Integer> emptyCells = new ArrayList<>();
-        IntStream.range(0, 9)
-            .filter(cell -> board.get(cell).equals(E))
-            .forEach(i -> emptyCells.add(i));
+        IntStream.range(0, board.contentsOfBoard().size())
+                .filter(cell -> board.get(cell).equals(E))
+                .forEach(i -> emptyCells.add(i));
         switchPlayers(emptyCells.size());
     }
 
     private void switchPlayers(int emptyCells) {
-        if ((emptyCells % 2) == 0) {
-            currentPlayer = computerPlayer;
-        } else {
-            currentPlayer = humanPlayer;
+        if (board.contentsOfBoard().size() % 2 != 0) {
+            if (emptyCells % 2 == 0) {
+                currentPlayer = computerPlayer;
+            } else {
+                currentPlayer = humanPlayer;
+            }
+        } else if (board.contentsOfBoard().size() % 2 == 0) {
+            if (emptyCells % 2 == 0) {
+                currentPlayer = humanPlayer;
+            } else {
+                currentPlayer = computerPlayer;
+            }
         }
     }
 
     public void showCurrentBoard() {
-        DisplayBoard currentDisplay = new DisplayBoard(board.getCurrentBoard());
+        DisplayBoard currentDisplay = new DisplayBoard(board.contentsOfBoard());
         io.showOutput(currentDisplay.showBoard());
     }
 
     private void endOfGameDisplay() {
         showCurrentBoard();
         if (board.isWin()) {
-            io.showOutput("player " + currentSymbol + " has won!");
+            io.showOutput("player " + currentPlayer.getSymbol() + " has won!");
         }
         io.showOutput("game over");
     }
