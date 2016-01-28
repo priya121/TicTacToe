@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ttt.board.DisplayBoardTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2016-01-13T11:51:52" hostname="Priyas-MacBook-Pro-2.local" time="0.0">
-  <properties/>
-  <testcase name="displaysEmptyBoard" classname="ttt.board.DisplayBoardTest" time="0.0"/>
-  <testcase name="displaysCurrentBoard" classname="ttt.board.DisplayBoardTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
