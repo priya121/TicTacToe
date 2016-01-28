@@ -2,13 +2,9 @@ package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Game;
 import ttt.board.Board;
-import ttt.inputOutput.FakeIO;
-import ttt.inputOutput.IO;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static ttt.Symbol.*;
 
@@ -47,8 +43,7 @@ public class AIComputerPlayerTest {
                                                           E, O, O,
                                                           E, E, O));
         AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
-        int[] result = computerPlayer.minimax(intermediateBoard, O);
-        Assert.assertEquals(0, result[0]);
+        Assert.assertEquals(3, computerPlayer.move());
     }
 
     @Test
@@ -66,7 +61,7 @@ public class AIComputerPlayerTest {
                                                           O, E, E,
                                                           E, X, E));
         AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
-        //Assert.assertEquals(6, computerPlayer.move());
+        Assert.assertEquals(6, computerPlayer.move());
     }
 
     @Test
@@ -85,20 +80,6 @@ public class AIComputerPlayerTest {
                                                           X, E, X));
         AIComputerPlayer computerPlayer = new AIComputerPlayer(intermediateBoard);
         Assert.assertEquals(4, computerPlayer.move());
-    }
-
-    private FakeIO getFakeIO(List<String> input) {
-        return new FakeIO(input);
-    }
-
-    private Game getIntermediateGame(IO humanMoves, Board board) {
-        HumanPlayer human = new HumanPlayer(humanMoves, board);
-        AIComputerPlayer computerPlayer = new AIComputerPlayer(board);
-        return new Game(board, humanMoves, computerPlayer, human);
-    }
-
-    public FakeIO humanMoves(List<String> moves) {
-        return getFakeIO(moves);
     }
 }
 

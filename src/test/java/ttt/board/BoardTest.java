@@ -72,7 +72,7 @@ public class BoardTest {
                                                    E, E, E, E,
                                                    E, E, E, E,
                                                    E, E, E, E));
-        Assert.assertTrue(fourByFour.checkWinningLine(fourByFour.getRows(), X));
+        Assert.assertTrue(fourByFour.checkWinningRows(X));
         Assert.assertEquals(false, fourByFour.checkWins(O));
     }
 
@@ -83,7 +83,7 @@ public class BoardTest {
                                                       E, E, E, E,
                                                       E, E, E, E));
         Assert.assertEquals(fillRows(empty, threeCrosses, empty, empty), getSymbols(newFourByFour.getRows()));
-        Assert.assertFalse(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
+        Assert.assertFalse(newFourByFour.checkWinningRows(X));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class BoardTest {
                                                       X, X, X, X,
                                                       E, E, E, E));
         Assert.assertEquals(fillRows(empty, empty, allCrosses, empty), getSymbols(newFourByFour.getRows()));
-        Assert.assertTrue(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
+        Assert.assertTrue(newFourByFour.checkWinningRows(X));
     }
 
     @Test
@@ -103,8 +103,8 @@ public class BoardTest {
                                                       E, E, E, E,
                                                       O, O, O, O));
         Assert.assertEquals(fillRows(empty, empty, empty, allNoughts), getSymbols(newFourByFour.getRows()));
-        Assert.assertTrue(newFourByFour.checkWinningLine(newFourByFour.getRows(), O));
-        Assert.assertFalse(newFourByFour.checkWinningLine(newFourByFour.getRows(), X));
+        Assert.assertTrue(newFourByFour.checkWinningRows(O));
+        Assert.assertFalse(newFourByFour.checkWinningRows(X));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class BoardTest {
                                                    X, E, E, E,
                                                    E, E, E, E));
         Assert.assertEquals(fillColumns(threeCrosses, empty, empty, empty), getSymbols(fourByFour.getColumns()));
-        Assert.assertFalse(fourByFour.checkWinningLine(fourByFour.getRows(), X));
+        Assert.assertFalse(fourByFour.checkWinningRows(X));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class BoardTest {
                                                    E, E, X, E,
                                                    E, E, X, E));
         Assert.assertEquals(fillColumns(empty, empty, allCrosses, empty), getSymbols(fourByFour.getColumns()));
-        Assert.assertTrue(fourByFour.checkWinningLine(fourByFour.getColumns(), X));
+        Assert.assertTrue(fourByFour.checkWinningColumns(X));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class BoardTest {
                                               E, E, X, E,
                                               E, E, E, X));
         Assert.assertEquals(fillDiagonals(allCrosses, empty), getSymbols(board.getDiagonals()));
-        Assert.assertTrue(board.checkWinningLine(board.getDiagonals(), X));
+        Assert.assertTrue(board.checkWinningDiagonals(X));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class BoardTest {
         Board threeByThree = new Board(Arrays.asList(X, X, X,
                                                      E, E, E,
                                                      O, O, O));
-        Assert.assertTrue(threeByThree.checkWinningLine((threeByThree.getRows()), O));
+        Assert.assertTrue(threeByThree.checkWinningRows(O));
     }
 
     @Test
@@ -168,7 +168,7 @@ public class BoardTest {
                                                                          E, E, E, E, E, E, E, E, E, E));
         Board tenByTen = new Board(expectedBoard);
         Assert.assertEquals(expectedBoard, tenByTen.contentsOfBoard());
-        Assert.assertTrue(tenByTen.checkWinningLine(tenByTen.getRows(), O));
+        Assert.assertTrue(tenByTen.checkWinningRows(O));
         Assert.assertEquals(true, tenByTen.checkWins(O));
     }
 

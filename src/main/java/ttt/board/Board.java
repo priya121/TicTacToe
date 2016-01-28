@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static ttt.Symbol.E;
-import static ttt.Symbol.X;
-import static ttt.Symbol.O;
+import static java.util.stream.Collectors.toList;
+import static ttt.Symbol.*;
 
 public class Board {
     private List<Symbol> board;
@@ -40,20 +39,20 @@ public class Board {
         return new DiagonalGenerator().createDiagonal(contentsOfBoard(), size);
     }
 
-    boolean checkWinningLine(List<Line> lines, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line line : lines) {
-            for (int i = 0; i < line.getSymbols().size(); i++) {
-                winningLine = line.getSymbols().get(i) == symbol;
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
+    boolean checkWinningColumns(Symbol symbol) {
+        return new ColumnGenerator().winningColumns(contentsOfBoard(), size, symbol);
+    }
+
+    boolean checkWinningRows(Symbol symbol) {
+        return new RowGenerator().winningRows(contentsOfBoard(), size, symbol);
+    }
+
+    boolean checkWinningDiagonals(Symbol symbol) {
+        return new DiagonalGenerator().winningDiagonals(contentsOfBoard(), size, symbol);
     }
 
     boolean checkWins(Symbol symbol) {
-        return (checkWinningLine(getRows(), symbol) || checkWinningLine(getColumns(), symbol) || checkWinningLine(getDiagonals(), symbol));
+        return (checkWinningRows(symbol) || checkWinningColumns(symbol) || checkWinningDiagonals(symbol));
     }
 
     public List<Symbol> markPlayer(int indexPosition, Symbol player) {
@@ -78,10 +77,10 @@ public class Board {
     }
 
     public List<Integer> validMoves() {
-        List<Integer> validMoves = new ArrayList<>();
-        IntStream.range(0, this.board.size())
+        List<Integer> validMoves =
+        IntStream.range(0, this.board.size()).boxed()
                 .filter(index -> this.board.get(index).equals(E))
-                .forEach(i -> validMoves.add(i));
+                .collect(toList());
         return validMoves;
     }
 

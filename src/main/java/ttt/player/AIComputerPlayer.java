@@ -45,10 +45,10 @@ public class AIComputerPlayer implements ComputerPlayer {
             int[] newScore = minimax(copyOfBoard, computeCurrentPlayer(copyOfBoard));
             int temporaryScore = newScore[1];
 
-            if (symbol.equals(O) && temporaryScore > score) {
+            if (symbol.equals(O) && temporaryScore >= score) {
                 index = emptyCell;
                 score = temporaryScore;
-            } else if (symbol.equals(X) && temporaryScore < score) {
+            } else if (symbol.equals(X) && temporaryScore <= score) {
                 index = emptyCell;
                 score = temporaryScore;
             }

@@ -30,6 +30,23 @@ class RowGenerator {
         }
         return lines;
     }
+
+    public boolean checkRowWins(List<Line> rows, Symbol symbol) {
+        boolean winningLine = false;
+        for (Line row : rows) {
+            for (int i = 0; i < row.getSymbols().size(); i++) {
+                winningLine = row.getSymbols().get(i) == symbol;
+                if (!winningLine) break;
+            }
+            if (winningLine) return true;
+        }
+        return winningLine;
+    }
+
+    public boolean winningRows(List<Symbol> rows, int size, Symbol symbol) {
+        List<Line> lines = createRow(rows, size);
+        return checkRowWins(lines, symbol);
+    }
 }
 
 class ColumnGenerator {
@@ -44,6 +61,23 @@ class ColumnGenerator {
             lines.add(new Line(columns));
         }
         return lines;
+    }
+
+    public boolean checkColumnsWins(List<Line> columns, Symbol symbol) {
+        boolean winningLine = false;
+        for (Line column : columns) {
+            for (int i = 0; i < column.getSymbols().size(); i++) {
+                winningLine = column.getSymbols().get(i) == symbol;
+                if (!winningLine) break;
+            }
+            if (winningLine) return true;
+        }
+        return winningLine;
+    }
+
+    public boolean winningColumns(List<Symbol> columns, int size, Symbol symbol) {
+        List<Line> lines = createColumn(columns, size);
+        return checkColumnsWins(lines, symbol);
     }
 }
 
@@ -62,6 +96,23 @@ class DiagonalGenerator {
         lines.add(new Line(leftToRightDiagonal));
         lines.add(new Line(rightToLeftDiagonal));
         return lines;
+    }
+
+    public boolean checkDiagonalWins(List<Line> diagonals, Symbol symbol) {
+        boolean winningLine = false;
+        for (Line diagonal : diagonals) {
+            for (int i = 0; i < diagonal.getSymbols().size(); i++) {
+                winningLine = diagonal.getSymbols().get(i) == symbol;
+                if (!winningLine) break;
+            }
+            if (winningLine) return true;
+        }
+        return winningLine;
+    }
+
+    public boolean winningDiagonals(List<Symbol> diagonals, int size, Symbol symbol) {
+        List<Line> lines = createDiagonal(diagonals, size);
+        return checkDiagonalWins(lines, symbol);
     }
 
 }

@@ -30,6 +30,7 @@ public class Game {
 
     public void gameLoop() {
         while (board.gameNotOver()) {
+            io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
             computeCurrentPlayer(board);
             board.markPlayer(currentPlayer.move(), currentPlayer.getSymbol());
@@ -46,18 +47,21 @@ public class Game {
     }
 
     private void switchPlayers(int emptyCells) {
+        boardOddNumberOfCells(emptyCells);
+        boardEvenNumberOfCells(emptyCells);
+    }
+
+    private void boardEvenNumberOfCells(int emptyCells) {
+        if (board.contentsOfBoard().size() % 2 == 0) {
+            if (emptyCells % 2 == 0) currentPlayer = humanPlayer;
+            else currentPlayer = computerPlayer;
+        }
+    }
+
+    private void boardOddNumberOfCells(int emptyCells) {
         if (board.contentsOfBoard().size() % 2 != 0) {
-            if (emptyCells % 2 == 0) {
-                currentPlayer = computerPlayer;
-            } else {
-                currentPlayer = humanPlayer;
-            }
-        } else if (board.contentsOfBoard().size() % 2 == 0) {
-            if (emptyCells % 2 == 0) {
-                currentPlayer = humanPlayer;
-            } else {
-                currentPlayer = computerPlayer;
-            }
+            if (emptyCells % 2 == 0) currentPlayer = computerPlayer;
+            else currentPlayer = humanPlayer;
         }
     }
 
