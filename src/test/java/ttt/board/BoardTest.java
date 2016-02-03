@@ -3,21 +3,23 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.GameSetup;
+import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
 import ttt.player.FakeComputerPlayer;
 import ttt.player.HumanPlayer;
+import ttt.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static ttt.Symbol.*;
+
 public class BoardTest {
     Board threeByThree = new Board(3);
     Board fourByFour = new Board(4);
-    GameSetup expected = new GameSetup();
+    SetupBoard expected = new SetupBoard();
     List<Symbol> empty = Arrays.asList(E, E, E, E);
     List<Symbol> allCrosses = Arrays.asList(X, X, X, X);
     List<Symbol> allNoughts = Arrays.asList(O, O, O, O);
@@ -199,77 +201,99 @@ public class BoardTest {
 
     @Test
     public void checksWinLastRowForCross() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("1", "5", "2")), computerMoves(Arrays.asList(6, 7, 8)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "X", "1", "5", "2", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(6, 7, 8), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksWinSecondRowForCross() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("3", "4", "5")), computerMoves(Arrays.asList(0, 6)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("O", "O", "3", "4", "5", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(0, 6, 8), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksWinForFourByFourBoard() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "5", "6", "7")), computerMoves(Arrays.asList(0, 15, 8, 1)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "4", "X", "4", "5", "6", "7", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, fourByFour);
+        Game game = getFourByFourGame(humanMoves, computerMoves(Arrays.asList(0, 15, 8, 1), human));
         game.gameLoop();
         Assert.assertEquals(true, fourByFour.isWin());
     }
 
     @Test
     public void checksNoughtWinsDiagonally() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "1", "3", "7", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(0, 4, 8), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksAnotherDiagonalWin() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("3", "1", "3", "7")), computerMoves(Arrays.asList(0, 4, 8)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "1", "3", "7", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(0, 4, 8), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksDiagonalWinForCross() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("0", "4", "8")), computerMoves(Arrays.asList(1, 6)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "0", "4", "8", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(1, 6, 2), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksDiagonalWinForNought() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("3", "0", "5")), computerMoves(Arrays.asList(2, 6, 4)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "3", "0", "5", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(2, 6, 4), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksVerticalWinMiddleColumnForCross() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("1", "4", "7")), computerMoves(Arrays.asList(0, 6)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "1", "4", "7", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(0, 6, 8), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void returnsFalseIfNoWin() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("0", "2", "3", "7", "8")), computerMoves(Arrays.asList(1, 4, 5, 6)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "0", "2", "3", "7", "8", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(1, 4, 5, 6), human));
         game.gameLoop();
         Assert.assertEquals(false, threeByThree.isWin());
     }
 
     @Test
     public void checksVerticalWinFirstColumnForCross() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("0", "3", "6")), computerMoves(Arrays.asList(1, 8)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "0", "3", "6", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(1, 8, 7, 2), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.isWin());
     }
 
     @Test
     public void checksVerticalWinLastColumn() {
-        Game game = getThreeByThreeGame(humanMoves(Arrays.asList("2", "1", "5", "3", "8")), computerMoves(Arrays.asList(1, 3)));
+        FakeIO humanMoves = new FakeIO(Arrays.asList("X", "2", "5", "8", "N"));
+        HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
+        Game game = getThreeByThreeGame(humanMoves, computerMoves(Arrays.asList(1, 3, 4), human));
         game.gameLoop();
         Assert.assertEquals(true, threeByThree.checkWins(X));
         Assert.assertEquals(false, threeByThree.checkWins(O));
@@ -323,26 +347,26 @@ public class BoardTest {
         return new FakeIO(input);
     }
 
-    private FakeComputerPlayer getFakeComputerMoves(List<Integer> input) {
-        return new FakeComputerPlayer(input);
+    private FakeComputerPlayer getFakeComputerMoves(List<Integer> input, Player opponent) {
+        return new FakeComputerPlayer(input, opponent);
     }
 
     private Game getThreeByThreeGame(FakeIO humanMoves, FakeComputerPlayer computerMoves) {
         HumanPlayer human = new HumanPlayer(humanMoves, threeByThree);
-        return new Game(threeByThree, humanMoves, computerMoves, human);
+        return new Game(threeByThree, humanMoves, human, computerMoves);
     }
 
     private Game getFourByFourGame(FakeIO humanMoves, FakeComputerPlayer computerMoves) {
         HumanPlayer human = new HumanPlayer(humanMoves, fourByFour);
-        return new Game(fourByFour, humanMoves, computerMoves, human);
+        return new Game(fourByFour, humanMoves, human, computerMoves);
     }
 
     public FakeIO humanMoves(List<String> moves) {
         return getFakeIO(moves);
     }
 
-    public FakeComputerPlayer computerMoves(List<Integer> moves) {
-        return getFakeComputerMoves(moves);
+    public FakeComputerPlayer computerMoves(List<Integer> moves, Player opponent) {
+        return getFakeComputerMoves(moves, opponent);
     }
 
     private List<List<Symbol>> fillRows(List<Symbol> firstRow, List<Symbol> secondRow, List<Symbol> thirdRow, List<Symbol> fourthRow) {

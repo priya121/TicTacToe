@@ -4,6 +4,7 @@ import ttt.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Line {
     private final List<Symbol> row;
@@ -61,6 +62,26 @@ class ColumnGenerator {
             lines.add(new Line(columns));
         }
         return lines;
+    }
+
+    public List<Symbol> firstColumn(List<Symbol> contentOfBoard, int size) {
+        List<Symbol> row = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+                 IntStream.range(0, contentOfBoard.size()).boxed()
+                        .filter(index -> index % size == 0)
+                        .filter(index -> row.add(contentOfBoard.get(index)));
+        System.out.println(row);
+        return row;
+
+    }
+
+    public List<Integer> nextColumns(List<Integer> firstColumn) {
+        List<Integer> row = new ArrayList<>();
+                IntStream.range(0, firstColumn.size()).boxed()
+                .mapToInt(index -> index + 1)
+                .filter(row::add);
+        System.out.println(row);
+        return row;
     }
 
     public boolean checkColumnsWins(List<Line> columns, Symbol symbol) {

@@ -10,13 +10,14 @@ import java.util.stream.IntStream;
 import static ttt.Symbol.*;
 
 public class AIComputerPlayer implements ComputerPlayer {
+    Player opponent;
     Board board;
-    Symbol symbol;
-    Symbol symbolToWin;
+    Symbol winningSymbol;
 
-    public AIComputerPlayer(Board board) {
+    public AIComputerPlayer(Board board, Player opponent) {
         this.board = board;
-        this.symbolToWin = this.symbol;
+        this.opponent = opponent;
+        this.winningSymbol = calculateOwnSymbol();
     }
 
     public int[] minimax(Board board, Symbol symbol) {
@@ -30,31 +31,28 @@ public class AIComputerPlayer implements ComputerPlayer {
         }
 
         if (!board.gameNotOver()) {
-            int[] result = new int[]{-1, evaluate(board)};
-            return result;
+            return new int[]{-1, evaluate(board)};
         }
 
         for (int emptyCell : board.validMoves()) {
 
-            Board copyOfBoard = new Board(3);
-            copyOfBoard.clone(board);
-            Symbol currentPlayer = computeCurrentPlayer(copyOfBoard);
+            Board copyOfBoard = (Board) board.clone();
 
+            Symbol currentPlayer = computeCurrentPlayer(copyOfBoard);
             copyOfBoard.markPlayer(emptyCell, currentPlayer);
 
             int[] newScore = minimax(copyOfBoard, computeCurrentPlayer(copyOfBoard));
             int temporaryScore = newScore[1];
 
-            if (symbol.equals(O) && temporaryScore >= score) {
+            if (symbol.equals(winningSymbol) && temporaryScore >= score) {
                 index = emptyCell;
                 score = temporaryScore;
-            } else if (symbol.equals(X) && temporaryScore <= score) {
+            } else if (symbol.equals(opponent.calculateOwnSymbol()) && temporaryScore <= score) {
                 index = emptyCell;
                 score = temporaryScore;
             }
         }
-        int[] bestMove = new int[]{index, score};
-        return bestMove;
+         return new int[]{index, score};
     }
 
     public int evaluate(Board copyOfBoard) {
@@ -68,8 +66,16 @@ public class AIComputerPlayer implements ComputerPlayer {
         return evaluation;
     }
 
-    public Symbol getSymbol() {
-        return O;
+    public Symbol calculateOwnSymbol() {
+        if (opponent.calculateOwnSymbol().equals(O)) {
+            return X;
+        } else {
+            return O;
+        }
+    }
+
+    public Symbol setPlayerSymbol() {
+        return winningSymbol;
     }
 
     private Symbol computeCurrentPlayer(Board board) {
@@ -81,14 +87,12 @@ public class AIComputerPlayer implements ComputerPlayer {
     }
 
     private Symbol switchPlayers(int emptyCells) {
-        if (emptyCells % 2 == 0) return O;
-        return X;
+        if (emptyCells % 2 == 0) return winningSymbol;
+        return opponent.calculateOwnSymbol();
     }
 
     public int move() {
-        int[] bestMove = minimax(board, getSymbol());
+        int[] bestMove = minimax(board, winningSymbol);
         return bestMove[0];
     }
 }
-
-

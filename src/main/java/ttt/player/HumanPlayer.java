@@ -8,31 +8,22 @@ import static ttt.Symbol.X;
 
 public class HumanPlayer implements Player {
     private IO io;
+    private SymbolChooser symbolChosen;
     private Board board;
     private int indexChosen;
     private String userInput;
-    private String sizeOfBoardChosen;
-    private int sizeChosen;
+    private Symbol chosenSymbol;
 
     public HumanPlayer(IO io, Board board) {
         this.io = io;
         this.board = board;
+        this.symbolChosen = new SymbolChooser(io);
+        this.chosenSymbol = X;
     }
 
     public String takesUserInput() {
         userInput = io.takeInput();
         return userInput;
-    }
-
-    public String getSizeOfBoard() {
-        sizeOfBoardChosen = io.takeInput();
-        return sizeOfBoardChosen;
-    }
-
-    public int size() {
-        sizeOfBoardChosen = getSizeOfBoard();
-        sizeChosenValidDigit(sizeOfBoardChosen);
-        return sizeChosen;
     }
 
     private int validMove() {
@@ -57,26 +48,17 @@ public class HumanPlayer implements Player {
         return digitInput;
     }
 
-    private boolean sizeChosenValidDigit(String sizeOfBoardChosen) {
-        boolean digitInput = false;
-        while (!digitInput) {
-            try {
-                sizeChosen = Integer.parseInt(sizeOfBoardChosen);
-                digitInput = true;
-            } catch (Exception e) {
-                io.showOutput("Please enter a valid number");
-                sizeOfBoardChosen = getSizeOfBoard();
-            }
-        }
-        return digitInput;
-    }
-
     public int move() {
         takesUserInput();
         return validMove();
     }
 
-    public Symbol getSymbol() {
-        return X;
+    public Symbol setPlayerSymbol() {
+        chosenSymbol = symbolChosen.getSymbol();
+        return chosenSymbol;
+    }
+
+    public Symbol calculateOwnSymbol() {
+        return chosenSymbol;
     }
 }

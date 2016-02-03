@@ -8,7 +8,7 @@ import java.util.List;
 
 import static ttt.Symbol.E;
 
-public class GameSetupTest {
+public class SetupBoardTest {
 
     public List<Symbol> emptyBoard(int height, int width) {
         List<Symbol> board = new ArrayList<Symbol>();
@@ -20,7 +20,7 @@ public class GameSetupTest {
 
     @Test
     public void returnsEmptyBoard() {
-        GameSetup newGame = new GameSetup();
+        SetupBoard newGame = new SetupBoard();
         List<Symbol> empty = emptyBoard(3, 3);
         Assert.assertEquals(empty, newGame.emptyBoard(3, 3));
     }

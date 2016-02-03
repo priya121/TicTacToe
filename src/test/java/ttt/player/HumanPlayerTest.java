@@ -14,6 +14,8 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static ttt.Symbol.X;
+import static ttt.Symbol.O;
 
 public class HumanPlayerTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
@@ -25,7 +27,9 @@ public class HumanPlayerTest {
     }
 
     private FakeComputerPlayer getFakeComputerMoves(List<Integer> input) {
-        return new FakeComputerPlayer(input);
+        FakeIO fakeInput = getFakeIO(Arrays.asList("X"));
+        HumanPlayer humanPlayer = new HumanPlayer(fakeInput, board);
+        return new FakeComputerPlayer(input, humanPlayer);
     }
 
     public ConsoleIO convertUserInput(InputStream userInput) {
@@ -39,14 +43,23 @@ public class HumanPlayerTest {
     private Game getGame(String humanMoves, FakeComputerPlayer computerMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
         HumanPlayer human = new HumanPlayer(io, board);
-        return new Game(board, io, computerMoves, human);
+        return new Game(board, io, human, computerMoves);
     }
 
     @Test
-    public void userDecidesOnGameDimension() {
-        FakeIO fakeInput = getFakeIO(Arrays.asList("4"));
+    public void playerCanChooseToBeTheCrossSymbol() {
+        FakeIO fakeInput = getFakeIO(Arrays.asList("X"));
         HumanPlayer humanPlayer = new HumanPlayer(fakeInput, board);
-        Assert.assertEquals(4, humanPlayer.size());
+        Assert.assertEquals(X, humanPlayer.setPlayerSymbol());
+        Assert.assertEquals(X, humanPlayer.calculateOwnSymbol());
+    }
+
+    @Test
+    public void playerCanChooseToBeNoughtSymbol() {
+        FakeIO fakeInput = getFakeIO(Arrays.asList("O"));
+        HumanPlayer humanPlayer = new HumanPlayer(fakeInput, board);
+        Assert.assertEquals(O, humanPlayer.setPlayerSymbol());
+        Assert.assertEquals(O, humanPlayer.calculateOwnSymbol());
     }
 
     @Test
@@ -58,21 +71,21 @@ public class HumanPlayerTest {
 
     @Test
     public void userMustEnterEmptyPositionIndex() {
-        Game game = getGame("3\n0\n0\n1\n2\n", computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\nX\n0\n0\n1\n2\nN\n", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }
 
     @Test
     public void playerOnlyMakesValidDigitMove() {
-        Game game = getGame("3\na\na\n1\n0\n2", computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\na\na\n1\n0\n2\nN\n", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a valid number"));
     }
 
     @Test
     public void playerOnlyMakesAMoveOnTheBoard() {
-        Game game = getGame("3\n100\n1\n2\n0\n", computerMoves(Arrays.asList(5, 7, 8)));
+        Game game = getGame("3\nX\n100\n1\n2\n0\nN\n", computerMoves(Arrays.asList(5, 7, 8)));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }

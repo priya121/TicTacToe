@@ -11,7 +11,8 @@ import static ttt.Symbol.*;
 
 public class Board {
     private List<Symbol> board;
-    private int size;
+    BoardSize lines;
+    int size;
 
     public Board(int size) {
         List<Symbol> newBoard = new ArrayList<>();
@@ -20,35 +21,37 @@ public class Board {
         }
         this.board = newBoard;
         this.size = (int) Math.sqrt(newBoard.size());
+        this.lines = new BoardSize(this);
     }
 
     public Board(List<Symbol> board) {
         this.board = board;
         this.size = (int) Math.sqrt(board.size());
+        this.lines = new BoardSize(this);
     }
 
     public List<Line> getRows() {
-        return new RowGenerator().createRow(contentsOfBoard(), size);
+        return lines.rows();
     }
 
     public List<Line> getColumns() {
-        return new ColumnGenerator().createColumn(contentsOfBoard(), size);
+        return lines.columns();
     }
 
     public List<Line> getDiagonals() {
-        return new DiagonalGenerator().createDiagonal(contentsOfBoard(), size);
+        return lines.diagonals();
     }
 
     boolean checkWinningColumns(Symbol symbol) {
-        return new ColumnGenerator().winningColumns(contentsOfBoard(), size, symbol);
+        return lines.anyColumnWins(symbol);
     }
 
     boolean checkWinningRows(Symbol symbol) {
-        return new RowGenerator().winningRows(contentsOfBoard(), size, symbol);
+        return lines.anyRowWins(symbol);
     }
 
     boolean checkWinningDiagonals(Symbol symbol) {
-        return new DiagonalGenerator().winningDiagonals(contentsOfBoard(), size, symbol);
+        return lines.anyDiagonalWins(symbol);
     }
 
     boolean checkWins(Symbol symbol) {
@@ -77,11 +80,9 @@ public class Board {
     }
 
     public List<Integer> validMoves() {
-        List<Integer> validMoves =
-        IntStream.range(0, this.board.size()).boxed()
+        return IntStream.range(0, this.board.size()).boxed()
                 .filter(index -> this.board.get(index).equals(E))
                 .collect(toList());
-        return validMoves;
     }
 
     public boolean gameNotOver() {
@@ -100,9 +101,8 @@ public class Board {
         return checkWins(O);
     }
 
-    public void clone(Board board) {
-        for (int i = 0; i < board.contentsOfBoard().size(); i++) {
-            this.markPlayer(i, board.get(i));
-        }
+    public Object clone() {
+        List<Symbol> newBoard = new ArrayList<>(board);
+        return new Board(newBoard);
     }
 }

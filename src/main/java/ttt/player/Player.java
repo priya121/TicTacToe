@@ -3,5 +3,6 @@ import ttt.Symbol;
 
 public interface Player {
     int move();
-    Symbol getSymbol();
+    Symbol calculateOwnSymbol();
+    Symbol setPlayerSymbol();
 }

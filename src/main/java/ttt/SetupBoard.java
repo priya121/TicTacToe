@@ -5,9 +5,9 @@ import java.util.List;
 
 import static ttt.Symbol.E;
 
-public class GameSetup {
+public class SetupBoard {
 
-    public GameSetup() {
+    public SetupBoard() {
     }
 
     public List<Symbol> emptyBoard(int height, int width) {
