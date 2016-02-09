@@ -1,8 +1,9 @@
 package ttt.player;
+
 import ttt.Symbol;
+import ttt.board.Board;
 
 public interface Player {
-    int move();
-    Symbol calculateOwnSymbol();
-    Symbol setPlayerSymbol();
+    int move(Board board);
+    Symbol playerSymbol();
 }

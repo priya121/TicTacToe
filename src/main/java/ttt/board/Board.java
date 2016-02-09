@@ -9,10 +9,10 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 import static ttt.Symbol.*;
 
-public class Board {
-    private List<Symbol> board;
-    BoardSize lines;
-    int size;
+public final class Board {
+    private final List<Symbol> board;
+    final BoardSize lines;
+    private final int size;
 
     public Board(int size) {
         List<Symbol> newBoard = new ArrayList<>();
@@ -21,41 +21,17 @@ public class Board {
         }
         this.board = newBoard;
         this.size = (int) Math.sqrt(newBoard.size());
-        this.lines = new BoardSize(this);
+        this.lines = new BoardSize(size);
     }
 
     public Board(List<Symbol> board) {
         this.board = board;
         this.size = (int) Math.sqrt(board.size());
-        this.lines = new BoardSize(this);
-    }
-
-    public List<Line> getRows() {
-        return lines.rows();
-    }
-
-    public List<Line> getColumns() {
-        return lines.columns();
-    }
-
-    public List<Line> getDiagonals() {
-        return lines.diagonals();
-    }
-
-    boolean checkWinningColumns(Symbol symbol) {
-        return lines.anyColumnWins(symbol);
-    }
-
-    boolean checkWinningRows(Symbol symbol) {
-        return lines.anyRowWins(symbol);
-    }
-
-    boolean checkWinningDiagonals(Symbol symbol) {
-        return lines.anyDiagonalWins(symbol);
+        this.lines = new BoardSize(size);
     }
 
     boolean checkWins(Symbol symbol) {
-        return (checkWinningRows(symbol) || checkWinningColumns(symbol) || checkWinningDiagonals(symbol));
+        return (lines.checkWins(contentsOfBoard(), symbol));
     }
 
     public List<Symbol> markPlayer(int indexPosition, Symbol player) {
@@ -93,12 +69,8 @@ public class Board {
         return checkWins(O) || checkWins(X);
     }
 
-    public boolean winningSymbolCross() {
-        return checkWins(X);
-    }
-
-    public boolean winningSymbolNought() {
-        return checkWins(O);
+    public boolean winningSymbol(Symbol symbol) {
+        return checkWins(symbol);
     }
 
     public Object clone() {

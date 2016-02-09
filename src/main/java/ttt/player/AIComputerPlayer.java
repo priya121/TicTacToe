@@ -3,96 +3,73 @@ package ttt.player;
 import ttt.Symbol;
 import ttt.board.Board;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import static ttt.Symbol.*;
+import static ttt.Symbol.O;
+import static ttt.Symbol.X;
 
 public class AIComputerPlayer implements ComputerPlayer {
-    Player opponent;
-    Board board;
-    Symbol winningSymbol;
+    private Symbol opponentSymbol;
+    private Symbol winningSymbol;
 
-    public AIComputerPlayer(Board board, Player opponent) {
-        this.board = board;
-        this.opponent = opponent;
-        this.winningSymbol = calculateOwnSymbol();
+    public AIComputerPlayer(Symbol symbol) {
+        this.winningSymbol = symbol;
+        this.opponentSymbol = winningSymbol == X ? O : X;
     }
 
-    public int[] minimax(Board board, Symbol symbol) {
-        int index = -1;
-        int score = 0;
-
-        if (symbol == O) {
-            score = -100;
-        } else {
-            score = 100;
-        }
+    public BestMove minimax(Board board, Symbol currentSymbol) {
+        BestMove bestMove = new BestMove(-1, 0);
+        resetScore(currentSymbol, bestMove);
 
         if (!board.gameNotOver()) {
-            return new int[]{-1, evaluate(board)};
+            BestMove newBestMove = new BestMove(-1, scoreBoard(board));
+            return newBestMove;
         }
 
         for (int emptyCell : board.validMoves()) {
 
             Board copyOfBoard = (Board) board.clone();
+            copyOfBoard.markPlayer(emptyCell, currentSymbol);
 
-            Symbol currentPlayer = computeCurrentPlayer(copyOfBoard);
-            copyOfBoard.markPlayer(emptyCell, currentPlayer);
+            BestMove newScore = minimax(copyOfBoard, switchPlayer(currentSymbol));
+            int temporaryScore = newScore.score;
 
-            int[] newScore = minimax(copyOfBoard, computeCurrentPlayer(copyOfBoard));
-            int temporaryScore = newScore[1];
-
-            if (symbol.equals(winningSymbol) && temporaryScore >= score) {
-                index = emptyCell;
-                score = temporaryScore;
-            } else if (symbol.equals(opponent.calculateOwnSymbol()) && temporaryScore <= score) {
-                index = emptyCell;
-                score = temporaryScore;
+            if (currentSymbol.equals(winningSymbol) && temporaryScore >= bestMove.score) {
+                bestMove.index = emptyCell;
+                bestMove.score = temporaryScore;
+            } else if (currentSymbol.equals(opponentSymbol) && temporaryScore <= bestMove.score) {
+                bestMove.index = emptyCell;
+                bestMove.score = temporaryScore;
             }
         }
-         return new int[]{index, score};
+        return new BestMove(bestMove.index, bestMove.score);
     }
 
-    public int evaluate(Board copyOfBoard) {
-        int evaluation = 0;
-        if (copyOfBoard.winningSymbolNought()) {
-            evaluation = 1;
-        }
-        if (copyOfBoard.winningSymbolCross()) {
-            evaluation = -1;
-        }
-        return evaluation;
+    private Symbol switchPlayer(Symbol currentSymbol) {
+         return currentSymbol == winningSymbol ? opponentSymbol : winningSymbol;
     }
 
-    public Symbol calculateOwnSymbol() {
-        if (opponent.calculateOwnSymbol().equals(O)) {
-            return X;
+    private void resetScore(Symbol symbol, BestMove bestMove) {
+        if (symbol == winningSymbol) {
+            bestMove.score = -100;
         } else {
-            return O;
+            bestMove.score = 100;
         }
     }
 
-    public Symbol setPlayerSymbol() {
+    public int scoreBoard(Board copyOfBoard) {
+        if (copyOfBoard.winningSymbol(winningSymbol)) {
+            return 1;
+        } else if (copyOfBoard.winningSymbol(opponentSymbol)) {
+            return -1;
+        }
+        return 0;
+    }
+
+    public Symbol playerSymbol() {
         return winningSymbol;
     }
 
-    private Symbol computeCurrentPlayer(Board board) {
-        List<Integer> emptyCells = new ArrayList<>();
-        IntStream.range(0, 9)
-                .filter(cell -> board.get(cell).equals(E))
-                .forEach(i -> emptyCells.add(i));
-        return switchPlayers(emptyCells.size());
-    }
-
-    private Symbol switchPlayers(int emptyCells) {
-        if (emptyCells % 2 == 0) return winningSymbol;
-        return opponent.calculateOwnSymbol();
-    }
-
-    public int move() {
-        int[] bestMove = minimax(board, winningSymbol);
-        return bestMove[0];
+    public int move(Board board) {
+        BestMove bestMove = minimax(board, winningSymbol);
+        return bestMove.index;
     }
 }

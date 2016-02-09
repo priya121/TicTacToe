@@ -5,43 +5,31 @@ import ttt.Symbol;
 import java.util.List;
 
 public class BoardSize {
-    private final Board board;
     final int size;
+    LineGenerator lines;
 
-    public BoardSize(Board board) {
-        this.board = board;
-        this.size = board.size;
+    public BoardSize(int size) {
+        this.size = size;
+        this.lines = new LineGenerator();
     }
 
     public List<Line> rows() {
-        return new RowGenerator().createRow(board.contentsOfBoard(), size);
+        return lines.createRow(size);
     }
 
     public List<Line> columns() {
-        return new ColumnGenerator().createColumn(board.contentsOfBoard(), size);
+        return lines.createColumn(size);
     }
 
     public List<Line> diagonals() {
-        return new DiagonalGenerator().createDiagonal(board.contentsOfBoard(), size);
+        return lines.createDiagonal(size);
     }
 
-    public boolean anyRowWins(Symbol symbol) {
-        return checkRowWins(rows(), symbol);
-    }
-
-    public boolean anyColumnWins(Symbol symbol) {
-        return checkColumnWins(columns(), symbol);
-    }
-
-    public boolean anyDiagonalWins(Symbol symbol) {
-        return checkDiagonalWins(diagonals(), symbol);
-    }
-
-    private boolean checkDiagonalWins(List<Line> diagonals, Symbol symbol) {
+    public boolean checkRowWins(List<Symbol> symbols, Symbol symbol) {
         boolean winningLine = false;
-        for (Line diagonal : diagonals) {
-            for (int i = 0; i < diagonal.getSymbols().size(); i++) {
-                winningLine = diagonal.getSymbols().get(i) == symbol;
+        for (Line row : rows()) {
+            for (Integer index : row.getSymbols()) {
+                winningLine = (symbols.get(index) == symbol);
                 if (!winningLine) break;
             }
             if (winningLine) return true;
@@ -49,11 +37,11 @@ public class BoardSize {
         return winningLine;
     }
 
-    private boolean checkColumnWins(List<Line> columns, Symbol symbol) {
+    public boolean checkDiagonalWins(List<Symbol> symbols, Symbol symbol) {
         boolean winningLine = false;
-        for (Line column : columns) {
-            for (int i = 0; i < column.getSymbols().size(); i++) {
-                winningLine = column.getSymbols().get(i) == symbol;
+        for (Line diagonal : diagonals()) {
+            for (Integer index : diagonal.getSymbols()) {
+                winningLine = (symbols.get(index) == symbol);
                 if (!winningLine) break;
             }
             if (winningLine) return true;
@@ -61,15 +49,19 @@ public class BoardSize {
         return winningLine;
     }
 
-    public boolean checkRowWins(List<Line> rows, Symbol symbol) {
+    public boolean checkColumnWins(List<Symbol> symbols, Symbol symbol) {
         boolean winningLine = false;
-        for (Line row : rows) {
-            for (int i = 0; i < row.getSymbols().size(); i++) {
-                winningLine = row.getSymbols().get(i) == symbol;
+        for (Line column : columns()) {
+            for (Integer index : column.getSymbols()) {
+                winningLine = (symbols.get(index) == symbol);
                 if (!winningLine) break;
             }
             if (winningLine) return true;
         }
         return winningLine;
+    }
+
+    public boolean checkWins(List<Symbol> symbols, Symbol symbol) {
+        return checkRowWins(symbols, symbol) || checkColumnWins(symbols, symbol) || checkDiagonalWins(symbols, symbol);
     }
 }

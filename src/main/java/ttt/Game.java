@@ -1,7 +1,6 @@
 package ttt;
 
 import ttt.board.Board;
-import ttt.board.BoardChooser;
 import ttt.board.DisplayBoard;
 import ttt.inputOutput.IO;
 import ttt.player.Player;
@@ -13,11 +12,17 @@ import java.util.stream.IntStream;
 import static ttt.Symbol.E;
 
 public class Game {
-    private Board board;
-    private IO io;
-    private Player currentPlayer;
-    private Player playerOne;
-    private Player playerTwo;
+    GameCreator createGame;
+    public Board board;
+    IO io;
+    Player currentPlayer;
+    Player playerOne;
+    Player playerTwo;
+
+    public Game(IO io) {
+        this.io = io;
+        this.createGame = new GameCreator(io);
+    }
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo) {
         this.board = board;
@@ -27,20 +32,29 @@ public class Game {
         this.currentPlayer = playerOne;
     }
 
+    public Game setupGame() {
+        Game newGameSetup = createGame.createGame();
+        board = newGameSetup.board;
+        io = newGameSetup.io;
+        playerOne = newGameSetup.playerOne;
+        playerTwo = newGameSetup.playerTwo;
+
+        return new Game(board, io, playerOne, playerTwo);
+    }
+
     public void gameLoop() {
-        setFirstPlayerSymbol();
+        setupGame();
         while (board.gameNotOver()) {
             io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
             computeCurrentPlayer(board);
-            board.markPlayer(currentPlayer.move(), currentPlayer.calculateOwnSymbol());
+            board.markPlayer(currentPlayer.move(board), currentPlayer.playerSymbol());
         }
         endOfGameDisplay();
     }
 
-    private void setFirstPlayerSymbol() {
-        io.showOutput("Which symbol would you like player one to be? ");
-        playerOne.setPlayerSymbol();
+    public List<Symbol> getBoard() {
+        return board.contentsOfBoard();
     }
 
     public void computeCurrentPlayer(Board board) {
@@ -78,7 +92,7 @@ public class Game {
     private void endOfGameDisplay() {
         showCurrentBoard();
         if (board.isWin()) {
-            io.showOutput("playerOne " + currentPlayer.calculateOwnSymbol() + " has won!");
+            io.showOutput("playerOne " + currentPlayer.playerSymbol() + " has won!");
         }
         io.showOutput("game over");
         replayGameOption();
@@ -87,14 +101,16 @@ public class Game {
     private void replayGameOption() {
         io.showOutput("Would you like to play again? Y/N");
         String replayChosen = io.takeInput();
+        replayOptionChosen(replayChosen);
+    }
+
+    private void replayOptionChosen(String replayChosen) {
         if (replayChosen.equals("Y")) {
-            board = new BoardChooser(io).create();
             gameLoop();
         }
-            io.showOutput("Goodbye!");
     }
 
     public Symbol getPlayerOne() {
-        return currentPlayer.calculateOwnSymbol();
+        return currentPlayer.playerSymbol();
     }
 }

@@ -27,5 +27,10 @@ public class ConsoleIOTest {
         console.showOutput("Make your move:");
         Assert.assertEquals(recordedOutputStream.toString(), "Make your move:\n");
     }
+
+    @Test
+    public void convertsUserInputToTheRightGameTypeEnum() {
+        InputStream input = new ByteArrayInputStream("1\n".getBytes());
+    }
 }
 

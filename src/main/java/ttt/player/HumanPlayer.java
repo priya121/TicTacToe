@@ -8,17 +8,18 @@ import static ttt.Symbol.X;
 
 public class HumanPlayer implements Player {
     private IO io;
-    private SymbolChooser symbolChosen;
-    private Board board;
     private int indexChosen;
     private String userInput;
-    private Symbol chosenSymbol;
+    private Symbol symbol;
 
-    public HumanPlayer(IO io, Board board) {
+    public HumanPlayer(IO io) {
         this.io = io;
-        this.board = board;
-        this.symbolChosen = new SymbolChooser(io);
-        this.chosenSymbol = X;
+        this.symbol = X;
+    }
+
+    public HumanPlayer(IO io, Symbol symbol) {
+        this.io = io;
+        this.symbol = symbol;
     }
 
     public String takesUserInput() {
@@ -26,7 +27,7 @@ public class HumanPlayer implements Player {
         return userInput;
     }
 
-    private int validMove() {
+    private int validMove(Board board) {
         while (!digitInput(userInput) || !board.isPositionEmpty(indexChosen)) {
             io.showOutput("That position is already taken or is not on the board, try again.");
             takesUserInput();
@@ -48,17 +49,12 @@ public class HumanPlayer implements Player {
         return digitInput;
     }
 
-    public int move() {
+    public int move(Board board) {
         takesUserInput();
-        return validMove();
+        return validMove(board);
     }
 
-    public Symbol setPlayerSymbol() {
-        chosenSymbol = symbolChosen.getSymbol();
-        return chosenSymbol;
-    }
-
-    public Symbol calculateOwnSymbol() {
-        return chosenSymbol;
+    public Symbol playerSymbol() {
+        return symbol;
     }
 }

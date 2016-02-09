@@ -1,140 +1,94 @@
 package ttt.board;
 
-import ttt.Symbol;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Stream.concat;
 
 public class Line {
-    private final List<Symbol> row;
+    private final List<Integer> line;
 
-    public Line(List<Symbol> symbols) {
-        row = symbols;
+    public Line(List<Integer> symbols) {
+        line = symbols;
     }
 
-    public List<Symbol> getSymbols() {
-        return row;
+    public List<Integer> getSymbols() {
+        return line;
     }
 }
 
-class RowGenerator {
+class LineGenerator {
 
-    public List<Line> createRow(List<Symbol> contentOfBoard, int size) {
+    public Stream<IntStream> joinAllLines(int size) {
+        Stream<IntStream> diagonals = Stream.of(streamLeftDiagonals(size), streamRightToLeft(size));
+        Stream<IntStream> result = concat(concat(streamRows(size), streamColumns(size)), diagonals);
+        return result;
+    }
+
+    public Stream<IntStream> streamRows(int size) {
+        return IntStream.range(0, size * size)
+            .map(index -> index * size)
+            .mapToObj(rowStart -> IntStream.iterate(rowStart, index -> index++))
+            .limit(size);
+    }
+
+    public List<Line> createRow(int size) {
         List<Line> lines = new ArrayList<>();
         for (int i = 0; i < size * size; i += size) {
-            List<Symbol> rows = new ArrayList<>();
+            List<Integer> rows = new ArrayList<>();
             for (int j = i; j < i + size; j++) {
-                rows.add(contentOfBoard.get(j));
+                rows.add(j);
             }
             lines.add(new Line(rows));
         }
         return lines;
     }
 
-    public boolean checkRowWins(List<Line> rows, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line row : rows) {
-            for (int i = 0; i < row.getSymbols().size(); i++) {
-                winningLine = row.getSymbols().get(i) == symbol;
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
+    public Stream<IntStream> streamColumns(int size) {
+        return IntStream.range(0, size)
+            .mapToObj(columnStart -> IntStream.iterate(columnStart, index -> index += size))
+            .limit(size);
     }
 
-    public boolean winningRows(List<Symbol> rows, int size, Symbol symbol) {
-        List<Line> lines = createRow(rows, size);
-        return checkRowWins(lines, symbol);
-    }
-}
-
-class ColumnGenerator {
-
-    public List<Line> createColumn(List<Symbol> contentOfBoard, int size) {
+    public List<Line> createColumn(int size) {
         List<Line> lines = new ArrayList<>();
         for (int i = 0; i < (size); i++) {
-            List<Symbol> columns = new ArrayList<>();
+            List<Integer> columns = new ArrayList<>();
             for (int j = i; j < (size * size); j += size) {
-                columns.add(contentOfBoard.get(j));
+                columns.add(j);
             }
             lines.add(new Line(columns));
         }
         return lines;
     }
 
-    public List<Symbol> firstColumn(List<Symbol> contentOfBoard, int size) {
-        List<Symbol> row = new ArrayList<>();
-        List<Integer> result = new ArrayList<>();
-                 IntStream.range(0, contentOfBoard.size()).boxed()
-                        .filter(index -> index % size == 0)
-                        .filter(index -> row.add(contentOfBoard.get(index)));
-        System.out.println(row);
-        return row;
-
+    IntStream streamLeftDiagonals(int size) {
+        return  IntStream
+            .iterate(0, index -> index + size + 1)
+            .limit(size);
     }
 
-    public List<Integer> nextColumns(List<Integer> firstColumn) {
-        List<Integer> row = new ArrayList<>();
-                IntStream.range(0, firstColumn.size()).boxed()
-                .mapToInt(index -> index + 1)
-                .filter(row::add);
-        System.out.println(row);
-        return row;
+    IntStream streamRightToLeft(int size) {
+        return  IntStream
+            .iterate(size - 1, index -> index + size - 1)
+            .limit(size);
     }
 
-    public boolean checkColumnsWins(List<Line> columns, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line column : columns) {
-            for (int i = 0; i < column.getSymbols().size(); i++) {
-                winningLine = column.getSymbols().get(i) == symbol;
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
-    }
-
-    public boolean winningColumns(List<Symbol> columns, int size, Symbol symbol) {
-        List<Line> lines = createColumn(columns, size);
-        return checkColumnsWins(lines, symbol);
-    }
-}
-
-class DiagonalGenerator {
-
-    public List<Line> createDiagonal(List<Symbol> contentOfBoard, int size) {
-        List<Symbol> leftToRightDiagonal = new ArrayList<>();
-        List<Symbol> rightToLeftDiagonal = new ArrayList<>();
+    public List<Line> createDiagonal(int size) {
+        List<Integer> leftToRightDiagonal = new ArrayList<>();
+        List<Integer> rightToLeftDiagonal = new ArrayList<>();
         List<Line> lines = new ArrayList<>();
         for (int i = 0; i < size * size; i += size + 1) {
-            leftToRightDiagonal.add(contentOfBoard.get(i));
+            leftToRightDiagonal.add(i);
         }
         for (int j = size - 1; j < size * size - 1; j += size - 1) {
-            rightToLeftDiagonal.add(contentOfBoard.get(j));
+            rightToLeftDiagonal.add(j);
         }
         lines.add(new Line(leftToRightDiagonal));
         lines.add(new Line(rightToLeftDiagonal));
         return lines;
     }
-
-    public boolean checkDiagonalWins(List<Line> diagonals, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line diagonal : diagonals) {
-            for (int i = 0; i < diagonal.getSymbols().size(); i++) {
-                winningLine = diagonal.getSymbols().get(i) == symbol;
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
-    }
-
-    public boolean winningDiagonals(List<Symbol> diagonals, int size, Symbol symbol) {
-        List<Line> lines = createDiagonal(diagonals, size);
-        return checkDiagonalWins(lines, symbol);
-    }
-
 }
 

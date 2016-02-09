@@ -1,7 +1,6 @@
 package ttt.board;
 
 import org.junit.Test;
-import ttt.Symbol;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,13 +8,12 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static ttt.Symbol.E;
-import static ttt.Symbol.X;
 import static ttt.Symbol.O;
+import static ttt.Symbol.X;
 
 public class BoardSizeTest {
     Board board = new Board(3);
-    BoardSize boardSize = new BoardSize(board);
+    BoardSize boardSize = new BoardSize(3);
 
     @Test
     public void getsSizeOfBoard() {
@@ -24,7 +22,7 @@ public class BoardSizeTest {
 
     @Test
     public void calculatesRowThreeByThreeBoard() {
-        List<Symbol> firstRow = Arrays.asList(E, E, E);
+        List<Integer> firstRow = Arrays.asList(0, 1, 2);
         assertEquals(firstRow, boardSize.rows().get(0).getSymbols());
     }
 
@@ -33,27 +31,19 @@ public class BoardSizeTest {
         board.markPlayer(0, X);
         board.markPlayer(1, X);
         board.markPlayer(2, X);
-        assertTrue(boardSize.anyRowWins(X));
-        assertFalse(boardSize.anyRowWins(O));
+        assertTrue(boardSize.checkRowWins(board.contentsOfBoard(), X));
+        assertFalse(boardSize.checkRowWins(board.contentsOfBoard(), O));
     }
 
     @Test
     public void calculatesColumnsForThreeByThreeBoard() {
-        List<Symbol> firstColumn = Arrays.asList(E, E, E);
+        List<Integer> firstColumn = Arrays.asList(0, 3, 6);
         assertEquals(firstColumn, boardSize.columns().get(0).getSymbols());
     }
 
     @Test
-    public void showsWinningRowForOneColumns() {
-        Board markedBoard = markBoard(board, Arrays.asList(0, 3, 6), O);
-        BoardSize boardSize = new BoardSize(markedBoard);
-        assertTrue(boardSize.anyColumnWins(O));
-        assertFalse(boardSize.anyColumnWins(X));
-    }
-
-    @Test
     public void calculatesDiagonalsForThreeByThreeBoard() {
-        List<Symbol> firstDiagonal = Arrays.asList(E, E, E);
+        List<Integer> firstDiagonal = Arrays.asList(0, 4, 8);
         assertEquals(firstDiagonal, boardSize.diagonals().get(0).getSymbols());
     }
 
@@ -62,22 +52,14 @@ public class BoardSizeTest {
         board.markPlayer(0, O);
         board.markPlayer(4, O);
         board.markPlayer(8, O);
-        assertTrue(boardSize.anyDiagonalWins(O));
-        assertFalse(boardSize.anyDiagonalWins(X));
+        assertTrue(boardSize.checkDiagonalWins(board.contentsOfBoard(), O));
+        assertFalse(boardSize.checkDiagonalWins(board.contentsOfBoard(), X));
     }
 
     @Test
     public void calculatesWinningLinesForFourByFour() {
-        Board fourByFourBoard = new Board(4);
-        BoardSize boardSize = new BoardSize(fourByFourBoard);
-        List<Symbol> firstRow = Arrays.asList(E, E, E, E);
+        BoardSize boardSize = new BoardSize(4);
+        List<Integer> firstRow = Arrays.asList(0, 1, 2, 3);
         assertEquals(firstRow, boardSize.rows().get(0).getSymbols());
-    }
-
-    public Board markBoard(Board board, List<Integer> indices, Symbol symbol) {
-        for (Integer index : indices) {
-            board.markPlayer(index, symbol);
-        }
-        return board;
     }
 }
