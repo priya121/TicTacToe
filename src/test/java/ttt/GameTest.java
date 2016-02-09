@@ -2,11 +2,9 @@ package ttt;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.inputOutput.IO;
-import ttt.player.FakeComputerPlayer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,8 +18,6 @@ import static ttt.Symbol.*;
 public class GameTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Board threeByThreeBoard = new Board(3);
-    Board fourByFour = new Board(4);
     SetupBoard expected = new SetupBoard();
 
     @Test

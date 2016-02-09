@@ -10,23 +10,23 @@ import static java.util.stream.Collectors.toList;
 import static ttt.Symbol.*;
 
 public final class Board {
-    private final List<Symbol> board;
     final BoardSize lines;
     private final int size;
+    private final List<Symbol> listOfSymbols;
 
     public Board(int size) {
-        List<Symbol> newBoard = new ArrayList<>();
+        List<Symbol> listOfSymbols = new ArrayList<>();
         for (int i = 0; i < (size * size); i++) {
-            newBoard.add(E);
+            listOfSymbols.add(E);
         }
-        this.board = newBoard;
-        this.size = (int) Math.sqrt(newBoard.size());
+        this.listOfSymbols = listOfSymbols;
+        this.size = (int) Math.sqrt(listOfSymbols.size());
         this.lines = new BoardSize(size);
     }
 
-    public Board(List<Symbol> board) {
-        this.board = board;
-        this.size = (int) Math.sqrt(board.size());
+    public Board(List<Symbol> listOfSymbols) {
+        this.listOfSymbols = listOfSymbols;
+        this.size = (int) Math.sqrt(listOfSymbols.size());
         this.lines = new BoardSize(size);
     }
 
@@ -34,17 +34,19 @@ public final class Board {
         return (lines.checkWins(contentsOfBoard(), symbol));
     }
 
-    public List<Symbol> markPlayer(int indexPosition, Symbol player) {
-        board.set(indexPosition, player);
-        return board;
+    public Board markPlayer(int indexPosition, Symbol symbol) {
+        List<Symbol> newBoard = new ArrayList<>(listOfSymbols);
+        newBoard.set(indexPosition, symbol);
+        Object board = new Board(newBoard);
+        return (Board) board;
     }
 
     public List<Symbol> contentsOfBoard() {
-        return board;
+        return listOfSymbols;
     }
 
     public Symbol get(int index) {
-        return board.get(index);
+        return listOfSymbols.get(index);
     }
 
     public boolean isPositionEmpty(int move) {
@@ -52,12 +54,12 @@ public final class Board {
     }
 
     public boolean notFull() {
-        return board.contains(E);
+        return listOfSymbols.contains(E);
     }
 
     public List<Integer> validMoves() {
-        return IntStream.range(0, this.board.size()).boxed()
-                .filter(index -> this.board.get(index).equals(E))
+        return IntStream.range(0, listOfSymbols.size()).boxed()
+                .filter(index -> listOfSymbols.get(index).equals(E))
                 .collect(toList());
     }
 
@@ -71,10 +73,5 @@ public final class Board {
 
     public boolean winningSymbol(Symbol symbol) {
         return checkWins(symbol);
-    }
-
-    public Object clone() {
-        List<Symbol> newBoard = new ArrayList<>(board);
-        return new Board(newBoard);
     }
 }

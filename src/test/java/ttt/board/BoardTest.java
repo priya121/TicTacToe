@@ -17,10 +17,6 @@ public class BoardTest {
     Board threeByThree = new Board(3);
     Board fourByFour = new Board(4);
     SetupBoard expected = new SetupBoard();
-    List<Symbol> empty = Arrays.asList(E, E, E, E);
-    List<Symbol> allCrosses = Arrays.asList(X, X, X, X);
-    List<Symbol> allNoughts = Arrays.asList(O, O, O, O);
-    List<Symbol> threeCrosses = Arrays.asList(X, X, X, E);
 
     @Test
     public void returnsEmptyThreeByThreeBoard() {
@@ -99,7 +95,6 @@ public class BoardTest {
                                                    X, E, E, E,
                                                    X, E, E, E,
                                                    E, E, E, E));
-        //Assert.assertEquals(fillColumns(threeCrosses, empty, empty, empty), getSymbols(fourByFour.getColumns()));
         Assert.assertFalse(fourByFour.checkWins(X));
     }
 
@@ -109,7 +104,6 @@ public class BoardTest {
                                                    E, E, X, E,
                                                    E, E, X, E,
                                                    E, E, X, E));
-        //Assert.assertEquals(fillColumns(empty, empty, allCrosses, empty), getSymbols(fourByFour.getColumns()));
         Assert.assertTrue(fourByFour.checkWins(X));
     }
 
@@ -119,7 +113,6 @@ public class BoardTest {
                                               E, X, E, E,
                                               E, E, X, E,
                                               E, E, E, X));
-        //Assert.assertEquals(fillDiagonals(allCrosses, empty), getSymbols(board.getDiagonals()));
         Assert.assertTrue(board.checkWins(X));
     }
 
@@ -277,7 +270,7 @@ public class BoardTest {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, E, E,
                                                                          E, E, E,
                                                                          E, E, E));
-        Assert.assertEquals(expectedBoard, threeByThree.markPlayer(0, X));
+        Assert.assertEquals(expectedBoard, threeByThree.markPlayer(0, X).contentsOfBoard());
     }
 
     @Test
@@ -322,31 +315,6 @@ public class BoardTest {
 
     private Game getFourByFourGame(FakeIO userInput) {
         return new Game(userInput);
-    }
-
-    private List<List<Symbol>> fillRows(List<Symbol> firstRow, List<Symbol> secondRow, List<Symbol> thirdRow, List<Symbol> fourthRow) {
-        List<List<Symbol>> rows = new ArrayList<>();
-        rows.add(firstRow);
-        rows.add(secondRow);
-        rows.add(thirdRow);
-        rows.add(fourthRow);
-        return rows;
-    }
-
-    private List<List<Symbol>> fillColumns(List<Symbol> firstColumn, List<Symbol> secondColumn, List<Symbol> thirdColumn, List<Symbol> fourthColumn) {
-        List<List<Symbol>> columns = new ArrayList<>();
-        columns.add(firstColumn);
-        columns.add(secondColumn);
-        columns.add(thirdColumn);
-        columns.add(fourthColumn);
-        return columns;
-    }
-
-    private List<List<Symbol>> fillDiagonals(List<Symbol> firstDiagonal, List<Symbol> secondDiagonal) {
-        List<List<Symbol>> diagonals = new ArrayList<>();
-        diagonals.add(firstDiagonal);
-        diagonals.add(secondDiagonal);
-        return diagonals;
     }
 
     private List<Integer> moves(int from, int to) {

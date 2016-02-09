@@ -48,7 +48,7 @@ public class Game {
             io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
             computeCurrentPlayer(board);
-            board.markPlayer(currentPlayer.move(board), currentPlayer.playerSymbol());
+            board = board.markPlayer(currentPlayer.move(board), currentPlayer.playerSymbol());
         }
         endOfGameDisplay();
     }

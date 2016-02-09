@@ -28,9 +28,9 @@ public class BoardSizeTest {
 
     @Test
     public void showsWinningRowForOneRow() {
-        board.markPlayer(0, X);
-        board.markPlayer(1, X);
-        board.markPlayer(2, X);
+        board = board.markPlayer(0, X);
+        board = board.markPlayer(1, X);
+        board = board.markPlayer(2, X);
         assertTrue(boardSize.checkRowWins(board.contentsOfBoard(), X));
         assertFalse(boardSize.checkRowWins(board.contentsOfBoard(), O));
     }
@@ -49,9 +49,9 @@ public class BoardSizeTest {
 
     @Test
     public void showsWinningRowForOneDiagonal() {
-        board.markPlayer(0, O);
-        board.markPlayer(4, O);
-        board.markPlayer(8, O);
+        board = board.markPlayer(0, O);
+        board = board.markPlayer(4, O);
+        board = board.markPlayer(8, O);
         assertTrue(boardSize.checkDiagonalWins(board.contentsOfBoard(), O));
         assertFalse(boardSize.checkDiagonalWins(board.contentsOfBoard(), X));
     }

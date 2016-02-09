@@ -3,18 +3,12 @@ package ttt.player;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.board.Board;
-import ttt.inputOutput.FakeIO;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static ttt.Symbol.*;
 
 public class AIComputerPlayerTest {
-
-    private FakeIO getFakeIO(List<String> input) {
-        return new FakeIO(input);
-    }
 
     @Test
     public void placesAIInWinningPositionOnFirstRow() {

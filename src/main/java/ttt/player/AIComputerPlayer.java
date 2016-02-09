@@ -26,8 +26,7 @@ public class AIComputerPlayer implements ComputerPlayer {
 
         for (int emptyCell : board.validMoves()) {
 
-            Board copyOfBoard = (Board) board.clone();
-            copyOfBoard.markPlayer(emptyCell, currentSymbol);
+            Board copyOfBoard = board.markPlayer(emptyCell, currentSymbol);
 
             BestMove newScore = minimax(copyOfBoard, switchPlayer(currentSymbol));
             int temporaryScore = newScore.score;
