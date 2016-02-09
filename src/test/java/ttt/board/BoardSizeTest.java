@@ -23,7 +23,7 @@ public class BoardSizeTest {
     @Test
     public void calculatesRowThreeByThreeBoard() {
         List<Integer> firstRow = Arrays.asList(0, 1, 2);
-        assertEquals(firstRow, boardSize.rows().get(0).getSymbols());
+        assertEquals(firstRow, boardSize.lines().get(0).getLineIndices());
     }
 
     @Test
@@ -31,35 +31,26 @@ public class BoardSizeTest {
         board = board.markPlayer(0, X);
         board = board.markPlayer(1, X);
         board = board.markPlayer(2, X);
-        assertTrue(boardSize.checkRowWins(board.contentsOfBoard(), X));
-        assertFalse(boardSize.checkRowWins(board.contentsOfBoard(), O));
+        assertTrue(boardSize.checkLineWins(board.contentsOfBoard(), X));
+        assertFalse(boardSize.checkLineWins(board.contentsOfBoard(), O));
     }
 
     @Test
     public void calculatesColumnsForThreeByThreeBoard() {
         List<Integer> firstColumn = Arrays.asList(0, 3, 6);
-        assertEquals(firstColumn, boardSize.columns().get(0).getSymbols());
+        assertEquals(firstColumn, boardSize.lines().get(3).getLineIndices());
     }
 
     @Test
     public void calculatesDiagonalsForThreeByThreeBoard() {
         List<Integer> firstDiagonal = Arrays.asList(0, 4, 8);
-        assertEquals(firstDiagonal, boardSize.diagonals().get(0).getSymbols());
-    }
-
-    @Test
-    public void showsWinningRowForOneDiagonal() {
-        board = board.markPlayer(0, O);
-        board = board.markPlayer(4, O);
-        board = board.markPlayer(8, O);
-        assertTrue(boardSize.checkDiagonalWins(board.contentsOfBoard(), O));
-        assertFalse(boardSize.checkDiagonalWins(board.contentsOfBoard(), X));
+        assertEquals(firstDiagonal, boardSize.lines().get(6).getLineIndices());
     }
 
     @Test
     public void calculatesWinningLinesForFourByFour() {
         BoardSize boardSize = new BoardSize(4);
         List<Integer> firstRow = Arrays.asList(0, 1, 2, 3);
-        assertEquals(firstRow, boardSize.rows().get(0).getSymbols());
+        assertEquals(firstRow, boardSize.lines().get(0).getLineIndices());
     }
 }

@@ -14,12 +14,13 @@ public class Line {
         line = symbols;
     }
 
-    public List<Integer> getSymbols() {
+    public List<Integer> getLineIndices() {
         return line;
     }
 }
 
 class LineGenerator {
+        List<Line> lines = new ArrayList<>();
 
     public Stream<IntStream> joinAllLines(int size) {
         Stream<IntStream> diagonals = Stream.of(streamLeftDiagonals(size), streamRightToLeft(size));
@@ -35,7 +36,6 @@ class LineGenerator {
     }
 
     public List<Line> createRow(int size) {
-        List<Line> lines = new ArrayList<>();
         for (int i = 0; i < size * size; i += size) {
             List<Integer> rows = new ArrayList<>();
             for (int j = i; j < i + size; j++) {
@@ -53,7 +53,6 @@ class LineGenerator {
     }
 
     public List<Line> createColumn(int size) {
-        List<Line> lines = new ArrayList<>();
         for (int i = 0; i < (size); i++) {
             List<Integer> columns = new ArrayList<>();
             for (int j = i; j < (size * size); j += size) {
@@ -79,7 +78,6 @@ class LineGenerator {
     public List<Line> createDiagonal(int size) {
         List<Integer> leftToRightDiagonal = new ArrayList<>();
         List<Integer> rightToLeftDiagonal = new ArrayList<>();
-        List<Line> lines = new ArrayList<>();
         for (int i = 0; i < size * size; i += size + 1) {
             leftToRightDiagonal.add(i);
         }

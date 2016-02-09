@@ -3,6 +3,7 @@ package ttt.board;
 import ttt.Symbol;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class BoardSize {
     final int size;
@@ -13,55 +14,21 @@ public class BoardSize {
         this.lines = new LineGenerator();
     }
 
-    public List<Line> rows() {
-        return lines.createRow(size);
-    }
-
-    public List<Line> columns() {
-        return lines.createColumn(size);
-    }
-
-    public List<Line> diagonals() {
+    public List<Line> lines() {
+        lines.createRow(size);
+        lines.createColumn(size);
         return lines.createDiagonal(size);
     }
 
-    public boolean checkRowWins(List<Symbol> symbols, Symbol symbol) {
+    public boolean checkLineWins(List<Symbol> symbols, Symbol symbol) {
         boolean winningLine = false;
-        for (Line row : rows()) {
-            for (Integer index : row.getSymbols()) {
+        for (Line line : lines()) {
+            for (Integer index : line.getLineIndices()) {
                 winningLine = (symbols.get(index) == symbol);
                 if (!winningLine) break;
             }
             if (winningLine) return true;
         }
         return winningLine;
-    }
-
-    public boolean checkDiagonalWins(List<Symbol> symbols, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line diagonal : diagonals()) {
-            for (Integer index : diagonal.getSymbols()) {
-                winningLine = (symbols.get(index) == symbol);
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
-    }
-
-    public boolean checkColumnWins(List<Symbol> symbols, Symbol symbol) {
-        boolean winningLine = false;
-        for (Line column : columns()) {
-            for (Integer index : column.getSymbols()) {
-                winningLine = (symbols.get(index) == symbol);
-                if (!winningLine) break;
-            }
-            if (winningLine) return true;
-        }
-        return winningLine;
-    }
-
-    public boolean checkWins(List<Symbol> symbols, Symbol symbol) {
-        return checkRowWins(symbols, symbol) || checkColumnWins(symbols, symbol) || checkDiagonalWins(symbols, symbol);
     }
 }
