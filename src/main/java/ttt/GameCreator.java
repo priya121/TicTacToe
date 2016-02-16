@@ -6,7 +6,6 @@ import ttt.inputOutput.IO;
 import ttt.player.Player;
 import ttt.player.PlayerCreator;
 
-
 public class GameCreator {
     private IO io;
 

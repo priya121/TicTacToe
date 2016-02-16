@@ -67,7 +67,7 @@ public class AIComputerPlayer implements Player {
     }
 
     public int move(Board board) {
-        BestMove bestMove = minimax(6, board, winningSymbol);
+        BestMove bestMove = minimax(7, board, winningSymbol);
         return bestMove.index;
     }
 }

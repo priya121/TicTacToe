@@ -287,11 +287,9 @@ public class BoardTest {
 
     @Test
     public void checksAllElementsOfARowMatch() {
-        LineGenerator line = new LineGenerator();
         Board threeByThree = new Board(Arrays.asList(X, O, X,
                                                      X, O, E,
                                                      X, E, X));
-        //Stream<IntStream> diagonalLine = line.streamDiagonals(3);
         Assert.assertTrue(threeByThree.hasWon(X));
     }
 

@@ -4,18 +4,11 @@ import ttt.Symbol;
 import ttt.board.Board;
 import ttt.inputOutput.IO;
 
-import static ttt.Symbol.X;
-
 public class HumanPlayer implements Player {
     private IO io;
     private int indexChosen;
     private String userInput;
     private Symbol symbol;
-
-    public HumanPlayer(IO io) {
-        this.io = io;
-        this.symbol = X;
-    }
 
     public HumanPlayer(IO io, Symbol symbol) {
         this.io = io;

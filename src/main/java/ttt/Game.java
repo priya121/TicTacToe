@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 import static ttt.Symbol.E;
 
 public class Game {
+    private final GameCreator gameCreator;
     public Board board;
     IO io;
     Player currentPlayer;
@@ -24,10 +25,10 @@ public class Game {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
+        this.gameCreator = new GameCreator(io);
     }
 
     public Game setupGame() {
-        GameCreator gameCreator = new GameCreator(io);
         return gameCreator.createGame();
     }
 
@@ -94,8 +95,7 @@ public class Game {
 
     private void replayOptionChosen(String replayChosen) {
         if (replayChosen.equals("Y")) {
-            setupGame();
-            gameLoop();
+            this.setupGame().gameLoop();
         }
     }
 
