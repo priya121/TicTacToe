@@ -42,7 +42,7 @@ public class Board {
     }
 
     boolean checkWins(Symbol symbol) {
-        return (lines.checkLineWins(contentsOfBoard(), symbol));
+        return (hasWon(symbol));
     }
 
     public Board markPlayer(int indexPosition, Symbol symbol) {
