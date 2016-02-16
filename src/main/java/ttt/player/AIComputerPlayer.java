@@ -15,11 +15,11 @@ public class AIComputerPlayer implements Player {
         this.opponentSymbol = winningSymbol == X ? O : X;
     }
 
-    public BestMove minimax(Board board, Symbol currentSymbol) {
+    public BestMove minimax(int depth, Board board, Symbol currentSymbol) {
         BestMove bestMove = new BestMove(-1, 0);
         resetScore(currentSymbol, bestMove);
 
-        if (!board.gameNotOver()) {
+        if (!board.gameNotOver() || depth == 0) {
             return new BestMove(-1, scoreBoard(board));
         }
 
@@ -27,7 +27,7 @@ public class AIComputerPlayer implements Player {
 
             Board copyOfBoard = board.markPlayer(emptyCell, currentSymbol);
 
-            BestMove newScore = minimax(copyOfBoard, switchPlayer(currentSymbol));
+            BestMove newScore = minimax(depth - 1, copyOfBoard, switchPlayer(currentSymbol));
             int temporaryScore = newScore.score;
 
             if (currentSymbol.equals(winningSymbol) && temporaryScore >= bestMove.score) {
@@ -67,7 +67,7 @@ public class AIComputerPlayer implements Player {
     }
 
     public int move(Board board) {
-        BestMove bestMove = minimax(board, winningSymbol);
+        BestMove bestMove = minimax(6, board, winningSymbol);
         return bestMove.index;
     }
 }
