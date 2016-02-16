@@ -33,17 +33,10 @@ public class Game {
     }
 
     public Game setupGame() {
-        Game newGameSetup = createGame.createGame();
-        board = newGameSetup.board;
-        io = newGameSetup.io;
-        playerOne = newGameSetup.playerOne;
-        playerTwo = newGameSetup.playerTwo;
-
-        return new Game(board, io, playerOne, playerTwo);
+        return createGame.createGame();
     }
 
     public void gameLoop() {
-        setupGame();
         while (board.gameNotOver()) {
             io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
@@ -92,7 +85,7 @@ public class Game {
     private void endOfGameDisplay() {
         showCurrentBoard();
         if (board.isWin()) {
-            io.showOutput("playerOne " + currentPlayer.playerSymbol() + " has won!");
+            io.showOutput("Player " + currentPlayer.playerSymbol() + " has won!");
         }
         io.showOutput("game over");
         replayGameOption();
@@ -106,7 +99,8 @@ public class Game {
 
     private void replayOptionChosen(String replayChosen) {
         if (replayChosen.equals("Y")) {
-            gameLoop();
+            Game newGame  = this.setupGame();
+            newGame.gameLoop();
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 import static ttt.Symbol.*;
 
-public final class Board {
+public class Board {
     final BoardSize lines;
     private final int size;
     private final List<Symbol> listOfSymbols;
@@ -30,6 +30,17 @@ public final class Board {
         this.lines = new BoardSize(size);
     }
 
+    public boolean hasWon(Symbol symbol) {
+         return lines.joinAllLines().filter(line -> hasWin(line, symbol))
+                .findAny()
+                .isPresent();
+    }
+
+    public boolean hasWin(IntStream line, Symbol symbol) {
+        return line.mapToObj(index -> get(index))
+                .allMatch(s -> s.equals(symbol));
+    }
+
     boolean checkWins(Symbol symbol) {
         return (lines.checkLineWins(contentsOfBoard(), symbol));
     }
@@ -37,8 +48,7 @@ public final class Board {
     public Board markPlayer(int indexPosition, Symbol symbol) {
         List<Symbol> newBoard = new ArrayList<>(listOfSymbols);
         newBoard.set(indexPosition, symbol);
-        Object board = new Board(newBoard);
-        return (Board) board;
+        return new Board(newBoard);
     }
 
     public List<Symbol> contentsOfBoard() {

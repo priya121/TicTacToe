@@ -9,26 +9,46 @@ import static ttt.Symbol.O;
 import static ttt.Symbol.X;
 
 public class PlayerCreator {
-    private IO io;
-    private Symbol symbol;
+    private final IO io;
+    private GameType choice;
 
-    public PlayerCreator(IO io) {
+    public PlayerCreator(IO io, String userInput) {
         this.io = io;
+        this.parseGameType(userInput);
     }
 
-    public Player playerOne(GameType gameType) {
-        if (gameType == HvH || gameType == HvC) {
-            return new HumanPlayer(io, X);
+    public Player createX() {
+        return createPlayer(HvH, HvC, X);
+    }
+
+    public Player createO() {
+        return createPlayer(CvH, HvH, O);
+    }
+
+    private Player createPlayer(GameType choiceOne, GameType choiceTwo, Symbol player) {
+        if (choice == choiceOne || choice == choiceTwo) {
+            return new HumanPlayer(io, player);
         } else {
-            return new AIComputerPlayer(O);
+            return new AIComputerPlayer(player);
         }
     }
 
-    public Player playerTwo(GameType gameType) {
-        if (gameType == CvH || gameType == HvH) {
-            return new HumanPlayer(io, O);
-        } else {
-            return new AIComputerPlayer(O);
+    private void parseGameType(String userInput) {
+        switch (userInput) {
+            case "1":
+                choice = HvH;
+                break;
+            case "2":
+                choice = HvC;
+                break;
+            case "3":
+                choice = CvH;
+                break;
+            case "4":
+                choice = CvC;
+                break;
+            default:
+                choice = HvH;
         }
     }
 }

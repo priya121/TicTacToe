@@ -5,7 +5,7 @@ import ttt.board.Board;
 
 import static ttt.Symbol.O;
 
-public class RandomComputerPlayer implements ComputerPlayer {
+public class RandomComputerPlayer implements Player {
     Board board;
     Symbol symbol;
 

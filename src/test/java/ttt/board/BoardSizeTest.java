@@ -23,7 +23,7 @@ public class BoardSizeTest {
     @Test
     public void calculatesRowThreeByThreeBoard() {
         List<Integer> firstRow = Arrays.asList(0, 1, 2);
-        assertEquals(firstRow, boardSize.lines().get(0).getLineIndices());
+        assertEquals(firstRow, boardSize.createLines().get(0).getLineIndices());
     }
 
     @Test
@@ -38,19 +38,19 @@ public class BoardSizeTest {
     @Test
     public void calculatesColumnsForThreeByThreeBoard() {
         List<Integer> firstColumn = Arrays.asList(0, 3, 6);
-        assertEquals(firstColumn, boardSize.lines().get(3).getLineIndices());
+        assertEquals(firstColumn, boardSize.createLines().get(3).getLineIndices());
     }
 
     @Test
     public void calculatesDiagonalsForThreeByThreeBoard() {
         List<Integer> firstDiagonal = Arrays.asList(0, 4, 8);
-        assertEquals(firstDiagonal, boardSize.lines().get(6).getLineIndices());
+        assertEquals(firstDiagonal, boardSize.createLines().get(6).getLineIndices());
     }
 
     @Test
     public void calculatesWinningLinesForFourByFour() {
         BoardSize boardSize = new BoardSize(4);
         List<Integer> firstRow = Arrays.asList(0, 1, 2, 3);
-        assertEquals(firstRow, boardSize.lines().get(0).getLineIndices());
+        assertEquals(firstRow, boardSize.createLines().get(0).getLineIndices());
     }
 }

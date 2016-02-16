@@ -5,35 +5,39 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.stream.Stream.concat;
-
-public class Line {
-    private final List<Integer> line;
-
-    public Line(List<Integer> symbols) {
-        line = symbols;
-    }
-
-    public List<Integer> getLineIndices() {
-        return line;
-    }
-}
 
 class LineGenerator {
-        List<Line> lines = new ArrayList<>();
-
-    public Stream<IntStream> joinAllLines(int size) {
-        Stream<IntStream> diagonals = Stream.of(streamLeftDiagonals(size), streamRightToLeft(size));
-        Stream<IntStream> result = concat(concat(streamRows(size), streamColumns(size)), diagonals);
-        return result;
-    }
+    List<Line> lines = new ArrayList<>();
 
     public Stream<IntStream> streamRows(int size) {
-        return IntStream.range(0, size * size)
-            .map(index -> index * size)
-            .mapToObj(rowStart -> IntStream.iterate(rowStart, index -> index++))
-            .limit(size);
+        return IntStream.range(0, size)
+                .map(index -> index * size)
+                .mapToObj(rowStart -> IntStream.range(rowStart, rowStart + size));
     }
+
+    public Stream<IntStream> streamColumns(int size) {
+        return IntStream.range(0, size)
+                .mapToObj(columnStart -> IntStream.iterate(columnStart, index -> index + size)
+                        .limit(size));
+    }
+
+    public Stream<IntStream> streamDiagonals(int size) {
+        IntStream diagonalOne = IntStream
+                .iterate(0, index -> index + size + 1)
+                .limit(size);
+        IntStream diagonalTwo = IntStream
+                .iterate(size - 1, index -> index + size - 1)
+                .limit(size);
+
+        return Stream.of(diagonalOne, diagonalTwo);
+    }
+
+    public IntStream streamRightToLeft(int size) {
+        return IntStream
+                .iterate(size - 1, index -> index + size - 1)
+                .limit(size);
+    }
+
 
     public List<Line> createRow(int size) {
         for (int i = 0; i < size * size; i += size) {
@@ -46,13 +50,7 @@ class LineGenerator {
         return lines;
     }
 
-    public Stream<IntStream> streamColumns(int size) {
-        return IntStream.range(0, size)
-            .mapToObj(columnStart -> IntStream.iterate(columnStart, index -> index += size))
-            .limit(size);
-    }
-
-    public List<Line> createColumn(int size) {
+    public List<Line> createColumns(int size) {
         for (int i = 0; i < (size); i++) {
             List<Integer> columns = new ArrayList<>();
             for (int j = i; j < (size * size); j += size) {
@@ -61,18 +59,6 @@ class LineGenerator {
             lines.add(new Line(columns));
         }
         return lines;
-    }
-
-    IntStream streamLeftDiagonals(int size) {
-        return  IntStream
-            .iterate(0, index -> index + size + 1)
-            .limit(size);
-    }
-
-    IntStream streamRightToLeft(int size) {
-        return  IntStream
-            .iterate(size - 1, index -> index + size - 1)
-            .limit(size);
     }
 
     public List<Line> createDiagonal(int size) {
@@ -87,6 +73,18 @@ class LineGenerator {
         lines.add(new Line(leftToRightDiagonal));
         lines.add(new Line(rightToLeftDiagonal));
         return lines;
+    }
+}
+
+public class Line {
+    private final List<Integer> line;
+
+    public Line(List<Integer> symbols) {
+        line = symbols;
+    }
+
+    public List<Integer> getLineIndices() {
+        return line;
     }
 }
 

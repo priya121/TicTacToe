@@ -6,7 +6,7 @@ import ttt.board.Board;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FakeComputerPlayer implements ComputerPlayer {
+public class FakeComputerPlayer implements Player {
     private Symbol symbol;
     private LinkedList<Integer> input;
 

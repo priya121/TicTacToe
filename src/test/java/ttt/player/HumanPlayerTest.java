@@ -3,6 +3,7 @@ package ttt.player;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
+import ttt.GameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
@@ -21,7 +22,6 @@ public class HumanPlayerTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     Board board = new Board(3);
-
 
     @Test
     public void playerCanChooseToBeTheCrossSymbol() {
@@ -76,7 +76,7 @@ public class HumanPlayerTest {
 
     private Game getGame(String humanMoves, FakeComputerPlayer computerMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new Game(io);
+        return new GameCreator(io).createGame();
     }
 }
 

@@ -49,7 +49,7 @@ public class GameTest {
 
     @Test
     public void asksUserToEnterDimensionOfBoard() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("3\n1\n2\n1\n5\n4\n8\n7\n".getBytes())));
+        Game game = new GameCreator(convertUserInput(new ByteArrayInputStream("3\n1\n2\n1\n5\n4\n8\n7\n".getBytes()))).createGame();
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("game over"));
     }
@@ -73,11 +73,11 @@ public class GameTest {
     }
 
     private Game getGame(IO humanMoves) {
-        return new Game(humanMoves);
+        return new GameCreator(humanMoves).createGame();
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new Game(humanMoves);
+        return new GameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

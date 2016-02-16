@@ -3,6 +3,7 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
+import ttt.GameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
@@ -10,6 +11,7 @@ import ttt.inputOutput.FakeIO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static ttt.Symbol.*;
 
@@ -274,6 +276,26 @@ public class BoardTest {
     }
 
     @Test
+    public void checksAllElementsOfLineStreamMatch() {
+        LineGenerator line = new LineGenerator();
+        Board threeByThree = new Board(Arrays.asList(X, X, O,
+                                                     E, O, E,
+                                                     O, E, X));
+        IntStream diagonalLine = line.streamRightToLeft(3);
+        Assert.assertTrue(threeByThree.hasWin(diagonalLine, O));
+    }
+
+    @Test
+    public void checksAllElementsOfARowMatch() {
+        LineGenerator line = new LineGenerator();
+        Board threeByThree = new Board(Arrays.asList(X, O, X,
+                                                     X, O, E,
+                                                     X, E, X));
+        //Stream<IntStream> diagonalLine = line.streamDiagonals(3);
+        Assert.assertTrue(threeByThree.hasWon(X));
+    }
+
+    @Test
     public void getsPositionOfCell() {
         Board newBoard = new Board(3);
         Assert.assertEquals(E, newBoard.get(0));
@@ -310,11 +332,11 @@ public class BoardTest {
     }
 
     private Game getThreeByThreeGame(FakeIO userInput) {
-        return new Game(userInput);
+        return new GameCreator(userInput).createGame();
     }
 
     private Game getFourByFourGame(FakeIO userInput) {
-        return new Game(userInput);
+        return new GameCreator(userInput).createGame();
     }
 
     private List<Integer> moves(int from, int to) {

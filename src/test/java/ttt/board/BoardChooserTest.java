@@ -3,6 +3,7 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
+import ttt.GameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.ConsoleIO;
@@ -46,7 +47,7 @@ public class BoardChooserTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new Game(io);
+        return new GameCreator(io).createGame();
     }
 
     public FakeIO userInput(List<String> sizeChosen) {

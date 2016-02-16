@@ -2,7 +2,7 @@ package ttt;
 
 import org.junit.Test;
 import ttt.inputOutput.ConsoleIO;
-import ttt.player.ComputerPlayer;
+import ttt.player.AIComputerPlayer;
 import ttt.player.HumanPlayer;
 
 import java.io.ByteArrayInputStream;
@@ -46,14 +46,14 @@ public class GameCreatorTest {
         GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n2\n").getBytes())));
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof HumanPlayer);
-        assertTrue(game.playerTwo instanceof ComputerPlayer);
+        assertTrue(game.playerTwo instanceof AIComputerPlayer);
     }
 
     @Test
     public void createsTheRightGameIfUserChoosesThree() {
         GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n3\n").getBytes())));
         Game game = newSetup.createGame();
-        assertTrue(game.playerOne instanceof ComputerPlayer);
+        assertTrue(game.playerOne instanceof AIComputerPlayer);
         assertTrue(game.playerTwo instanceof HumanPlayer);
     }
 
@@ -61,7 +61,7 @@ public class GameCreatorTest {
     public void createsTheRightGameIfUserChoosesFour() {
         GameCreator gameCreator = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n4\n").getBytes())));
         Game game = gameCreator.createGame();
-        assertTrue(game.playerOne instanceof ComputerPlayer);
-        assertTrue(game.playerTwo instanceof ComputerPlayer);
+        assertTrue(game.playerOne instanceof AIComputerPlayer);
+        assertTrue(game.playerTwo instanceof AIComputerPlayer);
     }
 }

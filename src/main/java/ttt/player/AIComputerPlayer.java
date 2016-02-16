@@ -6,7 +6,7 @@ import ttt.board.Board;
 import static ttt.Symbol.O;
 import static ttt.Symbol.X;
 
-public class AIComputerPlayer implements ComputerPlayer {
+public class AIComputerPlayer implements Player {
     private Symbol opponentSymbol;
     private Symbol winningSymbol;
 
@@ -20,8 +20,7 @@ public class AIComputerPlayer implements ComputerPlayer {
         resetScore(currentSymbol, bestMove);
 
         if (!board.gameNotOver()) {
-            BestMove newBestMove = new BestMove(-1, scoreBoard(board));
-            return newBestMove;
+            return new BestMove(-1, scoreBoard(board));
         }
 
         for (int emptyCell : board.validMoves()) {
