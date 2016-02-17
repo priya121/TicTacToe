@@ -1,6 +1,5 @@
 package ttt.board;
 
-import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -29,23 +28,6 @@ class LineGenerator {
 
         return Stream.of(diagonalOne, diagonalTwo);
     }
-
-    public IntStream streamRightToLeft(int size) {
-        return IntStream
-                .iterate(size - 1, index -> index + size - 1)
-                .limit(size);
-    }
 }
 
-public class Line {
-    private final List<Integer> line;
-
-    public Line(List<Integer> symbols) {
-        line = symbols;
-    }
-
-    public List<Integer> getLineIndices() {
-        return line;
-    }
-}
 

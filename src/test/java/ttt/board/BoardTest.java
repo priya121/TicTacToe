@@ -11,13 +11,12 @@ import ttt.inputOutput.FakeIO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static ttt.Symbol.*;
 
 public class BoardTest {
-    Board threeByThree = new Board(3);
-    Board fourByFour = new Board(4);
+    Board threeByThreeBoard = new Board(3);
+    Board fourByFourBoard = new Board(4);
     SetupBoard expected = new SetupBoard();
 
     @Test
@@ -25,7 +24,7 @@ public class BoardTest {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(E, E, E,
                                                                          E, E, E,
                                                                          E, E, E));
-        Assert.assertEquals(expectedBoard, threeByThree.contentsOfBoard());
+        Assert.assertEquals(expectedBoard, threeByThreeBoard.contentsOfBoard());
     }
 
     @Test
@@ -34,7 +33,7 @@ public class BoardTest {
                                                                          E, E, E, E,
                                                                          E, E, E, E,
                                                                          E, E, E, E));
-        Assert.assertEquals(expectedBoard, fourByFour.contentsOfBoard());
+        Assert.assertEquals(expectedBoard, fourByFourBoard.contentsOfBoard());
     }
 
     @Test
@@ -272,21 +271,27 @@ public class BoardTest {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, E, E,
                                                                          E, E, E,
                                                                          E, E, E));
-        Assert.assertEquals(expectedBoard, threeByThree.markPlayer(0, X).contentsOfBoard());
+        Assert.assertEquals(expectedBoard, threeByThreeBoard.markPlayer(0, X).contentsOfBoard());
     }
 
     @Test
-    public void checksAllElementsOfLineStreamMatch() {
-        LineGenerator line = new LineGenerator();
+    public void checksAllElementsOfRowStreamMatch() {
         Board threeByThree = new Board(Arrays.asList(X, X, O,
                                                      E, O, E,
                                                      O, E, X));
-        IntStream diagonalLine = line.streamRightToLeft(3);
-        Assert.assertTrue(threeByThree.hasWin(diagonalLine, O));
+        Assert.assertTrue(threeByThree.hasWon(O));
     }
 
     @Test
     public void checksAllElementsOfARowMatch() {
+        Board threeByThree = new Board(Arrays.asList(X, X, X,
+                                                     X, O, E,
+                                                     E, E, X));
+        Assert.assertTrue(threeByThree.hasWon(X));
+    }
+
+    @Test
+    public void checksAllElementsOfAColumnMatch() {
         Board threeByThree = new Board(Arrays.asList(X, O, X,
                                                      X, O, E,
                                                      X, E, X));
@@ -320,7 +325,7 @@ public class BoardTest {
 
     @Test
     public void checksBoardFull() {
-        Assert.assertTrue(threeByThree.notFull());
+        Assert.assertTrue(threeByThreeBoard.notFull());
     }
 
     @Test

@@ -38,7 +38,7 @@ public class Board {
 
     public boolean hasWin(IntStream line, Symbol symbol) {
         return line.mapToObj(index -> get(index))
-                .allMatch(s -> s.equals(symbol));
+                .allMatch(index -> index.equals(symbol));
     }
 
     boolean checkWins(Symbol symbol) {
