@@ -1,6 +1,7 @@
 package ttt.board;
 
 import ttt.inputOutput.IO;
+import ttt.inputOutput.InputValidator;
 
 public class BoardCreator {
     private IO io;
@@ -27,12 +28,7 @@ public class BoardCreator {
     }
 
     public boolean validDigit(String userInput) {
-            try {
-                Integer.parseInt(userInput);
-                return true;
-            } catch (NumberFormatException e) {
-                io.showOutput("Please enter a valid number");
-            }
-        return false;
+        InputValidator inputValidator = new InputValidator(io);
+        return inputValidator.checksDigit(userInput);
     }
 }
