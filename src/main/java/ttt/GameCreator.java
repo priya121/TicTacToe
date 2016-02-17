@@ -20,8 +20,7 @@ public class GameCreator {
         PlayerCreator playerCreate = new PlayerCreator(io, userInput);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
-        Game game = new Game(board, io, playerOne, playerTwo);
-        return game;
+        return new Game(board, io, playerOne, playerTwo);
     }
 
     public void displayMessage() {

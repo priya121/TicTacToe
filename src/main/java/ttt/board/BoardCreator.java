@@ -27,16 +27,12 @@ public class BoardCreator {
     }
 
     public boolean validDigit(String userInput) {
-        boolean digitinput = false;
-        while(!digitinput) {
             try {
                 Integer.parseInt(userInput);
-                digitinput = true;
+                return true;
             } catch (NumberFormatException e) {
                 io.showOutput("Please enter a valid number");
-                userInput = takeUserSizeChosen();
             }
-        }
-        return digitinput;
+        return false;
     }
 }

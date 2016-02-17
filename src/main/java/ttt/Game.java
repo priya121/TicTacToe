@@ -83,7 +83,6 @@ public class Game {
         if (board.isWin()) {
             io.showOutput("Player " + currentPlayer.playerSymbol() + " has won!");
         }
-        io.showOutput("game over");
         replayGameOption();
     }
 
@@ -97,6 +96,7 @@ public class Game {
         if (replayChosen.equals("Y")) {
             this.setupGame().gameLoop();
         }
+        io.showOutput("game over");
     }
 
     public Symbol getPlayerOne() {

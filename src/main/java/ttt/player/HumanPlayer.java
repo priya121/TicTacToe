@@ -29,17 +29,13 @@ public class HumanPlayer implements Player {
     }
 
     public boolean digitInput(String userInput) {
-        boolean digitInput = false;
-        while (!digitInput) {
             try {
                 indexChosen = Integer.parseInt(userInput);
-                digitInput = true;
+                return true;
             } catch (Exception e) {
                 io.showOutput("Please enter a valid number");
-                userInput = takesUserInput();
             }
-        }
-        return digitInput;
+        return false;
     }
 
     public int move(Board board) {
