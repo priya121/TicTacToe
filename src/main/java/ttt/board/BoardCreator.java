@@ -2,12 +2,12 @@ package ttt.board;
 
 import ttt.inputOutput.IO;
 
-public class BoardChooser {
+public class BoardCreator {
     private IO io;
     private Board board;
     private String userInput;
 
-    public BoardChooser(IO io) {
+    public BoardCreator(IO io) {
         this.io = io;
         this.board = new Board(3);
     }

@@ -1,7 +1,7 @@
 package ttt;
 
 import ttt.board.Board;
-import ttt.board.DisplayBoard;
+import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
 import ttt.player.Player;
 
@@ -74,7 +74,7 @@ public class Game {
     }
 
     public void showCurrentBoard() {
-        DisplayBoard currentDisplay = new DisplayBoard(board.contentsOfBoard());
+        BoardDisplay currentDisplay = new BoardDisplay(board.contentsOfBoard());
         io.showOutput(currentDisplay.showBoard());
     }
 

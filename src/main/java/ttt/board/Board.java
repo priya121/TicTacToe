@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 import static ttt.Symbol.*;
 
 public class Board {
-    final BoardSize lines;
+    final WinningLines lines;
     private final int size;
     private final List<Symbol> listOfSymbols;
 
@@ -21,17 +21,17 @@ public class Board {
         }
         this.listOfSymbols = listOfSymbols;
         this.size = (int) Math.sqrt(listOfSymbols.size());
-        this.lines = new BoardSize(size);
+        this.lines = new WinningLines(size);
     }
 
     public Board(List<Symbol> listOfSymbols) {
         this.listOfSymbols = listOfSymbols;
         this.size = (int) Math.sqrt(listOfSymbols.size());
-        this.lines = new BoardSize(size);
+        this.lines = new WinningLines(size);
     }
 
     public boolean hasWon(Symbol symbol) {
-         return lines.joinAllLines().filter(line -> hasWin(line, symbol))
+         return lines.allWinningLines().filter(line -> hasWin(line, symbol))
                 .findAny()
                 .isPresent();
     }

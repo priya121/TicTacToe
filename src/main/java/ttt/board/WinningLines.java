@@ -5,16 +5,16 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Stream.concat;
 
-public class BoardSize {
+public class WinningLines {
     final int size;
     private LineGenerator lines;
 
-    public BoardSize(int size) {
+    public WinningLines(int size) {
         this.size = size;
         this.lines = new LineGenerator();
     }
 
-    public Stream<IntStream> joinAllLines() {
+    public Stream<IntStream> allWinningLines() {
         return concat(lines.streamRows(size), concat(lines.streamColumns(size), lines.streamDiagonals(size)));
     }
 }

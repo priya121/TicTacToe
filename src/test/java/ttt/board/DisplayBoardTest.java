@@ -21,7 +21,7 @@ public class DisplayBoardTest {
         List<Symbol> emptyBoard = Arrays.asList(E, E, E,
                 E, E, E,
                 E, E, E);
-        DisplayBoard initialDisplay = new DisplayBoard(emptyBoard);
+        BoardDisplay initialDisplay = new BoardDisplay(emptyBoard);
         Assert.assertEquals(expectedBoard, initialDisplay.showBoard());
     }
 
@@ -33,7 +33,7 @@ public class DisplayBoardTest {
             List<Symbol> intermediateBoard = Arrays.asList(O, X, O,
                     X, O, X,
                     E, X, X);
-            DisplayBoard currentDisplay = new DisplayBoard(intermediateBoard);
+            BoardDisplay currentDisplay = new BoardDisplay(intermediateBoard);
             Assert.assertEquals(expectedBoard, currentDisplay.showBoard());
         }
 }

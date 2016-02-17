@@ -3,8 +3,7 @@ package ttt.board;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-
-class LineGenerator {
+public class LineGenerator {
 
     public Stream<IntStream> streamRows(int size) {
         return IntStream.range(0, size)

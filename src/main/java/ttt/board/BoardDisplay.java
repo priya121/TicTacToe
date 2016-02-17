@@ -4,11 +4,11 @@ import ttt.Symbol;
 
 import java.util.List;
 
-public class DisplayBoard {
+public class BoardDisplay {
     List<Symbol> board;
     String display = "";
 
-    public DisplayBoard(List<Symbol> board) {
+    public BoardDisplay(List<Symbol> board) {
         this.board = board;
     }
 

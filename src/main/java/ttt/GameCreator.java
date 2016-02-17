@@ -1,7 +1,7 @@
 package ttt;
 
 import ttt.board.Board;
-import ttt.board.BoardChooser;
+import ttt.board.BoardCreator;
 import ttt.inputOutput.IO;
 import ttt.player.Player;
 import ttt.player.PlayerCreator;
@@ -34,7 +34,7 @@ public class GameCreator {
     }
 
     private Board getBoard() {
-        BoardChooser boardChooser = new BoardChooser(io);
+        BoardCreator boardChooser = new BoardCreator(io);
         return boardChooser.create();
     }
 }

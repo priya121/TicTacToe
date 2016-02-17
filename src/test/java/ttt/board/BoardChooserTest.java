@@ -30,7 +30,7 @@ public class BoardChooserTest {
                     E, E, E, E,
                     E, E, E, E));
         Board expectedBoard = new Board(emptyCells);
-        BoardChooser boardCreator = new BoardChooser(userInput(Arrays.asList("4")));
+        BoardCreator boardCreator = new BoardCreator(userInput(Arrays.asList("4")));
         Assert.assertEquals(expectedBoard.contentsOfBoard(), boardCreator.create().contentsOfBoard());
     }
 
