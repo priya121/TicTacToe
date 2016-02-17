@@ -313,7 +313,7 @@ public class BoardTest {
     @Test
     public void largerThanBoardIsInvalid() {
         Board newBoard = new Board(3);
-        Assert.assertFalse(newBoard.isPositionEmpty(37));
+        Assert.assertFalse(newBoard.isPositionEmpty("37"));
     }
 
     @Test

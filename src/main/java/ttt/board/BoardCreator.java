@@ -1,10 +1,10 @@
 package ttt.board;
 
 import ttt.inputOutput.IO;
-import ttt.inputOutput.InputValidator;
+import ttt.inputOutput.DigitValidator;
 
 public class BoardCreator {
-    private InputValidator inputValidator;
+    private DigitValidator inputValidator;
     private IO io;
     private Board board;
     private String userInput;
@@ -12,7 +12,7 @@ public class BoardCreator {
     public BoardCreator(IO io) {
         this.io = io;
         this.board = new Board(3);
-        this.inputValidator = new InputValidator(io);
+        this.inputValidator = new DigitValidator();
     }
 
     public String takeUserSizeChosen() {
@@ -23,7 +23,8 @@ public class BoardCreator {
     public Board create() {
         io.showOutput("Please enter the size of the board you would like to play on (e.g. 3 for 3x3 or 4 for 4x4): ");
         userInput = takeUserSizeChosen();
-            while (!inputValidator.checksDigit(userInput)) {
+            while (!inputValidator.check(userInput)) {
+                io.showOutput("Please enter a valid number");
                 takeUserSizeChosen();
             }
             return new Board(Integer.parseInt(userInput));

@@ -1,6 +1,7 @@
 package ttt.board;
 
 import ttt.Symbol;
+import ttt.inputOutput.DigitValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,9 @@ public class Board {
         return listOfSymbols.get(index);
     }
 
-    public boolean isPositionEmpty(int move) {
-        return validMoves().contains(move);
+    public boolean isPositionEmpty(String move) {
+        DigitValidator digitValidator = new DigitValidator();
+        return digitValidator.check(move) && validMoves().contains(Integer.parseInt(move));
     }
 
     public boolean notFull() {

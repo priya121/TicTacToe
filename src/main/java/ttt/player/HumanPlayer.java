@@ -2,6 +2,7 @@ package ttt.player;
 
 import ttt.Symbol;
 import ttt.board.Board;
+import ttt.inputOutput.DigitValidator;
 import ttt.inputOutput.IO;
 
 public class HumanPlayer implements Player {
@@ -21,21 +22,16 @@ public class HumanPlayer implements Player {
     }
 
     private int validMove(Board board) {
-        while (!digitInput(userInput) || !board.isPositionEmpty(indexChosen)) {
+        while (!checksDigit(userInput) || !board.isPositionEmpty(userInput)) {
             io.showOutput("That position is already taken or is not on the board, try again.");
             takesUserInput();
         }
-        return indexChosen;
+        return Integer.parseInt(userInput);
     }
 
-    public boolean digitInput(String userInput) {
-            try {
-                indexChosen = Integer.parseInt(userInput);
-                return true;
-            } catch (Exception e) {
-                io.showOutput("Please enter a valid number");
-            }
-        return false;
+    public boolean checksDigit(String userInput) {
+        DigitValidator digitValidator = new DigitValidator();
+        return digitValidator.check(userInput);
     }
 
     public int move(Board board) {
