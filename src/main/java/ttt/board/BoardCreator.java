@@ -6,12 +6,10 @@ import ttt.inputOutput.DigitValidator;
 public class BoardCreator {
     private DigitValidator inputValidator;
     private IO io;
-    private Board board;
     private String userInput;
 
     public BoardCreator(IO io) {
         this.io = io;
-        this.board = new Board(3);
         this.inputValidator = new DigitValidator();
     }
 

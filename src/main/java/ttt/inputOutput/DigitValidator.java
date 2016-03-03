@@ -7,7 +7,7 @@ public class DigitValidator {
             Integer.parseInt(userInput);
             return true;
         } catch (NumberFormatException e) {
+            return false;
         }
-        return false;
     }
 }

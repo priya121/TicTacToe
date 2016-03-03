@@ -15,49 +15,44 @@ public class AIComputerPlayer implements Player {
         this.opponentSymbol = winningSymbol == X ? O : X;
     }
 
-    public BestMove minimax(int depth, Board board, Symbol currentSymbol) {
+    public BestMove negamax(int depth, int alpha, int beta, Board board, Symbol currentSymbol) {
         BestMove bestMove = new BestMove(-1, 0);
-        resetScore(currentSymbol, bestMove);
+        bestMove.score = -100;
 
         if (!board.gameNotOver() || depth == 0) {
-            return new BestMove(-1, scoreBoard(board));
+            return new BestMove(-1, -scoreBoard(board));
         }
 
         for (int emptyCell : board.validMoves()) {
 
             Board copyOfBoard = board.markPlayer(emptyCell, currentSymbol);
+            BestMove newScore = negamax(depth - 1, -beta, -alpha, copyOfBoard, switchPlayer(currentSymbol));
 
-            BestMove newScore = minimax(depth - 1, copyOfBoard, switchPlayer(currentSymbol));
-            int temporaryScore = newScore.score;
+            int temporaryScore = -newScore.score;
+            setScore(bestMove, emptyCell, temporaryScore);
 
-            if (currentSymbol.equals(winningSymbol) && temporaryScore >= bestMove.score) {
-                bestMove.index = emptyCell;
-                bestMove.score = temporaryScore;
-            } else if (currentSymbol.equals(opponentSymbol) && temporaryScore <= bestMove.score) {
-                bestMove.index = emptyCell;
-                bestMove.score = temporaryScore;
+            alpha = Math.max(alpha, bestMove.score);
+            if (alpha >= beta) {
+                break;
             }
         }
         return new BestMove(bestMove.index, bestMove.score);
     }
 
-    private Symbol switchPlayer(Symbol currentSymbol) {
-         return currentSymbol == winningSymbol ? opponentSymbol : winningSymbol;
-    }
-
-    private void resetScore(Symbol symbol, BestMove bestMove) {
-        if (symbol == winningSymbol) {
-            bestMove.score = -100;
-        } else {
-            bestMove.score = 100;
+    private void setScore(BestMove bestMove, int emptyCell, int temporaryScore) {
+        if (temporaryScore > bestMove.score) {
+            bestMove.index = emptyCell;
+            bestMove.score = temporaryScore;
         }
     }
 
+    private Symbol switchPlayer(Symbol currentSymbol) {
+        return currentSymbol == winningSymbol ? opponentSymbol : winningSymbol;
+    }
+
     public int scoreBoard(Board copyOfBoard) {
-        if (copyOfBoard.winningSymbol(winningSymbol)) {
+        if (copyOfBoard.hasWon(X) || copyOfBoard.hasWon(O)) {
             return 1;
-        } else if (copyOfBoard.winningSymbol(opponentSymbol)) {
-            return -1;
         }
         return 0;
     }
@@ -67,7 +62,7 @@ public class AIComputerPlayer implements Player {
     }
 
     public int move(Board board) {
-        BestMove bestMove = minimax(7, board, winningSymbol);
+        BestMove bestMove = negamax(7, -100, +100, board, winningSymbol);
         return bestMove.index;
     }
 }

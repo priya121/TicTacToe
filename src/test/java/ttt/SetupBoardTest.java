@@ -24,6 +24,4 @@ public class SetupBoardTest {
         List<Symbol> empty = emptyBoard(3, 3);
         Assert.assertEquals(empty, newGame.emptyBoard(3, 3));
     }
-
-
 }

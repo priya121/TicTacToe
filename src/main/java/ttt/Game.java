@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 import static ttt.Symbol.E;
 
 public class Game {
-    private final GameCreator gameCreator;
     public Board board;
     IO io;
     Player currentPlayer;
@@ -25,11 +24,6 @@ public class Game {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
-        this.gameCreator = new GameCreator(io);
-    }
-
-    public Game setupGame() {
-        return gameCreator.createGame();
     }
 
     public void gameLoop() {
@@ -78,25 +72,12 @@ public class Game {
         io.showOutput(currentDisplay.showBoard());
     }
 
+
     private void endOfGameDisplay() {
         showCurrentBoard();
         if (board.isWin()) {
             io.showOutput("Player " + currentPlayer.playerSymbol() + " has won!");
         }
-        replayGameOption();
-    }
-
-    private void replayGameOption() {
-        io.showOutput("Would you like to play again? Y/N");
-        String replayChosen = io.takeInput();
-        replayOptionChosen(replayChosen);
-    }
-
-    private void replayOptionChosen(String replayChosen) {
-        if (replayChosen.equals("Y")) {
-            this.setupGame().gameLoop();
-        }
-        io.showOutput("game over");
     }
 
     public Symbol getPlayerOne() {

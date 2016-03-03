@@ -23,6 +23,12 @@ public class GameCreator {
         return new Game(board, io, playerOne, playerTwo);
     }
 
+    public void gameStart() {
+        createGame().gameLoop();
+        replayGameOption();
+        io.showOutput("game over");
+    }
+
     public void displayMessage() {
         io.showOutput("Hi, choose a game type (Enter 1 - 4): \n" +
                 "1) Human vs Human \n" +
@@ -35,5 +41,17 @@ public class GameCreator {
     private Board getBoard() {
         BoardCreator boardChooser = new BoardCreator(io);
         return boardChooser.create();
+    }
+
+    public void replayGameOption() {
+        io.showOutput("Would you like to play again? Y/N");
+        String replayChosen = io.takeInput();
+        createMultipleGames(replayChosen);
+    }
+
+    public void createMultipleGames(String replayChosen) {
+        if (replayChosen.equals("Y")) {
+            createGame().gameLoop();
+        }
     }
 }

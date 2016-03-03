@@ -38,7 +38,7 @@ public class Board {
     }
 
     public boolean hasWin(IntStream line, Symbol symbol) {
-        return line.mapToObj(index -> get(index))
+        return line.mapToObj(this::get)
                 .allMatch(index -> index.equals(symbol));
     }
 

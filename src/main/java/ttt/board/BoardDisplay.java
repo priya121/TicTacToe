@@ -21,10 +21,4 @@ public class BoardDisplay {
         }
         return display;
     }
-
-    public void clearScreen() {
-        String clear = "\033[2J\033[1;1H";
-        System.out.println(clear);
-        System.out.flush();
-    }
 }

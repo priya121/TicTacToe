@@ -2,19 +2,8 @@ package ttt.player;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.inputOutput.ConsoleIO;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
 
 public class PlayerCreatorTest {
-    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(recordedOutput);
-
-    public ConsoleIO convertUserInput(InputStream userInput) {
-        return new ConsoleIO(userInput, out);
-    }
 
     @Test
     public void createsHumanPlayerAsPlayerOneIfUserEntersOne() {

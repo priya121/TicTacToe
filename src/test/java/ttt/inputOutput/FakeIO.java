@@ -7,7 +7,7 @@ public class FakeIO implements IO {
     private LinkedList<String> input;
 
     public FakeIO(List<String> input) {
-        this.input = new LinkedList<String>(input);
+        this.input = new LinkedList<>(input);
     }
 
     @Override

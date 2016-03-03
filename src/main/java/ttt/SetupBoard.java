@@ -11,7 +11,7 @@ public class SetupBoard {
     }
 
     public List<Symbol> emptyBoard(int height, int width) {
-        List<Symbol> board = new ArrayList<Symbol>();
+        List<Symbol> board = new ArrayList<>();
         for (int i = 0; i < height * width; i++) {
             board.add(E);
         }
@@ -19,7 +19,7 @@ public class SetupBoard {
     }
 
     public List<Symbol> placeSymbols(List<Symbol> symbols) {
-        List<Symbol> board = new ArrayList<Symbol>();
+        List<Symbol> board = new ArrayList<>();
         for (int i = 0; i < symbols.size(); i++) {
                 board.add(symbols.get(i));
         }

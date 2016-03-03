@@ -38,30 +38,12 @@ public class AIComputerPlayerTest {
     }
 
     @Test
-    public void placesAInWinningCell() {
-        Board intermediateBoard = new Board(Arrays.asList(E, X, X,
-                                                          E, O, O,
-                                                          X, E, E));
-        AIComputerPlayer computerPlayer = new AIComputerPlayer(O);
-        Assert.assertEquals(3, computerPlayer.move(intermediateBoard));
-    }
-
-    @Test
     public void AIPlayerMakesBlockingMove() {
         Board intermediateBoard = new Board(Arrays.asList(O, X, O,
                                                           E, E, X,
                                                           X, X, O));
         AIComputerPlayer computerPlayer = new AIComputerPlayer(O);
         Assert.assertEquals(4, computerPlayer.move(intermediateBoard));
-    }
-
-    @Test
-    public void AIMakesWinningMoveInFirstColumn() {
-        Board intermediateBoard = new Board(Arrays.asList(O, X, X,
-                                                          O, E, E,
-                                                          E, X, E));
-        AIComputerPlayer computerPlayer = new AIComputerPlayer(O);
-        Assert.assertEquals(6, computerPlayer.move(intermediateBoard));
     }
 
     @Test

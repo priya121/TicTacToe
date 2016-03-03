@@ -48,13 +48,6 @@ public class GameTest {
     }
 
     @Test
-    public void asksUserToEnterDimensionOfBoard() {
-        Game game = new GameCreator(convertUserInput(new ByteArrayInputStream("3\n1\n2\n1\n5\n4\n8\n7\n".getBytes()))).createGame();
-        game.gameLoop();
-        Assert.assertTrue(recordedOutput.toString().contains("game over"));
-    }
-
-    @Test
     public void userMustEnterDigits() {
         Game game = getGame(convertUserInput(new ByteArrayInputStream("X\na\n1\n1\n0\n2\nN\n".getBytes())));
         game.gameLoop();
