@@ -26,7 +26,6 @@ public class GameCreator {
     public void gameStart() {
         createGame().gameLoop();
         replayGameOption();
-        io.showOutput("game over");
     }
 
     public void displayMessage() {
@@ -51,7 +50,9 @@ public class GameCreator {
 
     public void createMultipleGames(String replayChosen) {
         if (replayChosen.equals("Y")) {
-            createGame().gameLoop();
+            gameStart();
+        } else {
+            io.showOutput("game over");
         }
     }
 }
