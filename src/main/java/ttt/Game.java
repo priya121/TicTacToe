@@ -6,6 +6,8 @@ import ttt.inputOutput.IO;
 import ttt.player.Player;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -34,8 +36,8 @@ public class Game {
             showCurrentBoard();
             computeCurrentPlayer(board);
             move = currentPlayer.move(board);
-            setMove();
             board = board.markPlayer(move, currentPlayer.playerSymbol());
+            notifyObservers();
         }
         endOfGameDisplay();
     }
@@ -48,8 +50,9 @@ public class Game {
         return move;
     }
 
-    public void setMove() {
-        notifyObservers();
+    public String getTime() {
+        Date date = Calendar.getInstance().getTime();
+        return String.valueOf(date);
     }
 
     public void attach(Observer observer) {
@@ -57,8 +60,9 @@ public class Game {
     }
 
     private void notifyObservers() {
-        for (Observer observer : observers)
+        for (Observer observer : observers) {
             observer.update();
+        }
     }
 
     public List<Symbol> getBoard() {

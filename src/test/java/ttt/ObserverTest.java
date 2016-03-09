@@ -13,33 +13,41 @@ public class ObserverTest {
     @Test
     public void setsLastUpdatedMoveAsCellTwoForTheFirstHumanPlayer() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+        MoveObserver moveObserver = new MoveObserver(game);
         game.gameLoop();
-        Observer moveObserver = new MoveObserver(game);
-        assertEquals("2", moveObserver.update());
+        assertEquals(Arrays.asList("0", "8", "1", "7", "3", "5", "2"), moveObserver.movesList);
     }
 
     @Test
     public void setsLastUpdatedMoveAsCellSevenForTheFirstHumanPlayer() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        MoveObserver moveObserver = new MoveObserver(game);
         game.gameLoop();
-        Observer moveObserver = new MoveObserver(game);
-        assertEquals("7", moveObserver.update());
+        assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), moveObserver.movesList);
     }
 
     @Test
     public void setsLastUpdateCurrentPlayerAsXForPlayerObserver() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        PlayerObserver playerObserver = new PlayerObserver(game);
         game.gameLoop();
-        Observer playerObserver = new PlayerObserver(game);
-        assertEquals("X", playerObserver.update());
+        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X"), playerObserver.ordered);
     }
 
     @Test
     public void setsLastUpdateCurrentPlayerAsOForPlayerObserver() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
+        PlayerObserver playerObserver = new PlayerObserver(game);
         game.gameLoop();
-        Observer playerObserver = new PlayerObserver(game);
-        assertEquals("O", playerObserver.update());
+        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X", "O"), playerObserver.ordered);
+    }
+
+    @Test
+    public void testsTimeGivenForEachMove() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
+        DateTimeObserver timeObserver = new DateTimeObserver(game);
+        game.gameLoop();
+        assertEquals("Wed Mar ", timeObserver.update().substring(0, 8));
     }
 
     private FakeIO getFakeIO(List<String> input) {
