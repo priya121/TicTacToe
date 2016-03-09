@@ -1,15 +1,16 @@
 package ttt;
 
-public class MoveObserver extends Observer {
+public class PlayerObserver extends Observer{
+
     private final Game game;
 
-    public MoveObserver(Game game) {
+    public PlayerObserver(Game game) {
         this.game = game;
         this.game.attach(this);
     }
 
     @Override
     public String update() {
-        return String.valueOf(game.getMove());
+        return String.valueOf(game.getCurrentPlayer());
     }
 }

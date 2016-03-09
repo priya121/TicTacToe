@@ -34,18 +34,21 @@ public class Game {
             showCurrentBoard();
             computeCurrentPlayer(board);
             move = currentPlayer.move(board);
-            setMove(move);
+            setMove();
             board = board.markPlayer(move, currentPlayer.playerSymbol());
         }
         endOfGameDisplay();
+    }
+
+    public Symbol getCurrentPlayer() {
+        return currentPlayer.playerSymbol();
     }
 
     public int getMove() {
         return move;
     }
 
-    public void setMove(int updatedMove) {
-        move = updatedMove;
+    public void setMove() {
         notifyObservers();
     }
 
@@ -55,7 +58,7 @@ public class Game {
 
     private void notifyObservers() {
         for (Observer observer : observers)
-            observer.updateMove();
+            observer.update();
     }
 
     public List<Symbol> getBoard() {

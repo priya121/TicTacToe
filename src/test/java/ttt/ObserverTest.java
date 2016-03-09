@@ -11,19 +11,35 @@ import static org.junit.Assert.assertEquals;
 public class ObserverTest {
 
     @Test
-    public void setsUpdatedMoveAsCellTwoForTheFirstHumanPlayer() {
+    public void setsLastUpdatedMoveAsCellTwoForTheFirstHumanPlayer() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
         game.gameLoop();
         Observer moveObserver = new MoveObserver(game);
-        assertEquals(2, moveObserver.updateMove());
+        assertEquals("2", moveObserver.update());
     }
 
     @Test
-    public void setsUpdatedMoveAsCellSevenForTheFirstHumanPlayer() {
+    public void setsLastUpdatedMoveAsCellSevenForTheFirstHumanPlayer() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         game.gameLoop();
         Observer moveObserver = new MoveObserver(game);
-        assertEquals(7, moveObserver.updateMove());
+        assertEquals("7", moveObserver.update());
+    }
+
+    @Test
+    public void setsLastUpdateCurrentPlayerAsXForPlayerObserver() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        game.gameLoop();
+        Observer playerObserver = new PlayerObserver(game);
+        assertEquals("X", playerObserver.update());
+    }
+
+    @Test
+    public void setsLastUpdateCurrentPlayerAsOForPlayerObserver() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
+        game.gameLoop();
+        Observer playerObserver = new PlayerObserver(game);
+        assertEquals("O", playerObserver.update());
     }
 
     private FakeIO getFakeIO(List<String> input) {
