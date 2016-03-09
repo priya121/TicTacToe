@@ -13,6 +13,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static ttt.Symbol.*;
 
 public class GameTest {
@@ -25,7 +26,7 @@ public class GameTest {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, X, E, E, E, E, O, O));
         Game game = getGame(humanMoves(Arrays.asList("3", "1", "0", "7", "2", "8", "1", "N")));
         game.gameLoop();
-        Assert.assertEquals(expectedBoard, game.getBoard());
+        assertEquals(expectedBoard, game.getBoard());
     }
 
     @Test
@@ -33,7 +34,7 @@ public class GameTest {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, E, E, X, E, O, O, O));
         Game game = getGame(humanMoves(Arrays.asList("3", "1", "0", "6", "1", "7", "4", "8", "N")));
         game.gameLoop();
-        Assert.assertEquals(expectedBoard, game.getBoard());
+        assertEquals(expectedBoard, game.getBoard());
     }
 
     @Test
@@ -44,7 +45,7 @@ public class GameTest {
                                                                          E, E, E, E));
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "1", "6", "3", "7", "2", "8", "0", "N")));
         game.gameLoop();
-        Assert.assertEquals(expectedBoard, game.getBoard());
+        assertEquals(expectedBoard, game.getBoard());
     }
 
     @Test
@@ -58,8 +59,23 @@ public class GameTest {
     public void computesCurrentPlayer() {
         Game game = getGame(convertUserInput(new ByteArrayInputStream("X\n1\n6\n0\n8\n2\n4\n1\nN\n".getBytes())));
         game.gameLoop();
-        Assert.assertEquals(X, game.getPlayerOne());
+        assertEquals(X, game.getPlayerOne());
     }
+
+    @Test
+    public void updatesTheLastMovePlayedToThree() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "2", "5", "3", "N")));
+        game.gameLoop();
+        assertEquals(3, game.getMove());
+    }
+
+    @Test
+    public void updatesTheLastMovePlayedAsTwo() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+        game.gameLoop();
+        assertEquals(2, game.getMove());
+    }
+
 
     private FakeIO getFakeIO(List<String> input) {
         return new FakeIO(input);

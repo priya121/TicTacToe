@@ -17,6 +17,8 @@ public class Game {
     Player currentPlayer;
     Player playerOne;
     Player playerTwo;
+    List<Observer> observers = new ArrayList<>();
+    int move;
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo) {
         this.board = board;
@@ -31,9 +33,29 @@ public class Game {
             io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
             computeCurrentPlayer(board);
-            board = board.markPlayer(currentPlayer.move(board), currentPlayer.playerSymbol());
+            move = currentPlayer.move(board);
+            setMove(move);
+            board = board.markPlayer(move, currentPlayer.playerSymbol());
         }
         endOfGameDisplay();
+    }
+
+    public int getMove() {
+        return move;
+    }
+
+    public void setMove(int updatedMove) {
+        move = updatedMove;
+        notifyObservers();
+    }
+
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers() {
+        for (Observer observer : observers)
+            observer.updateMove();
     }
 
     public List<Symbol> getBoard() {
@@ -83,4 +105,5 @@ public class Game {
     public Symbol getPlayerOne() {
         return currentPlayer.playerSymbol();
     }
+
 }
