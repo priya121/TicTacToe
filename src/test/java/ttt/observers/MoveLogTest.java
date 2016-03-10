@@ -1,10 +1,15 @@
-package ttt;
+package ttt.observers;
 
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import ttt.Game;
+import ttt.GameCreator;
 import ttt.inputOutput.FakeIO;
+import ttt.observers.DateTimeObserver;
+import ttt.observers.MoveObserver;
+import ttt.observers.PlayerObserver;
 
 import java.io.File;
 import java.io.FileInputStream;

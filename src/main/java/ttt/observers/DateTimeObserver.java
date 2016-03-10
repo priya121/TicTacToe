@@ -1,4 +1,6 @@
-package ttt;
+package ttt.observers;
+
+import ttt.Game;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.util.List;
 public class DateTimeObserver extends Observer {
     private final File file;
     public List<String> listOfTimes = new ArrayList<>();
-    private MoveLog moveLog = new MoveLog();
+    private MoveLogger moveLog = new MoveLogger();
 
     public DateTimeObserver(Game game, File file) {
         this.game = game;
@@ -18,14 +20,10 @@ public class DateTimeObserver extends Observer {
 
     @Override
     public String update() {
-        String timeOfMove = game.getTime();
+        String timeOfMove = String.valueOf(game.getTime());
         listObservations(timeOfMove);
-        try {
-            writeToFile(timeOfMove, file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return game.getTime();
+        writeToFile(timeOfMove, file);
+        return timeOfMove;
     }
 
     @Override
@@ -34,8 +32,13 @@ public class DateTimeObserver extends Observer {
         return listOfTimes;
     }
 
-    public void writeToFile(String time, File file) throws IOException {
+    @Override
+    public void writeToFile(String time, File file) {
         String display = "Played At: " + time + "\n";
-        moveLog.transfer(display, file);
+        try {
+            moveLog.transfer(display, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

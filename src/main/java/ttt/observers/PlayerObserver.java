@@ -1,14 +1,16 @@
-package ttt;
+package ttt.observers;
+
+import ttt.Game;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerObserver extends Observer{
+public class PlayerObserver extends Observer {
     private final File file;
     public List<String> ordered = new ArrayList<>();
-    MoveLog moveLog = new MoveLog();
+    MoveLogger moveLog = new MoveLogger();
 
     public PlayerObserver(Game game, File file) {
         this.game = game;
@@ -20,11 +22,7 @@ public class PlayerObserver extends Observer{
     public String update() {
         String currentPlayer = String.valueOf(game.getCurrentPlayer());
         listObservations(currentPlayer);
-        try {
-            writeToFile(currentPlayer, file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeToFile(currentPlayer, file);
         return currentPlayer;
     }
 
@@ -34,8 +32,13 @@ public class PlayerObserver extends Observer{
         return ordered;
     }
 
-    public void writeToFile(String player, File file) throws IOException {
+    @Override
+    public void writeToFile(String player, File file) {
         String display = "Player: " + player + "\n";
-        moveLog.transfer(display, file);
+        try {
+            moveLog.transfer(display, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

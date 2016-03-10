@@ -3,6 +3,10 @@ package ttt;
 import ttt.board.Board;
 import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
+import ttt.observers.DateTimeObserver;
+import ttt.observers.MoveObserver;
+import ttt.observers.Observer;
+import ttt.observers.PlayerObserver;
 import ttt.player.Player;
 
 import java.io.File;
@@ -56,9 +60,9 @@ public class Game {
         return move;
     }
 
-    public String getTime() {
+    public Date getTime() {
         Date date = Calendar.getInstance().getTime();
-        return String.valueOf(date);
+        return date;
     }
 
     public void attach(Observer observer) {
