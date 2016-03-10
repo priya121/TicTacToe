@@ -6,6 +6,8 @@ import ttt.inputOutput.IO;
 import ttt.player.Player;
 import ttt.player.PlayerCreator;
 
+import java.io.File;
+
 public class GameCreator {
     private IO io;
 
@@ -20,7 +22,8 @@ public class GameCreator {
         PlayerCreator playerCreate = new PlayerCreator(io, userInput);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
-        return new Game(board, io, playerOne, playerTwo);
+        File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+        return new Game(board, io, playerOne, playerTwo, file);
     }
 
     public void gameStart() {

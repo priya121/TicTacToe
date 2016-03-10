@@ -5,6 +5,7 @@ import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
 import ttt.player.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,15 +20,20 @@ public class Game {
     Player currentPlayer;
     Player playerOne;
     Player playerTwo;
+    File file;
     List<Observer> observers = new ArrayList<>();
     int move;
 
-    public Game(Board board, IO io, Player playerOne, Player playerTwo) {
+    public Game(Board board, IO io, Player playerOne, Player playerTwo, File file) {
         this.board = board;
         this.io = io;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
+        this.file = file;
+        new PlayerObserver(this, file);
+        new MoveObserver(this, file);
+        new DateTimeObserver(this, file);
     }
 
     public void gameLoop() {
