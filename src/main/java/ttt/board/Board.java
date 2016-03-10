@@ -82,8 +82,4 @@ public class Board {
     public boolean isWin() {
         return checkWins(O) || checkWins(X);
     }
-
-    public boolean winningSymbol(Symbol symbol) {
-        return checkWins(symbol);
-    }
 }
