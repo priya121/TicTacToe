@@ -10,6 +10,7 @@ import java.io.File;
 
 public class GameCreator {
     private IO io;
+    private int gameNumber = 1;
 
     public GameCreator(IO io) {
         this.io = io;
@@ -22,7 +23,7 @@ public class GameCreator {
         PlayerCreator playerCreate = new PlayerCreator(io, userInput);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
-        File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+        File file = new File("/Users/priyapatil/TTT/gameLog" + gameNumber + ".txt");
         return new Game(board, io, playerOne, playerTwo, file);
     }
 
@@ -53,6 +54,7 @@ public class GameCreator {
 
     public void createMultipleGames(String replayChosen) {
         if (replayChosen.equals("Y")) {
+            gameNumber += 1;
             gameStart();
         } else {
             io.showOutput("game over");

@@ -54,7 +54,7 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
         File output = temporaryFolder.newFile("output.txt");
         DateTimeObserver timeObserver =  timeObserverGame(game, output);
-        assertEquals("Thu Mar ", timeObserver.update().substring(0, 8));
+        assertEquals("Tue Mar ", timeObserver.update().substring(0, 8));
     }
 
     private PlayerObserver playerObserverGame(Game game, File output) {

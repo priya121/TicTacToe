@@ -7,9 +7,6 @@ import org.junit.rules.TemporaryFolder;
 import ttt.Game;
 import ttt.GameCreator;
 import ttt.inputOutput.FakeIO;
-import ttt.observers.DateTimeObserver;
-import ttt.observers.MoveObserver;
-import ttt.observers.PlayerObserver;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +17,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class MoveLogTest {
+public class GameLogTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class DateTimeObserver extends Observer {
     private final File file;
     public List<String> listOfTimes = new ArrayList<>();
-    private MoveLogger moveLog = new MoveLogger();
+    private GameLog gameLog = new GameLog();
 
     public DateTimeObserver(Game game, File file) {
         this.game = game;
@@ -34,9 +34,9 @@ public class DateTimeObserver extends Observer {
 
     @Override
     public void writeToFile(String time, File file) {
-        String display = "Played At: " + time + "\n";
+        String display = "Played At: " + time + "\n\n";
         try {
-            moveLog.transfer(display, file);
+            gameLog.transfer(display, file);
         } catch (IOException e) {
             e.printStackTrace();
         }

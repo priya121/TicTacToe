@@ -35,6 +35,10 @@ public class Game {
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
         this.file = file;
+        createObservers(file);
+    }
+
+    private void createObservers(File file) {
         new PlayerObserver(this, file);
         new MoveObserver(this, file);
         new DateTimeObserver(this, file);

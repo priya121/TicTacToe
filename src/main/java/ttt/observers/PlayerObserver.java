@@ -10,7 +10,7 @@ import java.util.List;
 public class PlayerObserver extends Observer {
     private final File file;
     public List<String> ordered = new ArrayList<>();
-    MoveLogger moveLog = new MoveLogger();
+    GameLog gameLog = new GameLog();
 
     public PlayerObserver(Game game, File file) {
         this.game = game;
@@ -36,7 +36,7 @@ public class PlayerObserver extends Observer {
     public void writeToFile(String player, File file) {
         String display = "Player: " + player + "\n";
         try {
-            moveLog.transfer(display, file);
+            gameLog.transfer(display, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
