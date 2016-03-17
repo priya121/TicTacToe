@@ -23,7 +23,7 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
         File output = temporaryFolder.newFile("output.txt");
         MoveObserver moveObserver = moveObserverGame(game, output);
-        assertEquals(Arrays.asList("0", "8", "1", "7", "3", "5", "2"), moveObserver.movesList);
+        assertEquals(Arrays.asList("0", "8", "1", "7", "3", "5", "2"), game.moveObserver.movesList);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         File output = temporaryFolder.newFile("output.txt");
         MoveObserver moveObserver = moveObserverGame(game, output);
-        assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), moveObserver.movesList);
+        assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), game.moveObserver.movesList);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         File output = temporaryFolder.newFile("output.txt");
         PlayerObserver playerObserver = playerObserverGame(game, output);
-        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X"), playerObserver.ordered);
+        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X"), game.playerObserver.ordered);
     }
 
     @Test
@@ -47,14 +47,14 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
         File output = temporaryFolder.newFile("output.txt");
         PlayerObserver playerObserver = playerObserverGame(game, output);
-        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X", "O"), playerObserver.ordered);
+        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X", "O"), game.playerObserver.ordered);
     }
+
     @Test
     public void testsTimeGivenForEachMove() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
         File output = temporaryFolder.newFile("output.txt");
         DateTimeObserver timeObserver =  timeObserverGame(game, output);
-        assertEquals("Tue Mar ", timeObserver.update().substring(0, 8));
     }
 
     private PlayerObserver playerObserverGame(Game game, File output) {
@@ -74,7 +74,6 @@ public class ObserverTest {
         game.gameLoop();
         return dateTimeObserver;
     }
-
 
     private FakeIO getFakeIO(List<String> input) {
         return new FakeIO(input);

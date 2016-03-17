@@ -5,20 +5,16 @@ import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
 import ttt.observers.DateTimeObserver;
 import ttt.observers.MoveObserver;
-import ttt.observers.Observer;
 import ttt.observers.PlayerObserver;
 import ttt.player.Player;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static ttt.Symbol.E;
 
-public class Game {
+public class Game extends Observable {
     public Board board;
     IO io;
     Player currentPlayer;
@@ -27,6 +23,9 @@ public class Game {
     File file;
     List<Observer> observers = new ArrayList<>();
     int move;
+    public PlayerObserver playerObserver;
+    public MoveObserver moveObserver;
+    public DateTimeObserver dateTimeObserver;
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo, File file) {
         this.board = board;
@@ -39,9 +38,9 @@ public class Game {
     }
 
     private void createObservers(File file) {
-        new PlayerObserver(this, file);
-        new MoveObserver(this, file);
-        new DateTimeObserver(this, file);
+        playerObserver = new PlayerObserver(this, file);
+        moveObserver = new MoveObserver(this, file);
+        dateTimeObserver = new DateTimeObserver(this, file);
     }
 
     public void gameLoop() {
@@ -73,10 +72,10 @@ public class Game {
         observers.add(observer);
     }
 
-    private void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
+    public void notifyObservers() {
+        playerObserver.update(this, getCurrentPlayer());
+        moveObserver.update(this, getMove());
+        dateTimeObserver.update(this, getTime());
     }
 
     public List<Symbol> getBoard() {

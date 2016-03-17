@@ -4,10 +4,10 @@ import ttt.Game;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class MoveObserver extends Observer {
+public class MoveObserver implements Observer {
+    private final Game game;
     File file;
     public List<String> movesList = new ArrayList<>();
     GameLog gameLog = new GameLog();
@@ -18,27 +18,23 @@ public class MoveObserver extends Observer {
         this.file = file;
     }
 
-    @Override
-    public String update() {
-        String move = String.valueOf(game.getMove());
-        listObservations(move);
-        writeToFile(move, file);
-        return move;
-    }
-
-    @Override
     public List<String> listObservations(String move) {
         movesList.add(move);
         return movesList;
     }
 
-    @Override
-    public void writeToFile(String move, File file) {
+    public void writeToFile(String move) {
         String display = "Made a move at position " + move + "\n";
         try {
             gameLog.transfer(display, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable game, Object move) {
+        listObservations(String.valueOf(move));
+        writeToFile(String.valueOf(move));
     }
 }

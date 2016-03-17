@@ -21,6 +21,7 @@ public class GameLogTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
+    @Ignore
     @Test
     public void writesPlayersSymbolsToAFile() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
@@ -53,6 +54,7 @@ public class GameLogTest {
                 , read(output.getPath(), 280));
     }
 
+    @Ignore
     @Test
     public void writesPlayersMovedToAFile() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));

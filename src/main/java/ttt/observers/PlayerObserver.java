@@ -6,9 +6,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class PlayerObserver extends Observer {
+public class PlayerObserver implements Observer {
     private final File file;
+    private final Game game;
     public List<String> ordered = new ArrayList<>();
     GameLog gameLog = new GameLog();
 
@@ -18,27 +21,23 @@ public class PlayerObserver extends Observer {
         this.file = file;
     }
 
-    @Override
-    public String update() {
-        String currentPlayer = String.valueOf(game.getCurrentPlayer());
-        listObservations(currentPlayer);
-        writeToFile(currentPlayer, file);
-        return currentPlayer;
-    }
-
-    @Override
     public List<String> listObservations(String observation) {
         ordered.add(observation);
         return ordered;
     }
 
-    @Override
-    public void writeToFile(String player, File file) {
+    public void writeToFile(String player) {
         String display = "Player: " + player + "\n";
         try {
             gameLog.transfer(display, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable game, Object player) {
+        listObservations(String.valueOf(player));
+        writeToFile(String.valueOf(player));
     }
 }
