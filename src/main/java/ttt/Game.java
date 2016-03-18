@@ -3,9 +3,7 @@ package ttt;
 import ttt.board.Board;
 import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
-import ttt.observers.DateTimeObserver;
 import ttt.observers.MoveObserver;
-import ttt.observers.PlayerObserver;
 import ttt.player.Player;
 
 import java.io.File;
@@ -17,15 +15,13 @@ import static ttt.Symbol.E;
 public class Game extends Observable {
     public Board board;
     IO io;
-    Player currentPlayer;
+    public Player currentPlayer;
     Player playerOne;
     Player playerTwo;
     File file;
-    List<Observer> observers = new ArrayList<>();
-    int move;
-    public PlayerObserver playerObserver;
+    public int move;
+    public Date date;
     public MoveObserver moveObserver;
-    public DateTimeObserver dateTimeObserver;
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo, File file) {
         this.board = board;
@@ -34,13 +30,11 @@ public class Game extends Observable {
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
         this.file = file;
-        createObservers(file);
+        createObserver(file);
     }
 
-    private void createObservers(File file) {
-        playerObserver = new PlayerObserver(this, file);
+    private void createObserver(File file) {
         moveObserver = new MoveObserver(this, file);
-        dateTimeObserver = new DateTimeObserver(this, file);
     }
 
     public void gameLoop() {
@@ -50,32 +44,11 @@ public class Game extends Observable {
             computeCurrentPlayer(board);
             move = currentPlayer.move(board);
             board = board.markPlayer(move, currentPlayer.playerSymbol());
-            notifyObservers();
+            date = Calendar.getInstance().getTime();
+            setChanged();
+            notifyObservers(this);
         }
         endOfGameDisplay();
-    }
-
-    public Symbol getCurrentPlayer() {
-        return currentPlayer.playerSymbol();
-    }
-
-    public int getMove() {
-        return move;
-    }
-
-    public Date getTime() {
-        Date date = Calendar.getInstance().getTime();
-        return date;
-    }
-
-    public void attach(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void notifyObservers() {
-        playerObserver.update(this, getCurrentPlayer());
-        moveObserver.update(this, getMove());
-        dateTimeObserver.update(this, getTime());
     }
 
     public List<Symbol> getBoard() {

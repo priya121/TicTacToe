@@ -23,61 +23,10 @@ public class GameLogTest {
 
     @Ignore
     @Test
-    public void writesPlayersSymbolsToAFile() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        new PlayerObserver(game, output);
-        game.gameLoop();
-        assertEquals("Player: X\n" +
-                "Player: O\n" +
-                "Player: X\n" +
-                "Player: O\n" +
-                "Player: X\n" +
-                "Player: O\n" +
-                "Player: X\n", read(output.getPath(), 70));
-    }
-
-    @Ignore
-    @Test
-    public void writesTimeAndDateOfMovesToAFile() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        new DateTimeObserver(game, output);
-        game.gameLoop();
-        assertEquals("Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n" +
-                "Played At: Thu Mar 10 11:23:31 GMT 2016\n"
-                , read(output.getPath(), 280));
-    }
-
-    @Ignore
-    @Test
-    public void writesPlayersMovedToAFile() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        new MoveObserver(game, output);
-        game.gameLoop();
-        assertEquals("Made a move at position 4\n" +
-                "Made a move at position 0\n" +
-                "Made a move at position 5\n" +
-                "Made a move at position 3\n" +
-                "Made a move at position 6\n" +
-                "Made a move at position 2\n" +
-                "Made a move at position 7\n", read(output.getPath(), 182));
-    }
-
-    @Ignore
-    @Test
     public void combinesAllObservationsAndWritesThemToAFile() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         File output = temporaryFolder.newFile("output.txt");
-        new PlayerObserver(game, output);
         new MoveObserver(game, output);
-        new DateTimeObserver(game, output);
         game.gameLoop();
         assertEquals("Player: X\n" +
                 "Made a move at position 4\n" +

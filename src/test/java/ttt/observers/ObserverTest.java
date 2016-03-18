@@ -34,45 +34,10 @@ public class ObserverTest {
         assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), game.moveObserver.movesList);
     }
 
-    @Test
-    public void setsLastUpdateCurrentPlayerAsXForPlayerObserver() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        PlayerObserver playerObserver = playerObserverGame(game, output);
-        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X"), game.playerObserver.ordered);
-    }
-
-    @Test
-    public void setsLastUpdateCurrentPlayerAsOForPlayerObserver() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        PlayerObserver playerObserver = playerObserverGame(game, output);
-        assertEquals(Arrays.asList("X", "O", "X", "O", "X", "O", "X", "O"), game.playerObserver.ordered);
-    }
-
-    @Test
-    public void testsTimeGivenForEachMove() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "2", "6", "3", "15", "1", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        DateTimeObserver timeObserver =  timeObserverGame(game, output);
-    }
-
-    private PlayerObserver playerObserverGame(Game game, File output) {
-        PlayerObserver playerObserver = new PlayerObserver(game, output);
-        game.gameLoop();
-        return playerObserver;
-    }
-
     private MoveObserver moveObserverGame(Game game, File output) {
         MoveObserver moveObserver = new MoveObserver(game, output);
         game.gameLoop();
         return moveObserver;
-    }
-
-    private DateTimeObserver timeObserverGame(Game game, File output) {
-        DateTimeObserver dateTimeObserver = new DateTimeObserver(game, output);
-        game.gameLoop();
-        return dateTimeObserver;
     }
 
     private FakeIO getFakeIO(List<String> input) {

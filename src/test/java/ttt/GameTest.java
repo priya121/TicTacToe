@@ -66,14 +66,14 @@ public class GameTest {
     public void updatesTheLastMovePlayedToThree() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "2", "5", "3", "N")));
         game.gameLoop();
-        assertEquals(3, game.getMove());
+        assertEquals(3, game.move);
     }
 
     @Test
     public void updatesTheLastMovePlayedAsTwo() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
         game.gameLoop();
-        assertEquals(2, game.getMove());
+        assertEquals(2, game.move);
     }
 
 

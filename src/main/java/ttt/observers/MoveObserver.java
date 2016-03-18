@@ -11,11 +11,13 @@ public class MoveObserver implements Observer {
     File file;
     public List<String> movesList = new ArrayList<>();
     GameLog gameLog = new GameLog();
+    Observable observable;
 
     public MoveObserver(Game game, File file) {
         this.game = game;
-        this.game.attach(this);
         this.file = file;
+        this.observable = game;
+        observable.addObserver(this);
     }
 
     public List<String> listObservations(String move) {
@@ -23,8 +25,10 @@ public class MoveObserver implements Observer {
         return movesList;
     }
 
-    public void writeToFile(String move) {
-        String display = "Made a move at position " + move + "\n";
+    public void writeToFile(String move, String player, String time) {
+        String display = "Player " + player + "\n" +
+                         "Made a move at position " + move + "\n" +
+                         "At " + time + "\n\n";
         try {
             gameLog.transfer(display, file);
         } catch (IOException e) {
@@ -33,8 +37,10 @@ public class MoveObserver implements Observer {
     }
 
     @Override
-    public void update(Observable game, Object move) {
-        listObservations(String.valueOf(move));
-        writeToFile(String.valueOf(move));
+    public void update(Observable o, Object arg) {
+        listObservations(String.valueOf(game.move));
+        writeToFile(String.valueOf(game.move),
+                    String.valueOf(game.currentPlayer.playerSymbol()),
+                    String.valueOf(game.date));
     }
 }
