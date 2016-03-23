@@ -69,7 +69,7 @@ public class GameCreator {
     }
 
     public void replayGameOption() {
-        io.showOutput("Would you like to play again? Y/N");
+        io.showOutput("Would you like to play again? (Y/N)\nEnter R to re-watch game just played: ");
         String replayChosen = io.takeInput();
         createMultipleGames(replayChosen);
     }
