@@ -1,0 +1,84 @@
+package ttt;
+
+import org.junit.Test;
+import ttt.inputOutput.ConsoleIO;
+import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.IO;
+import ttt.inputOutput.ReplayIO;
+import ttt.observers.MoveObserver;
+
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+
+public class ReplayIOTest {
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
+
+    @Test
+    public void readsMoveListFromFile() throws IOException {
+        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        moveObserverGame(game, tempFile);
+        ReplayIO replayMoves = new ReplayIO(tempFile, out);
+        assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), replayMoves.getMovesFromFile());
+    }
+
+    @Test
+    public void readsTimeStampsFromFile() throws IOException {
+        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        moveObserverGame(game, tempFile);
+        ReplayIO replayMoves = new ReplayIO(tempFile, out);
+        assertEquals("Wed Mar ", replayMoves.getMoveTimes().get(0).toString().substring(0 , 8));
+    }
+
+    @Test
+    public void boardAtEndOfReplayGameSameAsPreviousGame() throws IOException {
+        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        GameCreator game = getGame(convertUserInput(new ByteArrayInputStream("3\n1\n0\n1\n2\n3\n4\n5\n6\n3\n".getBytes())));
+        moveObserverGame(game.createGame(), tempFile);
+        ReplayIO replayIO = new ReplayIO(tempFile, out);
+        game.createReplayGame(replayIO);
+        assertTrue(recordedOutput.toString().contains("Replaying previous game..."));
+    }
+
+    private MoveObserver moveObserverGame(Game game, File output) {
+        MoveObserver moveObserver = new MoveObserver(game, output);
+        game.gameLoop();
+        return moveObserver;
+    }
+
+    private GameCreator getGame(IO humanMoves) {
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ReplayIO io = new ReplayIO(tempFile, out);
+        return new GameCreator(humanMoves, io);
+    }
+
+    private Game getFourByFourGame(FakeIO humanMoves) throws IOException {
+        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        ReplayIO io = new ReplayIO(tempFile, out);
+        return new GameCreator(humanMoves, io).createGame();
+    }
+
+    public FakeIO humanMoves(List<String> moves) {
+        return getFakeIO(moves);
+    }
+
+    private FakeIO getFakeIO(List<String> input) {
+        return new FakeIO(input);
+    }
+
+    public ConsoleIO convertUserInput(InputStream userInput) {
+        return new ConsoleIO(userInput, out);
+    }
+}

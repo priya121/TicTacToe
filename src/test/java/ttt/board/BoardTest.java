@@ -7,7 +7,11 @@ import ttt.GameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ReplayIO;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +19,10 @@ import java.util.List;
 import static ttt.Symbol.*;
 
 public class BoardTest {
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
+    File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+    ReplayIO replayIO = new ReplayIO(file, out);
     Board threeByThreeBoard = new Board(3);
     Board fourByFourBoard = new Board(4);
     SetupBoard expected = new SetupBoard();
@@ -335,11 +343,11 @@ public class BoardTest {
     }
 
     private Game getThreeByThreeGame(FakeIO userInput) {
-        return new GameCreator(userInput).createGame();
+        return new GameCreator(userInput, replayIO).createGame();
     }
 
     private Game getFourByFourGame(FakeIO userInput) {
-        return new GameCreator(userInput).createGame();
+        return new GameCreator(userInput, replayIO).createGame();
     }
 
     private List<Integer> moves(int from, int to) {

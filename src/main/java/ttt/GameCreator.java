@@ -3,6 +3,7 @@ package ttt;
 import ttt.board.Board;
 import ttt.board.BoardCreator;
 import ttt.inputOutput.IO;
+import ttt.inputOutput.ReplayIO;
 import ttt.player.Player;
 import ttt.player.PlayerCreator;
 
@@ -10,21 +11,42 @@ import java.io.File;
 
 public class GameCreator {
     private IO io;
-    private int gameNumber = 1;
+    private ReplayIO replayIO;
+    private Board savedBoard;
 
-    public GameCreator(IO io) {
+    public GameCreator(IO io, ReplayIO replayIO) {
         this.io = io;
+        this.replayIO = replayIO;
     }
 
     public Game createGame() {
         Board board = getBoard();
+        Board replayBoard = board;
+        setReplayBoard(replayBoard);
         displayMessage();
         String userInput = io.takeInput();
         PlayerCreator playerCreate = new PlayerCreator(io, userInput);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
-        File file = new File("/Users/priyapatil/TTT/gameLog" + gameNumber + ".txt");
+        File file = new File("/Users/priyapatil/TTT/gameLog.txt");
         return new Game(board, io, playerOne, playerTwo, file);
+    }
+
+    public void setReplayBoard(Board replayBoard) {
+        savedBoard = replayBoard;
+    }
+
+    public Board getSavedBoard() {
+       return savedBoard;
+    }
+
+    public void createReplayGame(ReplayIO io) {
+        io.showOutput("Replaying previous game...");
+        File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+        PlayerCreator playerCreate = new PlayerCreator(io);
+        Player playerOne = playerCreate.createX();
+        Player playerTwo = playerCreate.createO();
+        new Thread(new Game(getSavedBoard(), io, playerOne, playerTwo, file)).run();
     }
 
     public void gameStart() {
@@ -54,10 +76,10 @@ public class GameCreator {
 
     public void createMultipleGames(String replayChosen) {
         if (replayChosen.equals("Y")) {
-            gameNumber += 1;
             gameStart();
-        } else {
-            io.showOutput("game over");
+        } else if (replayChosen.equals("R")) {
+            createReplayGame(replayIO);
         }
+            io.showOutput("game over");
     }
 }

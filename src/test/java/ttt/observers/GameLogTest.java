@@ -7,17 +7,19 @@ import org.junit.rules.TemporaryFolder;
 import ttt.Game;
 import ttt.GameCreator;
 import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ReplayIO;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class GameLogTest {
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
+    File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+    ReplayIO replayIO = new ReplayIO(file, out);
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -57,7 +59,7 @@ public class GameLogTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new GameCreator(humanMoves).createGame();
+        return new GameCreator(humanMoves, replayIO).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

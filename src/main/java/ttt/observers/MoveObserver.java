@@ -26,9 +26,8 @@ public class MoveObserver implements Observer {
     }
 
     public void writeToFile(String move, String player, String time) {
-        String display = "Player " + player + "\n" +
-                         "Made a move at position " + move + "\n" +
-                         "At " + time + "\n\n";
+        String display =  move + "\n" +
+                          time + "\n";
         try {
             gameLog.transfer(display, file);
         } catch (IOException e) {

@@ -6,15 +6,23 @@ import org.junit.rules.TemporaryFolder;
 import ttt.Game;
 import ttt.GameCreator;
 import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ReplayIO;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class ObserverTest {
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
+    File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+    ReplayIO replayIO = new ReplayIO(file, out);
+
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -22,7 +30,7 @@ public class ObserverTest {
     public void setsLastUpdatedMoveAsCellTwoForTheFirstHumanPlayer() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
         File output = temporaryFolder.newFile("output.txt");
-        MoveObserver moveObserver = moveObserverGame(game, output);
+        moveObserverGame(game, output);
         assertEquals(Arrays.asList("0", "8", "1", "7", "3", "5", "2"), game.moveObserver.movesList);
     }
 
@@ -30,7 +38,7 @@ public class ObserverTest {
     public void setsLastUpdatedMoveAsCellSevenForTheFirstHumanPlayer() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         File output = temporaryFolder.newFile("output.txt");
-        MoveObserver moveObserver = moveObserverGame(game, output);
+        moveObserverGame(game, output);
         assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), game.moveObserver.movesList);
     }
 
@@ -45,7 +53,7 @@ public class ObserverTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new GameCreator(humanMoves).createGame();
+        return new GameCreator(humanMoves, replayIO).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

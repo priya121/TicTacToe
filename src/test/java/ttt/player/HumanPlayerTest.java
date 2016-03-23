@@ -7,11 +7,9 @@ import ttt.GameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ReplayIO;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,7 +65,9 @@ public class HumanPlayerTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new GameCreator(io).createGame();
+        File file = new File("/Users/priyapatil/TTT/gameLog.txt");
+        ReplayIO replayIO = new ReplayIO(file, out);
+        return new GameCreator(io, replayIO).createGame();
     }
 }
 

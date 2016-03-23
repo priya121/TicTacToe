@@ -8,20 +8,20 @@ import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ReplayIO;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 import static ttt.Symbol.E;
 
 public class BoardChooserTest {
+    File file = new File("/Users/priyapatil/TTT/gameLog.txt");
     SetupBoard expected = new SetupBoard();
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
+    ReplayIO replayIO = new ReplayIO(file, out);
 
     @Test
     public void returnsAnThreeByThreeEmptyBoard() {
@@ -47,7 +47,7 @@ public class BoardChooserTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new GameCreator(io).createGame();
+        return new GameCreator(io, replayIO).createGame();
     }
 
     public FakeIO userInput(List<String> sizeChosen) {

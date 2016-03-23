@@ -17,6 +17,11 @@ public class PlayerCreator {
         this.parseGameType(userInput);
     }
 
+    public PlayerCreator(IO io) {
+        this.io = io;
+        this.parseGameType("1");
+    }
+
     public Player createX() {
         return createPlayer(HvH, HvC, X);
     }

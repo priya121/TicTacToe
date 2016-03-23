@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 import static ttt.Symbol.E;
 
-public class Game extends Observable {
+public class Game extends Observable implements Runnable {
     public Board board;
     IO io;
     public Player currentPlayer;
@@ -99,4 +99,8 @@ public class Game extends Observable {
         return currentPlayer.playerSymbol();
     }
 
+    @Override
+    public void run() {
+        gameLoop();
+    }
 }
