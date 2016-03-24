@@ -3,11 +3,14 @@ package ttt;
 import ttt.board.Board;
 import ttt.board.BoardDisplay;
 import ttt.inputOutput.IO;
+import ttt.inputOutput.ReplayIO;
 import ttt.observers.MoveObserver;
 import ttt.player.Player;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 import java.util.stream.IntStream;
 
 import static ttt.Symbol.E;
@@ -20,8 +23,9 @@ public class Game extends Observable implements Runnable {
     Player playerTwo;
     File file;
     public int move;
-    public Date date;
+    public long date;
     public MoveObserver moveObserver;
+    public long startTime;
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo, File file) {
         this.board = board;
@@ -42,13 +46,37 @@ public class Game extends Observable implements Runnable {
             io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
             showCurrentBoard();
             computeCurrentPlayer(board);
-            move = currentPlayer.move(board);
-            board = board.markPlayer(move, currentPlayer.playerSymbol());
-            date = Calendar.getInstance().getTime();
+            storeGameInfo();
+            notifyIfNotReplay();
+            replayGameInRealTime();
+        }
+        endOfGameDisplay();
+    }
+
+    private void notifyIfNotReplay() {
+        if (!(io instanceof ReplayIO)) {
             setChanged();
             notifyObservers(this);
         }
-        endOfGameDisplay();
+    }
+
+    private void storeGameInfo() {
+        move = currentPlayer.move(board);
+        board = board.markPlayer(move, currentPlayer.playerSymbol());
+        startTime = System.currentTimeMillis();
+        date = System.currentTimeMillis();
+    }
+
+    private void replayGameInRealTime() {
+        if (io instanceof ReplayIO) {
+            try {
+                Long previousMove = ((ReplayIO) io).lastMoveTime();
+                Long nextMove = ((ReplayIO) io).lastMoveTime();
+                Thread.sleep(nextMove - previousMove);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public List<Symbol> getBoard() {
@@ -59,7 +87,7 @@ public class Game extends Observable implements Runnable {
         List<Integer> emptyCells = new ArrayList<>();
         IntStream.range(0, board.contentsOfBoard().size())
                 .filter(cell -> board.get(cell).equals(E))
-                .forEach(i -> emptyCells.add(i));
+                .forEach(emptyCells::add);
         switchPlayers(emptyCells.size());
     }
 

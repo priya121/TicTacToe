@@ -8,7 +8,7 @@ public class ReplayIO implements IO {
 
     private File file;
     private LinkedList<String> moveArray;
-    private LinkedList<String> timeStamps;
+    public LinkedList<Long> timeStamps;
     private PrintStream output;
 
     public ReplayIO(File file, PrintStream output) {
@@ -28,6 +28,15 @@ public class ReplayIO implements IO {
     public String showOutput(String message) {
         output.println(message);
         return null;
+    }
+
+    public long lastMoveTime() {
+        getMoveTimes();
+        return timeStamps.pop();
+    }
+
+    public void addGameStartTime(Long firstTimeStamp) {
+        timeStamps.add(firstTimeStamp);
     }
 
     public List getMovesFromFile() {
@@ -50,13 +59,12 @@ public class ReplayIO implements IO {
             buffer.readLine();
             String time;
             while ((time = buffer.readLine()) != null) {
-                timeStamps.add(time);
+                timeStamps.add(Long.parseLong(time));
                 buffer.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return timeStamps;
-
     }
 }

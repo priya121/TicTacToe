@@ -13,6 +13,7 @@ public class GameCreator {
     private IO io;
     private ReplayIO replayIO;
     private Board savedBoard;
+    private long start;
 
     public GameCreator(IO io, ReplayIO replayIO) {
         this.io = io;
@@ -20,9 +21,9 @@ public class GameCreator {
     }
 
     public Game createGame() {
+        start = System.currentTimeMillis();
         Board board = getBoard();
-        Board replayBoard = board;
-        setReplayBoard(replayBoard);
+        setReplayBoard(board);
         displayMessage();
         String userInput = io.takeInput();
         PlayerCreator playerCreate = new PlayerCreator(io, userInput);
@@ -37,10 +38,11 @@ public class GameCreator {
     }
 
     public Board getSavedBoard() {
-       return savedBoard;
+        return savedBoard;
     }
 
     public void createReplayGame(ReplayIO io) {
+        io.addGameStartTime(start);
         io.showOutput("Replaying previous game...");
         File file = new File("/Users/priyapatil/TTT/gameLog.txt");
         PlayerCreator playerCreate = new PlayerCreator(io);
@@ -79,7 +81,8 @@ public class GameCreator {
             gameStart();
         } else if (replayChosen.equals("R")) {
             createReplayGame(replayIO);
+            replayGameOption();
         }
-            io.showOutput("game over");
+        io.showOutput("game over");
     }
 }

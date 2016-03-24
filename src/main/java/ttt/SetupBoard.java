@@ -20,8 +20,8 @@ public class SetupBoard {
 
     public List<Symbol> placeSymbols(List<Symbol> symbols) {
         List<Symbol> board = new ArrayList<>();
-        for (int i = 0; i < symbols.size(); i++) {
-                board.add(symbols.get(i));
+        for (Symbol symbol : symbols) {
+            board.add(symbol);
         }
         return board;
     }

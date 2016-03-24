@@ -25,9 +25,9 @@ public class MoveObserver implements Observer {
         return movesList;
     }
 
-    public void writeToFile(String move, String player, String time) {
-        String display =  move + "\n" +
-                          time + "\n";
+    public void writeToFile(String move, String time) {
+        String display = move + "\n" +
+                time + "\n";
         try {
             gameLog.transfer(display, file);
         } catch (IOException e) {
@@ -39,7 +39,6 @@ public class MoveObserver implements Observer {
     public void update(Observable o, Object arg) {
         listObservations(String.valueOf(game.move));
         writeToFile(String.valueOf(game.move),
-                    String.valueOf(game.currentPlayer.playerSymbol()),
-                    String.valueOf(game.date));
+                String.valueOf(game.date));
     }
 }

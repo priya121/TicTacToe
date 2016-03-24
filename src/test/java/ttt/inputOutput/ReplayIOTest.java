@@ -1,18 +1,15 @@
-package ttt;
+package ttt.inputOutput;
 
 import org.junit.Test;
-import ttt.inputOutput.ConsoleIO;
-import ttt.inputOutput.FakeIO;
-import ttt.inputOutput.IO;
-import ttt.inputOutput.ReplayIO;
+import ttt.Game;
+import ttt.GameCreator;
 import ttt.observers.MoveObserver;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class ReplayIOTest {
@@ -34,14 +31,26 @@ public class ReplayIOTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         moveObserverGame(game, tempFile);
         ReplayIO replayMoves = new ReplayIO(tempFile, out);
-        assertEquals("Wed Mar ", replayMoves.getMoveTimes().get(0).toString().substring(0 , 8));
+        assertEquals("14588", replayMoves.getMoveTimes().get(0).toString().substring(0,5));
+    }
+
+    @Test
+    public void readsTheTimeDifferenceBetweenMoves() throws IOException {
+        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        moveObserverGame(game, tempFile);
+        ReplayIO replayMoves = new ReplayIO(tempFile, out);
+        String timeOfFirstMove = replayMoves.getMoveTimes().get(0).toString();
+        String timeOfSecondMove = replayMoves.getMoveTimes().get(5).toString();
+        assertNotEquals(timeOfFirstMove, timeOfSecondMove);
     }
 
     @Test
     public void boardAtEndOfReplayGameSameAsPreviousGame() throws IOException {
         File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
-        GameCreator game = getGame(convertUserInput(new ByteArrayInputStream("3\n1\n0\n1\n2\n3\n4\n5\n6\n3\n".getBytes())));
-        moveObserverGame(game.createGame(), tempFile);
+        GameCreator game = getGame(convertUserInput(new ByteArrayInputStream("3\n1\n0\n1\n2\n3\n4\n5\n6\n3\nR\n".getBytes())));
+        Game startGame = game.createGame();
+        moveObserverGame(startGame, tempFile);
         ReplayIO replayIO = new ReplayIO(tempFile, out);
         game.createReplayGame(replayIO);
         assertTrue(recordedOutput.toString().contains("Replaying previous game..."));
@@ -64,8 +73,13 @@ public class ReplayIOTest {
         return new GameCreator(humanMoves, io);
     }
 
-    private Game getFourByFourGame(FakeIO humanMoves) throws IOException {
-        File tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+    private Game getFourByFourGame(FakeIO humanMoves) {
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("/Users/priyapatil/TTT/game", ".txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ReplayIO io = new ReplayIO(tempFile, out);
         return new GameCreator(humanMoves, io).createGame();
     }
