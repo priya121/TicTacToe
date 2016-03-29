@@ -48,7 +48,7 @@ public class GameCreator {
         PlayerCreator playerCreate = new PlayerCreator(io);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
-        new Thread(new Game(getSavedBoard(), io, playerOne, playerTwo, file)).run();
+        new Game(getSavedBoard(), io, playerOne, playerTwo, file).gameLoop();
     }
 
     public void gameStart() {

@@ -11,13 +11,11 @@ public class MoveObserver implements Observer {
     File file;
     public List<String> movesList = new ArrayList<>();
     GameLog gameLog = new GameLog();
-    Observable observable;
 
     public MoveObserver(Game game, File file) {
         this.game = game;
         this.file = file;
-        this.observable = game;
-        observable.addObserver(this);
+        game.addObserver(this);
     }
 
     public List<String> listObservations(String move) {
