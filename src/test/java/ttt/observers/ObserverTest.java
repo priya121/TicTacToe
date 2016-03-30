@@ -1,13 +1,10 @@
 package ttt.observers;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import ttt.Game;
 import ttt.GameCreator;
 import ttt.inputOutput.FakeIO;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -15,27 +12,25 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ObserverTest {
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
-    public void setsLastUpdatedMoveAsCellTwoForTheFirstHumanPlayer() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        MoveObserver moveObserver = moveObserverGame(game, output);
-        assertEquals(Arrays.asList("0", "8", "1", "7", "3", "5", "2"), game.moveObserver.movesList);
-    }
-
-    @Test
-    public void setsLastUpdatedMoveAsCellSevenForTheFirstHumanPlayer() throws IOException {
+    public void addsGameMoveToAList() {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
-        File output = temporaryFolder.newFile("output.txt");
-        MoveObserver moveObserver = moveObserverGame(game, output);
-        assertEquals(Arrays.asList("4", "0", "5", "3", "6", "2", "7"), game.moveObserver.movesList);
+        MoveObserver moveObserver = moveObserverGame(game);
+        moveObserver.generateMoves();
+        assertEquals(4, moveObserver.movesInfo.get(0).move);
     }
 
-    private MoveObserver moveObserverGame(Game game, File output) {
-        MoveObserver moveObserver = new MoveObserver(game, output);
+    @Test
+    public void addsAllMovesOfGameToList() throws IOException {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        MoveObserver moveObserver = moveObserverGame(game);
+        moveObserver.generateMoves();
+        assertEquals(7, moveObserver.movesInfo.size());
+    }
+
+    private MoveObserver moveObserverGame(Game game) {
+        MoveObserver moveObserver = new MoveObserver(game);
         game.gameLoop();
         return moveObserver;
     }

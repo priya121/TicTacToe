@@ -26,7 +26,7 @@ public class GameLogTest {
     public void combinesAllObservationsAndWritesThemToAFile() throws IOException {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         File output = temporaryFolder.newFile("output.txt");
-        new MoveObserver(game, output);
+        new MoveObserver(game);
         game.gameLoop();
         assertEquals("Player: X\n" +
                 "Made a move at position 4\n" +

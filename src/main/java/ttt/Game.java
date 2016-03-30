@@ -6,8 +6,9 @@ import ttt.inputOutput.IO;
 import ttt.observers.MoveObserver;
 import ttt.player.Player;
 
-import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 import java.util.stream.IntStream;
 
 import static ttt.Symbol.E;
@@ -18,23 +19,21 @@ public class Game extends Observable {
     public Player currentPlayer;
     Player playerOne;
     Player playerTwo;
-    File file;
     public int move;
-    public Date date;
+    public Long time;
     public MoveObserver moveObserver;
 
-    public Game(Board board, IO io, Player playerOne, Player playerTwo, File file) {
+    public Game(Board board, IO io, Player playerOne, Player playerTwo) {
         this.board = board;
         this.io = io;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.currentPlayer = playerOne;
-        this.file = file;
-        createObserver(file);
+        createObserver();
     }
 
-    private void createObserver(File file) {
-        moveObserver = new MoveObserver(this, file);
+    private void createObserver() {
+        moveObserver = new MoveObserver(this);
     }
 
     public void gameLoop() {
@@ -44,7 +43,7 @@ public class Game extends Observable {
             computeCurrentPlayer(board);
             move = currentPlayer.move(board);
             board = board.markPlayer(move, currentPlayer.playerSymbol());
-            date = Calendar.getInstance().getTime();
+            time = System.currentTimeMillis();
             setChanged();
             notifyObservers(this);
         }
@@ -86,7 +85,6 @@ public class Game extends Observable {
         BoardDisplay currentDisplay = new BoardDisplay(board.contentsOfBoard());
         io.showOutput(currentDisplay.showBoard());
     }
-
 
     private void endOfGameDisplay() {
         showCurrentBoard();

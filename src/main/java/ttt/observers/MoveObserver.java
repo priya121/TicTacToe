@@ -2,45 +2,38 @@ package ttt.observers;
 
 import ttt.Game;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class MoveObserver implements Observer {
-    private final Game game;
-    File file;
-    public List<String> movesList = new ArrayList<>();
-    GameLog gameLog = new GameLog();
-    Observable observable;
+    public Game game;
+    public ArrayList<Move> movesInfo;
 
-    public MoveObserver(Game game, File file) {
+    public MoveObserver(Game game) {
         this.game = game;
-        this.file = file;
-        this.observable = game;
-        observable.addObserver(this);
+        game.addObserver(this);
+        this.movesInfo = new ArrayList<>();
     }
 
-    public List<String> listObservations(String move) {
-        movesList.add(move);
-        return movesList;
+    public void addMove(long move, long time) {
+        Move newMove = new Move(move, time);
+        movesInfo.add(newMove);
     }
 
-    public void writeToFile(String move, String player, String time) {
-        String display = "Player " + player + "\n" +
-                         "Made a move at position " + move + "\n" +
-                         "At " + time + "\n\n";
+    public List<Move> generateMoves() {
         try {
-            gameLog.transfer(display, file);
+            FileOutputStream outputStream = new FileOutputStream("/Users/priyapatil/ttt.ser");
+            ObjectOutputStream stream = new ObjectOutputStream(outputStream);
+            stream.writeObject(movesInfo);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        listObservations(String.valueOf(game.move));
-        writeToFile(String.valueOf(game.move),
-                    String.valueOf(game.currentPlayer.playerSymbol()),
-                    String.valueOf(game.date));
+        addMove(game.move, game.time);
+        generateMoves();
     }
 }
