@@ -76,7 +76,6 @@ public class GameTest {
         assertEquals(2, game.move);
     }
 
-
     private FakeIO getFakeIO(List<String> input) {
         return new FakeIO(input);
     }

@@ -22,6 +22,7 @@ public class Game extends Observable {
     public int move;
     public Long time;
     public MoveObserver moveObserver;
+    public long startTime;
 
     public Game(Board board, IO io, Player playerOne, Player playerTwo) {
         this.board = board;
@@ -37,17 +38,26 @@ public class Game extends Observable {
     }
 
     public void gameLoop() {
+        startTime = System.currentTimeMillis();
         while (board.gameNotOver()) {
-            io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
-            showCurrentBoard();
+            display();
             computeCurrentPlayer(board);
             move = currentPlayer.move(board);
             board = board.markPlayer(move, currentPlayer.playerSymbol());
             time = System.currentTimeMillis();
-            setChanged();
-            notifyObservers(this);
+            informObservers();
         }
         endOfGameDisplay();
+    }
+
+    private void display() {
+        io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
+        showCurrentBoard();
+    }
+
+    private void informObservers() {
+        setChanged();
+        notifyObservers(this);
     }
 
     public List<Symbol> getBoard() {

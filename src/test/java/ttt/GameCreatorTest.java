@@ -10,8 +10,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameCreatorTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();

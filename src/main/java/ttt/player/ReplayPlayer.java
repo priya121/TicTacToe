@@ -5,59 +5,49 @@ import ttt.board.Board;
 import ttt.observers.GameLog;
 import ttt.observers.Move;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import static java.lang.Math.toIntExact;
 
 public class ReplayPlayer implements Player {
+    private final Iterator previousMove;
+    private long firstMoveTime;
     public Symbol symbol;
-    public List<Move> playerMoves = new ArrayList<>();
-    public List<Move> moveList;
+    public Iterator<Move> moves;
+    public Move firstMove;
 
     public ReplayPlayer(Symbol symbol, GameLog gameLog) {
         this.symbol = symbol;
-        this.moveList = gameLog.moveList;
-        this.playerMoves = playerMoves();
+        this.moves = gameLog.moveList.iterator();
+        this.firstMove = gameLog.moveList.get(0);
+        this.firstMoveTime = gameLog.moveList.get(0).time;
+        this.previousMove = moves;
+        if (symbol == Symbol.O) {
+            firstMove = moves.next();
+        }
     }
 
     @Override
     public int move(Board board) {
-        Iterator moveSequence = playerMoves.iterator();
-        Move move = (Move) moveSequence.next();
-        moveSequence.remove();
+        Move move = moves.next();
         try {
-            Thread.sleep(move.duration(0));
+            Thread.sleep(move.time - firstMoveTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return toIntExact(move.move);
+        firstMoveTime = moves.next().time;
+        calculateNextMove();
+        return (toIntExact(move.index));
+    }
+
+    private void calculateNextMove() {
+        if (moves.hasNext()) {
+            moves.next();
+        }
     }
 
     @Override
     public Symbol playerSymbol() {
         return symbol;
-    }
-
-    public List<Move> playerMoves() {
-        List<Move> listMoves = new ArrayList<>();
-        for (int i = 0; i < moveList.size(); i++) {
-            addPlayerMoves(listMoves, i);
-        }
-        return listMoves;
-    }
-
-    private void addPlayerMoves(List<Move> listMoves, int i) {
-        if (symbol == Symbol.X && (i % 2) == 0) {
-            listMoves.add(moveList.get(i));
-        } else if (symbol == Symbol.O && (i % 2) != 0) {
-            listMoves.add(moveList.get(i));
-        }
-    }
-
-    public Board getBoardSize() {
-        return 
-
     }
 }

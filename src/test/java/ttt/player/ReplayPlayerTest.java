@@ -15,29 +15,19 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ReplayPlayerTest {
+    Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+    GameLog gameLog = new GameLog();
 
     @Test
-    public void generatesListOfMovesForPlayerX() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+    public void generatesListOfMovesForPlayers() throws IOException {
         MoveObserver observer = moveObserverGame(game);
         observer.generateMoves();
-        GameLog gameLog = new GameLog();
         ReplayPlayer playerOne = new ReplayPlayer(Symbol.X, gameLog);
-        assertEquals(0, playerOne.playerMoves.get(0).move);
-        assertEquals(3, playerOne.playerMoves.get(2).move);
+        ReplayPlayer playerTwo = new ReplayPlayer(Symbol.O, gameLog);
+        assertEquals(0, playerOne.playerMoves.get(0).index);
+        assertEquals(8, playerTwo.playerMoves.get(0).index);
     }
     
-    @Test
-    public void generatesListOfMovesForPlayerO() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "7", "1", "8", "3", "5", "2", "N")));
-        MoveObserver observer = moveObserverGame(game);
-        observer.generateMoves();
-        GameLog gameLog = new GameLog();
-        ReplayPlayer playerTwo = new ReplayPlayer(Symbol.O, gameLog);
-        assertEquals(7, playerTwo.playerMoves.get(0).move);
-        assertEquals(8, playerTwo.playerMoves.get(1).move);
-    }
-
     private MoveObserver moveObserverGame(Game game) {
         MoveObserver moveObserver = new MoveObserver(game);
         game.gameLoop();

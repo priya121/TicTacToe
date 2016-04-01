@@ -18,7 +18,7 @@ public class ObserverTest {
         Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
         MoveObserver moveObserver = moveObserverGame(game);
         moveObserver.generateMoves();
-        assertEquals(4, moveObserver.movesInfo.get(0).move);
+        assertEquals(4, moveObserver.movesInfo.get(0).index);
     }
 
     @Test

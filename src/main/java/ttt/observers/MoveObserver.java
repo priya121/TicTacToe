@@ -11,8 +11,8 @@ public class MoveObserver implements Observer {
 
     public MoveObserver(Game game) {
         this.game = game;
-        game.addObserver(this);
         this.movesInfo = new ArrayList<>();
+        game.addObserver(this);
     }
 
     public void addMove(long move, long time) {

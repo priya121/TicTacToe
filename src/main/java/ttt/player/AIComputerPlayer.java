@@ -15,7 +15,7 @@ public class AIComputerPlayer implements Player {
         this.opponentSymbol = winningSymbol == X ? O : X;
     }
 
-    public BestMove negamax(int depth, int alpha, int beta, Board board, Symbol currentSymbol) {
+    public final BestMove negamax(int depth, int alpha, int beta, Board board, Symbol currentSymbol) {
         BestMove bestMove = new BestMove(-1, 0);
         bestMove.score = -100;
 

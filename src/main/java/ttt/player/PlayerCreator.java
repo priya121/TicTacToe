@@ -17,7 +17,7 @@ public class PlayerCreator {
     public PlayerCreator(IO io, String userInput) {
         this.io = io;
         this.parseGameType(userInput);
-        this.gameLog = new GameLog();
+        gameLog = new GameLog();
     }
 
     public Player createX() {
@@ -31,8 +31,7 @@ public class PlayerCreator {
     private Player createPlayer(GameType choiceOne, GameType choiceTwo, GameType choiceThree, Symbol player) {
         if (choice == choiceThree) {
             return new ReplayPlayer(player, gameLog);
-        }
-         else if (choice == choiceOne || choice == choiceTwo) {
+        } else if (choice == choiceOne || choice == choiceTwo) {
             return new HumanPlayer(io, player);
         } else {
             return new AIComputerPlayer(player);

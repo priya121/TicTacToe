@@ -24,6 +24,7 @@ public class GameLog implements AutoCloseable {
         return null;
     }
 
+
     @Override
     public void close() throws Exception {
     }
