@@ -16,16 +16,24 @@ import static org.junit.Assert.assertEquals;
 
 public class ReplayPlayerTest {
     Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
-    GameLog gameLog = new GameLog();
 
     @Test
-    public void generatesListOfMovesForPlayers() throws IOException {
+    public void generatesRightMoveForPlayerX() throws IOException {
         MoveObserver observer = moveObserverGame(game);
         observer.generateMoves();
-        ReplayPlayer playerOne = new ReplayPlayer(Symbol.X, gameLog);
-        ReplayPlayer playerTwo = new ReplayPlayer(Symbol.O, gameLog);
-        assertEquals(0, playerOne.playerMoves.get(0).index);
-        assertEquals(8, playerTwo.playerMoves.get(0).index);
+        GameLog gameLog = new GameLog();
+        ReplayPlayer playerX = new ReplayPlayer(Symbol.X, gameLog);
+        assertEquals(0, playerX.firstMove.index);
+    }
+
+    @Test
+    public void generatesRightMoveForPlayerO() {
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+        MoveObserver observer = moveObserverGame(game);
+        observer.generateMoves();
+        GameLog gameLog = new GameLog();
+        ReplayPlayer playerO = new ReplayPlayer(Symbol.O, gameLog);
+        assertEquals(8, playerO.move(game.board));
     }
     
     private MoveObserver moveObserverGame(Game game) {

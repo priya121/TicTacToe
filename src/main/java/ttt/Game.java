@@ -17,8 +17,8 @@ public class Game extends Observable {
     public Board board;
     IO io;
     public Player currentPlayer;
-    Player playerOne;
-    Player playerTwo;
+    public Player playerOne;
+    public Player playerTwo;
     public int move;
     public Long time;
     public MoveObserver moveObserver;

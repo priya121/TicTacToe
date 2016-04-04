@@ -10,7 +10,6 @@ import java.util.Iterator;
 import static java.lang.Math.toIntExact;
 
 public class ReplayPlayer implements Player {
-    private final Iterator previousMove;
     private long firstMoveTime;
     public Symbol symbol;
     public Iterator<Move> moves;
@@ -21,9 +20,8 @@ public class ReplayPlayer implements Player {
         this.moves = gameLog.moveList.iterator();
         this.firstMove = gameLog.moveList.get(0);
         this.firstMoveTime = gameLog.moveList.get(0).time;
-        this.previousMove = moves;
         if (symbol == Symbol.O) {
-            firstMove = moves.next();
+            this.firstMove = moves.next();
         }
     }
 
@@ -35,7 +33,7 @@ public class ReplayPlayer implements Player {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        firstMoveTime = moves.next().time;
+        firstMoveTime = move.time;
         calculateNextMove();
         return (toIntExact(move.index));
     }

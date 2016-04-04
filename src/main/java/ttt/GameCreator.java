@@ -16,8 +16,7 @@ public class GameCreator {
     public Game createGame() {
         Board board = getBoard();
         displayMessage();
-        String userInput = io.takeInput();
-        PlayerCreator playerCreate = new PlayerCreator(io, userInput);
+        PlayerCreator playerCreate = new PlayerCreator(io);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
         return new Game(board, io, playerOne, playerTwo);

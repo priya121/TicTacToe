@@ -30,6 +30,8 @@ public class GameCreatorTest {
                      "2) Human vs Computer \n" +
                      "3) Computer vs Human \n" +
                      "4) Computer vs Computer \n" +
+                     "5) Watch last game (not first game) \n\n" +
+
                      "Entering any other character will return a default Human v Human game:\n", recordedOutput.toString());
     }
 

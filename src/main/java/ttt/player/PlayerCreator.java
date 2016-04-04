@@ -12,10 +12,12 @@ import static ttt.Symbol.X;
 public class PlayerCreator {
     private final IO io;
     private final GameLog gameLog;
+    private final String userInput;
     private GameType choice;
 
-    public PlayerCreator(IO io, String userInput) {
+    public PlayerCreator(IO io) {
         this.io = io;
+        this.userInput = io.takeInput();
         this.parseGameType(userInput);
         gameLog = new GameLog();
     }
