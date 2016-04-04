@@ -3,7 +3,7 @@ package ttt.player;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.GameCreator;
+import ttt.TwoByTwoGameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
@@ -67,7 +67,7 @@ public class HumanPlayerTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new GameCreator(io).createGame();
+        return new TwoByTwoGameCreator(io).createGame();
     }
 }
 

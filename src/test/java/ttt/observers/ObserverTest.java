@@ -2,7 +2,7 @@ package ttt.observers;
 
 import org.junit.Test;
 import ttt.Game;
-import ttt.GameCreator;
+import ttt.TwoByTwoGameCreator;
 import ttt.inputOutput.FakeIO;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ObserverTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new GameCreator(humanMoves).createGame();
+        return new TwoByTwoGameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

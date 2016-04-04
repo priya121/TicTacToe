@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class GameCreatorTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("1\n3\n").getBytes())));
+    TwoByTwoGameCreator newSetup = new TwoByTwoGameCreator(convertUserInput(new ByteArrayInputStream(("1\n3\n").getBytes())));
 
     public ConsoleIO convertUserInput(InputStream userInput) {
         return new ConsoleIO(userInput, out);
@@ -30,14 +30,12 @@ public class GameCreatorTest {
                      "2) Human vs Computer \n" +
                      "3) Computer vs Human \n" +
                      "4) Computer vs Computer \n" +
-                     "5) Watch last game (not first game) \n\n" +
-
                      "Entering any other character will return a default Human v Human game:\n", recordedOutput.toString());
     }
 
     @Test
     public void createsTheRightTypeOfGameIfUserChoosesOne() {
-        GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n1\n").getBytes())));
+        TwoByTwoGameCreator newSetup = new TwoByTwoGameCreator(convertUserInput(new ByteArrayInputStream(("3\n1\n").getBytes())));
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof HumanPlayer);
         assertTrue(game.playerTwo instanceof HumanPlayer);
@@ -45,7 +43,7 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightTypeOfGameIfUserChoosesTwo() {
-        GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n2\n").getBytes())));
+        TwoByTwoGameCreator newSetup = new TwoByTwoGameCreator(convertUserInput(new ByteArrayInputStream(("3\n2\n").getBytes())));
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof HumanPlayer);
         assertTrue(game.playerTwo instanceof AIComputerPlayer);
@@ -53,7 +51,7 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightGameIfUserChoosesThree() {
-        GameCreator newSetup = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n3\n").getBytes())));
+        TwoByTwoGameCreator newSetup = new TwoByTwoGameCreator(convertUserInput(new ByteArrayInputStream(("3\n3\n").getBytes())));
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof AIComputerPlayer);
         assertTrue(game.playerTwo instanceof HumanPlayer);
@@ -61,7 +59,7 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightGameIfUserChoosesFour() {
-        GameCreator gameCreator = new GameCreator(convertUserInput(new ByteArrayInputStream(("3\n4\n").getBytes())));
+        TwoByTwoGameCreator gameCreator = new TwoByTwoGameCreator(convertUserInput(new ByteArrayInputStream(("3\n4\n").getBytes())));
         Game game = gameCreator.createGame();
         assertTrue(game.playerOne instanceof AIComputerPlayer);
         assertTrue(game.playerTwo instanceof AIComputerPlayer);

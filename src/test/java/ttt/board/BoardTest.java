@@ -3,7 +3,7 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.GameCreator;
+import ttt.TwoByTwoGameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
@@ -335,11 +335,11 @@ public class BoardTest {
     }
 
     private Game getThreeByThreeGame(FakeIO userInput) {
-        return new GameCreator(userInput).createGame();
+        return new TwoByTwoGameCreator(userInput).createGame();
     }
 
     private Game getFourByFourGame(FakeIO userInput) {
-        return new GameCreator(userInput).createGame();
+        return new TwoByTwoGameCreator(userInput).createGame();
     }
 
     private List<Integer> moves(int from, int to) {

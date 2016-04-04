@@ -81,11 +81,11 @@ public class GameTest {
     }
 
     private Game getGame(IO humanMoves) {
-        return new GameCreator(humanMoves).createGame();
+        return new TwoByTwoGameCreator(humanMoves).createGame();
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new GameCreator(humanMoves).createGame();
+        return new TwoByTwoGameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

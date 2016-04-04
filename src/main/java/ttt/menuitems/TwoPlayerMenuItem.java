@@ -1,20 +1,17 @@
 package ttt.menuitems;
 
 import ttt.Game;
-import ttt.GameCreator;
-import ttt.board.Board;
+import ttt.TwoByTwoGameCreator;
 import ttt.inputOutput.IO;
-import ttt.player.Player;
-import ttt.player.PlayerCreator;
 
 public class TwoPlayerMenuItem implements MenuItem {
     private final IO io;
-    private final PlayerCreator creator;
-    private Game game;
+    private final TwoByTwoGameCreator gameCreator;
+    public Game game;
 
     public TwoPlayerMenuItem(IO io) {
         this.io = io;
-        this.creator = new PlayerCreator(io);
+        this.gameCreator = new TwoByTwoGameCreator(io);
     }
 
     @Override
@@ -24,20 +21,8 @@ public class TwoPlayerMenuItem implements MenuItem {
 
     @Override
     public void perform() {
-        creator.createPlayers(io);
-        Player one = creator.createX();
-        Player two = creator.createO();
-        Board board = new GameCreator(io).getBoard();
-        game = new Game(board, io, one, two);
+        game = gameCreator.createGame();
         game.gameLoop();
-    }
-
-    public Player playerX() {
-        return creator.createX();
-    }
-
-    public Player playerO() {
-        return creator.createO();
     }
 
     public String askTypeOfTwoPlayerGame() {

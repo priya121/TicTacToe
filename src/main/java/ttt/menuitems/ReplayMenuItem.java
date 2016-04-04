@@ -1,7 +1,7 @@
 package ttt.menuitems;
 
 import ttt.Game;
-import ttt.GameCreator;
+import ttt.TwoByTwoGameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.IO;
 import ttt.player.Player;
@@ -26,7 +26,7 @@ public class ReplayMenuItem implements MenuItem {
     public void perform() {
         Player one = creator.createReplayX();
         Player two = creator.createReplayO();
-        Board board = new GameCreator(io).getBoard();
+        Board board = new TwoByTwoGameCreator(io).getBoard();
         game = new Game(board, io, one, two);
         game.gameLoop();
     }

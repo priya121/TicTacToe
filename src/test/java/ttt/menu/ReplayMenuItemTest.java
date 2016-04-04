@@ -20,12 +20,11 @@ import static org.junit.Assert.assertTrue;
 public class ReplayMenuItemTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    private FakeIO io = getFakeIO(Arrays.asList("1", "3", "0", "1", "2", "3", "4", "5", "6"));
+    private FakeIO io = getFakeIO(Arrays.asList("3", "1", "0", "1", "2", "3", "4", "5", "6"));
 
     @Before
     public void setUp() {
         TwoPlayerMenuItem twoPlayerGame = new TwoPlayerMenuItem(io);
-        twoPlayerGame.show();
         twoPlayerGame.perform();
     }
 

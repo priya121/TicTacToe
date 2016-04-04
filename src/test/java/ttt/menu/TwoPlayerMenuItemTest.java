@@ -1,8 +1,8 @@
 package ttt.menu;
 
 import org.junit.Test;
-import ttt.menuitems.TwoPlayerMenuItem;
 import ttt.inputOutput.FakeIO;
+import ttt.menuitems.TwoPlayerMenuItem;
 import ttt.player.AIComputerPlayer;
 import ttt.player.HumanPlayer;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TwoPlayerMenuItemTest {
-    private FakeIO io = getFakeIO(Arrays.asList("1", "3", "0", "1", "2", "3", "4", "5", "6"));
+    private FakeIO io = getFakeIO(Arrays.asList("3", "1", "0", "1", "2", "3", "4", "5", "6"));
     TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
 
     @Test
@@ -29,20 +29,18 @@ public class TwoPlayerMenuItemTest {
 
     @Test
     public void createsAHumanVHumanGame() {
-        twoPlayer.show();
         twoPlayer.perform();
-        assertTrue(twoPlayer.playerX() instanceof HumanPlayer);
-        assertTrue(twoPlayer.playerO() instanceof HumanPlayer);
+        assertTrue(twoPlayer.game.playerOne instanceof HumanPlayer);
+        assertTrue(twoPlayer.game.playerTwo instanceof HumanPlayer);
     }
 
     @Test
     public void createsAHumanVComputerGame() {
-        FakeIO io = getFakeIO(Arrays.asList("2", "3", "0", "1", "2", "3", "4", "5", "6"));
+        FakeIO io = getFakeIO(Arrays.asList("3", "2", "0", "1", "2", "3", "4", "5", "6"));
         TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
-        twoPlayer.show();
         twoPlayer.perform();
-        assertTrue(twoPlayer.playerX() instanceof HumanPlayer);
-        assertTrue(twoPlayer.playerO() instanceof AIComputerPlayer);
+        assertTrue(twoPlayer.game.playerOne instanceof HumanPlayer);
+        assertTrue(twoPlayer.game.playerTwo instanceof AIComputerPlayer);
     }
 
     private FakeIO getFakeIO(List<String> input) {
