@@ -1,4 +1,4 @@
-package ttt;
+package ttt.menuitems;
 
 public interface MenuItem {
     void show();

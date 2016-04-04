@@ -17,6 +17,7 @@ public class GameCreator {
         Board board = getBoard();
         displayMessage();
         PlayerCreator playerCreate = new PlayerCreator(io);
+        playerCreate.createPlayers(io);
         Player playerOne = playerCreate.createX();
         Player playerTwo = playerCreate.createO();
         return new Game(board, io, playerOne, playerTwo);
@@ -37,7 +38,7 @@ public class GameCreator {
                 "Entering any other character will return a default Human v Human game:");
     }
 
-    private Board getBoard() {
+    public Board getBoard() {
         BoardCreator boardChooser = new BoardCreator(io);
         return boardChooser.create();
     }

@@ -13,6 +13,7 @@ public class PlayerCreatorTest {
     public void createsHumanPlayerAsPlayerOneIfUserEntersOne() {
         FakeIO fakeInput = getFakeIO(Arrays.asList("1"));
         PlayerCreator playerCreator = new PlayerCreator(fakeInput);
+        playerCreator.createPlayers(fakeInput);
         Assert.assertTrue(playerCreator.createX() instanceof HumanPlayer);
     }
 
@@ -20,6 +21,7 @@ public class PlayerCreatorTest {
     public void createsHumanPlayerAsPlayerOneIfUserEntersTwo() {
         FakeIO fakeInput = getFakeIO(Arrays.asList("2"));
         PlayerCreator playerCreator = new PlayerCreator(fakeInput);
+        playerCreator.createPlayers(fakeInput);
         Assert.assertTrue(playerCreator.createX() instanceof HumanPlayer);
     }
 
@@ -27,6 +29,7 @@ public class PlayerCreatorTest {
     public void createsPlayerOneAsComputerIfUserEntersThree() {
         FakeIO fakeInput = getFakeIO(Arrays.asList("3"));
         PlayerCreator playerCreator = new PlayerCreator(fakeInput);
+        playerCreator.createPlayers(fakeInput);
         Assert.assertTrue(playerCreator.createX() instanceof AIComputerPlayer);
     }
 
@@ -34,6 +37,7 @@ public class PlayerCreatorTest {
     public void createsPlayerOneAsComputerPlayerIfUserEntersFour() {
         FakeIO fakeInput = getFakeIO(Arrays.asList("4"));
         PlayerCreator playerCreator = new PlayerCreator(fakeInput);
+        playerCreator.createPlayers(fakeInput);
         Assert.assertTrue(playerCreator.createX() instanceof AIComputerPlayer);
     }
 
