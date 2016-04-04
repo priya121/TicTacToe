@@ -30,7 +30,7 @@ public class MenuDisplayTest {
 
     @Test
     public void displayMenuOfChoices() {
-        String choice = "Choose from the following options: \n"  +
+        String choice = "Please choose from the following options: \n\n"  +
                           "1) Two Player Game\n" +
                           "2) Replay Game\n" +
                           "3) Exit Game\n";

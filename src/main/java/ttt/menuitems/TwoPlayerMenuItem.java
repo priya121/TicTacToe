@@ -19,16 +19,16 @@ public class TwoPlayerMenuItem implements MenuItem {
 
     @Override
     public void show() {
-        askTypeOfTwoPlayerGame();
+        io.showOutput("1) Two Player Game");
+    }
+
+    @Override
+    public void perform() {
         creator.createPlayers(io);
         Player one = creator.createX();
         Player two = creator.createO();
         Board board = new GameCreator(io).getBoard();
         game = new Game(board, io, one, two);
-    }
-
-    @Override
-    public void perform() {
         game.gameLoop();
     }
 

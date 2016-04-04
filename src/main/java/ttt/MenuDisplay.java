@@ -22,11 +22,11 @@ public class MenuDisplay {
         return io.showOutput("Welcome! Please choose an option from the following list: ");
     }
 
-    public String showChoices() {
-        return io.showOutput("Choose from the following options: \n" +
-                "1) Two Player Game\n" +
-                "2) Replay Game\n" +
-                "3) Exit Game");
+    public void showChoices() {
+        io.showOutput("Please choose from the following options: \n");
+        for (MenuItem menuItem : menuItems) {
+             menuItem.show();
+        }
     }
 
     public MenuItem chooseGameType() {

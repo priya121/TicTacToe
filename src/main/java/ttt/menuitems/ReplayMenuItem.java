@@ -19,15 +19,15 @@ public class ReplayMenuItem implements MenuItem {
 
     @Override
     public void show() {
-        replayMessage();
-        Player one = creator.createReplayX();
-        Player two = creator.createReplayO();
-        Board board = new GameCreator(io).getBoard();
-        game = new Game(board, io, one, two);
+        io.showOutput("2) Replay Game");
     }
 
     @Override
     public void perform() {
+        Player one = creator.createReplayX();
+        Player two = creator.createReplayO();
+        Board board = new GameCreator(io).getBoard();
+        game = new Game(board, io, one, two);
         game.gameLoop();
     }
 

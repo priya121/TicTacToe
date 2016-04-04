@@ -11,16 +11,11 @@ public class ExitMenuItem implements MenuItem {
 
     @Override
     public void show() {
-        exitMessage();
+        io.showOutput("3) Exit Game");
     }
 
     @Override
     public void perform() {
         io.showOutput("Bye!");
-    }
-
-    public String exitMessage() {
-        return io.showOutput("Exiting game...\n" +
-                             "Bye!");
     }
 }
