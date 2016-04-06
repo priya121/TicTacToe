@@ -6,26 +6,26 @@ import ttt.inputOutput.IO;
 import ttt.player.Player;
 import ttt.player.PlayerCreator;
 
-public class TwoByTwoGameCreator {
+public class TwoVsTwoGameCreator {
+    private final PlayerCreator creator;
     private IO io;
 
-    public TwoByTwoGameCreator(IO io) {
+    public TwoVsTwoGameCreator(IO io) {
         this.io = io;
+        this.creator = new PlayerCreator(io);
     }
 
     public Game createGame() {
         displayMessage();
+        creator.takeGameType(io);
+        Player playerOne = creator.createX();
+        Player playerTwo = creator.createO();
         Board board = getBoard();
-        PlayerCreator playerCreate = new PlayerCreator(io);
-        playerCreate.createPlayers(io);
-        Player playerOne = playerCreate.createX();
-        Player playerTwo = playerCreate.createO();
         return new Game(board, io, playerOne, playerTwo);
     }
 
     public void gameStart() {
         createGame().gameLoop();
-        replayGameOption();
     }
 
     public void displayMessage() {
@@ -40,19 +40,5 @@ public class TwoByTwoGameCreator {
     public Board getBoard() {
         BoardCreator boardChooser = new BoardCreator(io);
         return boardChooser.create();
-    }
-
-    public void replayGameOption() {
-        io.showOutput("Would you like to play again? Y/N");
-        String replayChosen = io.takeInput();
-        createMultipleGames(replayChosen);
-    }
-
-    public void createMultipleGames(String replayChosen) {
-        if (replayChosen.equals("Y")) {
-            gameStart();
-        } else {
-            io.showOutput("game over");
-        }
     }
 }

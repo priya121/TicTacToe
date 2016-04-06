@@ -19,45 +19,51 @@ import static org.junit.Assert.assertTrue;
 public class MenuDisplayTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    MenuDisplay display = new MenuDisplay(convertUserInput(new ByteArrayInputStream("1\n".getBytes())));
+    MenuDisplay display = new MenuDisplay(convertUserInput(new ByteArrayInputStream("1\n1\n3\n0\n1\n2\n3\n4\n5\n6\n3\n".getBytes())));
 
     @Test
     public void displaysGreeting() {
-        String greeting = "Welcome! Please choose an option from the following list: \n";
+        String greeting = "Welcome!\n";
         display.showGreeting();
         assertEquals(greeting, recordedOutput.toString());
     }
 
     @Test
     public void displayMenuOfChoices() {
-        String choice = "Please choose from the following options: \n\n"  +
-                          "1) Two Player Game\n" +
-                          "2) Replay Game\n" +
-                          "3) Exit Game\n";
-        display.showChoices();
+        String choice = "Please choose from the following options: \n\n" +
+                "1) Two Player Game\n" +
+                "2) Replay Game\n" +
+                "3) Exit Game\n";
+        display.showMenuItems();
         assertEquals(choice, recordedOutput.toString());
     }
 
     @Test
     public void firstMenuItemIsTwoPlayer() {
-        assertEquals(display.menuItems.get(0).getClass(), TwoPlayerMenuItem.class);
+        assertTrue(display.menuItems.get(0) instanceof TwoPlayerMenuItem);
     }
 
     @Test
     public void secondMenuItemIsReplayPlayer() {
-        assertEquals(display.menuItems.get(1).getClass(), ReplayMenuItem.class);
+        assertTrue(display.menuItems.get(1) instanceof ReplayMenuItem);
     }
 
     @Test
     public void thirdMenuItemIsExitMenuItem() {
-        assertEquals(display.menuItems.get(2).getClass(), ExitMenuItem.class);
+        assertTrue(display.menuItems.get(2) instanceof ExitMenuItem);
     }
 
     @Test
     public void userEntering1ReturnsTwoPlayerGameType() {
-        FakeIO io = new FakeIO(Arrays.asList("1"));
+        FakeIO io = new FakeIO(Arrays.asList("1", "1", "3", "0", "1", "2", "3", "4", "5", "6", "3"));
         MenuDisplay display = new MenuDisplay(io);
         assertTrue(display.chooseGameType() instanceof TwoPlayerMenuItem);
+    }
+
+    @Test
+    public void allowsTheUserToPlayAgain() {
+        display.start();
+        assertTrue(recordedOutput.toString().contains("Player X has won!\n"));
     }
 
     @Test

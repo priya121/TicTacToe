@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 public class ReplayMenuItemTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    private FakeIO io = getFakeIO(Arrays.asList("3", "1", "0", "1", "2", "3", "4", "5", "6"));
+    private FakeIO io = getFakeIO(Arrays.asList("1", "3", "0", "1", "2", "3", "4", "5", "6", "3"));
 
     @Before
     public void setUp() {
@@ -36,11 +36,11 @@ public class ReplayMenuItemTest {
 
     @Test
     public void replaysPreviousGame() {
-        ConsoleIO io = convertUserInput(new ByteArrayInputStream("3\n3\n".getBytes()));
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n3\n2\n3\n".getBytes()));
         ReplayMenuItem replay = new ReplayMenuItem(io);
-        replay.show();
         replay.perform();
         assertTrue(recordedOutput.toString().contains("Player X has won!"));
+        assertTrue(recordedOutput.toString().contains("Replaying game..."));
     }
 
     private FakeIO getFakeIO(List<String> input) {

@@ -2,7 +2,7 @@ package ttt.observers;
 
 import org.junit.Test;
 import ttt.Game;
-import ttt.TwoByTwoGameCreator;
+import ttt.TwoVsTwoGameCreator;
 import ttt.inputOutput.FakeIO;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class ObserverTest {
 
     @Test
     public void addsGameMoveToAList() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "4", "0", "5", "3", "6", "2", "7", "N")));
         MoveObserver moveObserver = moveObserverGame(game);
         moveObserver.generateMoves();
         assertEquals(4, moveObserver.movesInfo.get(0).index);
@@ -23,7 +23,7 @@ public class ObserverTest {
 
     @Test
     public void addsAllMovesOfGameToList() throws IOException {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "4", "0", "5", "3", "6", "2", "7", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "4", "0", "5", "3", "6", "2", "7", "N")));
         MoveObserver moveObserver = moveObserverGame(game);
         moveObserver.generateMoves();
         assertEquals(7, moveObserver.movesInfo.size());
@@ -40,7 +40,7 @@ public class ObserverTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new TwoByTwoGameCreator(humanMoves).createGame();
+        return new TwoVsTwoGameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

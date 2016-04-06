@@ -2,7 +2,7 @@ package ttt.player;
 
 import org.junit.Test;
 import ttt.Game;
-import ttt.TwoByTwoGameCreator;
+import ttt.TwoVsTwoGameCreator;
 import ttt.Symbol;
 import ttt.inputOutput.FakeIO;
 import ttt.observers.GameLog;
@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ReplayPlayerTest {
-    Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+    Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "0", "8", "1", "7", "3", "5", "2")));
 
     @Test
     public void generatesRightMoveForPlayerX() throws IOException {
@@ -28,7 +28,7 @@ public class ReplayPlayerTest {
 
     @Test
     public void generatesRightMoveForPlayerO() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "0", "8", "1", "7", "3", "5", "2")));
         MoveObserver observer = moveObserverGame(game);
         observer.generateMoves();
         GameLog gameLog = new GameLog();
@@ -47,7 +47,7 @@ public class ReplayPlayerTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new TwoByTwoGameCreator(humanMoves).createGame();
+        return new TwoVsTwoGameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

@@ -1,17 +1,17 @@
 package ttt.menuitems;
 
 import ttt.Game;
-import ttt.TwoByTwoGameCreator;
+import ttt.TwoVsTwoGameCreator;
 import ttt.inputOutput.IO;
 
 public class TwoPlayerMenuItem implements MenuItem {
     private final IO io;
-    private final TwoByTwoGameCreator gameCreator;
+    private final TwoVsTwoGameCreator gameCreator;
     public Game game;
 
     public TwoPlayerMenuItem(IO io) {
         this.io = io;
-        this.gameCreator = new TwoByTwoGameCreator(io);
+        this.gameCreator = new TwoVsTwoGameCreator(io);
     }
 
     @Override
@@ -21,16 +21,7 @@ public class TwoPlayerMenuItem implements MenuItem {
 
     @Override
     public void perform() {
-        game = gameCreator.createGame();
-        game.gameLoop();
+        gameCreator.gameStart();
     }
 
-    public String askTypeOfTwoPlayerGame() {
-        return io.showOutput("Hi, choose a two player game type (Enter 1 - 4): \n" +
-                "1) Human vs Human \n" +
-                "2) Human vs Computer \n" +
-                "3) Computer vs Human \n" +
-                "4) Computer vs Computer \n" +
-                "Entering any other character will return a default Human v Human game:");
-    }
 }

@@ -1,49 +1,37 @@
 package ttt.menu;
 
 import org.junit.Test;
-import ttt.inputOutput.FakeIO;
+import ttt.inputOutput.ConsoleIO;
 import ttt.menuitems.TwoPlayerMenuItem;
-import ttt.player.AIComputerPlayer;
-import ttt.player.HumanPlayer;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TwoPlayerMenuItemTest {
-    private FakeIO io = getFakeIO(Arrays.asList("3", "1", "0", "1", "2", "3", "4", "5", "6"));
-    TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
-
-    @Test
-    public void asksUserTypeOfTwoPlayerGame() {
-        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
-        assertEquals("Hi, choose a two player game type (Enter 1 - 4): \n" +
-                "1) Human vs Human \n" +
-                "2) Human vs Computer \n" +
-                "3) Computer vs Human \n" +
-                "4) Computer vs Computer \n" +
-                "Entering any other character will return a default Human v Human game:", twoPlayer.askTypeOfTwoPlayerGame());
-    }
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
 
     @Test
     public void createsAHumanVHumanGame() {
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n3\n0\n1\n2\n3\n4\n5\n6\n".getBytes()));
+        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
         twoPlayer.perform();
-        assertTrue(twoPlayer.game.playerOne instanceof HumanPlayer);
-        assertTrue(twoPlayer.game.playerTwo instanceof HumanPlayer);
+        assertTrue(recordedOutput.toString().contains("Player X has won!"));
     }
 
     @Test
-    public void createsAHumanVComputerGame() {
-        FakeIO io = getFakeIO(Arrays.asList("3", "2", "0", "1", "2", "3", "4", "5", "6"));
+    public void createsAComputerVsComputerGame() {
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream("4\n3\n".getBytes()));
         TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
         twoPlayer.perform();
-        assertTrue(twoPlayer.game.playerOne instanceof HumanPlayer);
-        assertTrue(twoPlayer.game.playerTwo instanceof AIComputerPlayer);
+        assertTrue(recordedOutput.toString().contains("It's a draw!\n"));
     }
 
-    private FakeIO getFakeIO(List<String> input) {
-        return new FakeIO(input);
+    public ConsoleIO convertUserInput(InputStream userInput) {
+        return new ConsoleIO(userInput, out);
     }
 }

@@ -11,15 +11,15 @@ import static ttt.Symbol.X;
 
 public class PlayerCreator {
     private final IO io;
-    private final GameLog gameLog;
+    public boolean notFirstGame;
     private GameType choice;
 
     public PlayerCreator(IO io) {
         this.io = io;
-        gameLog = new GameLog();
+        notFirstGame = false;
     }
 
-    public void createPlayers(IO io) {
+    public void takeGameType(IO io) {
         parseGameType(io);
     }
 
@@ -40,6 +40,8 @@ public class PlayerCreator {
     }
 
     private Player createReplayPlayer(Symbol symbol) {
+        GameLog gameLog = new GameLog();
+        notFirstGame = gameLog.emptyList;
         return new ReplayPlayer(symbol, gameLog);
     }
 

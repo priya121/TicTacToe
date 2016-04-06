@@ -100,6 +100,8 @@ public class Game extends Observable {
         showCurrentBoard();
         if (board.isWin()) {
             io.showOutput("Player " + currentPlayer.playerSymbol() + " has won!");
+        } else {
+            io.showOutput("It's a draw!");
         }
     }
 

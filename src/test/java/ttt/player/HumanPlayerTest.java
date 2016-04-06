@@ -3,7 +3,7 @@ package ttt.player;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.TwoByTwoGameCreator;
+import ttt.TwoVsTwoGameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
@@ -38,21 +38,21 @@ public class HumanPlayerTest {
 
     @Test
     public void userMustEnterEmptyPositionIndex() {
-        Game game = getGame("3\n1\n0\n5\n0\n2\n7\n1\n8\nN\n");
+        Game game = getGame("1\n3\n0\n5\n0\n2\n7\n1\n8\n");
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }
 
     @Test
     public void playerOnlyMakesValidDigitMove() {
-        Game game = getGame("a\n1\n0\n5\n0\n2\n7\n1\n8\nN\n");
+        Game game = getGame("1\na\n0\n5\n0\n2\n7\n1\n8\n");
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a valid number"));
     }
 
     @Test
     public void playerOnlyMakesAMoveOnTheBoard() {
-        Game game = getGame("3\n1\n100\n1\n5\n2\n7\n0\n8\nN\n");
+        Game game = getGame("1\n3\n100\n1\n5\n2\n7\n0\n8\n");
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("That position is already taken or is not on the board, try again."));
     }
@@ -67,7 +67,7 @@ public class HumanPlayerTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new TwoByTwoGameCreator(io).createGame();
+        return new TwoVsTwoGameCreator(io).createGame();
     }
 }
 

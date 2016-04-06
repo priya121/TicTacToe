@@ -24,7 +24,7 @@ public class GameTest {
     @Test
     public void boardChangedWhenPlayerMakesMove() {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, X, E, E, E, E, O, O));
-        Game game = getGame(humanMoves(Arrays.asList("3", "1", "0", "7", "2", "8", "1", "N")));
+        Game game = getGame(humanMoves(Arrays.asList("1", "3", "0", "7", "2", "8", "1")));
         game.gameLoop();
         assertEquals(expectedBoard, game.getBoard());
     }
@@ -32,7 +32,7 @@ public class GameTest {
     @Test
     public void switchesPlayersFromCrossToNought() {
         List<Symbol> expectedBoard = expected.placeSymbols(Arrays.asList(X, X, E, E, X, E, O, O, O));
-        Game game = getGame(humanMoves(Arrays.asList("3", "1", "0", "6", "1", "7", "4", "8", "N")));
+        Game game = getGame(humanMoves(Arrays.asList("1", "3", "0", "6", "1", "7", "4", "8")));
         game.gameLoop();
         assertEquals(expectedBoard, game.getBoard());
     }
@@ -43,37 +43,51 @@ public class GameTest {
                                                                          E, E, O, O,
                                                                          O, E, E, E,
                                                                          E, E, E, E));
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "1", "6", "3", "7", "2", "8", "0", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "1", "6", "3", "7", "2", "8", "0")));
         game.gameLoop();
         assertEquals(expectedBoard, game.getBoard());
     }
 
     @Test
     public void userMustEnterDigits() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("X\na\n1\n1\n0\n2\nN\n".getBytes())));
+        Game game = getGame(convertUserInput(new ByteArrayInputStream("X\na\n1\n1\n0\n2\n".getBytes())));
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a valid number"));
     }
 
     @Test
     public void computesCurrentPlayer() {
-        Game game = getGame(convertUserInput(new ByteArrayInputStream("X\n1\n6\n0\n8\n2\n4\n1\nN\n".getBytes())));
+        Game game = getGame(convertUserInput(new ByteArrayInputStream("X\n1\n6\n0\n8\n2\n4\n1\n".getBytes())));
         game.gameLoop();
         assertEquals(X, game.getPlayerOne());
     }
 
     @Test
     public void updatesTheLastMovePlayedToThree() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "2", "5", "3", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "0", "8", "1", "7", "2", "5", "3")));
         game.gameLoop();
         assertEquals(3, game.move);
     }
 
     @Test
     public void updatesTheLastMovePlayedAsTwo() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("4", "1", "0", "8", "1", "7", "3", "5", "2", "N")));
+        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "0", "8", "1", "7", "3", "5", "2")));
         game.gameLoop();
         assertEquals(2, game.move);
+    }
+
+    @Test
+    public void showsEndOfGameMessageWhenXWon() {
+        Game game = getGame(convertUserInput(new ByteArrayInputStream("1\n3\n0\n8\n2\n4\n1\n".getBytes())));
+        game.gameLoop();
+        Assert.assertTrue(recordedOutput.toString().contains("Player X has won!"));
+    }
+
+    @Test
+    public void showsDrawMessageWhenGameIdADraw() {
+        Game game = getGame(convertUserInput(new ByteArrayInputStream("1\n3\n0\n1\n2\n5\n3\n6\n4\n8\n7\n".getBytes())));
+        game.gameLoop();
+        Assert.assertTrue(recordedOutput.toString().contains("It's a draw!"));
     }
 
     private FakeIO getFakeIO(List<String> input) {
@@ -81,11 +95,11 @@ public class GameTest {
     }
 
     private Game getGame(IO humanMoves) {
-        return new TwoByTwoGameCreator(humanMoves).createGame();
+        return new TwoVsTwoGameCreator(humanMoves).createGame();
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new TwoByTwoGameCreator(humanMoves).createGame();
+        return new TwoVsTwoGameCreator(humanMoves).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

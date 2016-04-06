@@ -3,7 +3,7 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.TwoByTwoGameCreator;
+import ttt.TwoVsTwoGameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
 import ttt.inputOutput.ConsoleIO;
@@ -26,9 +26,9 @@ public class BoardChooserTest {
     @Test
     public void returnsAnThreeByThreeEmptyBoard() {
         List<Symbol> emptyCells = expected.placeSymbols(Arrays.asList(E, E, E, E,
-                    E, E, E, E,
-                    E, E, E, E,
-                    E, E, E, E));
+                                                                      E, E, E, E,
+                                                                      E, E, E, E,
+                                                                      E, E, E, E));
         Board expectedBoard = new Board(emptyCells);
         BoardCreator boardCreator = new BoardCreator(userInput(Arrays.asList("4")));
         Assert.assertEquals(expectedBoard.contentsOfBoard(), boardCreator.create().contentsOfBoard());
@@ -36,7 +36,7 @@ public class BoardChooserTest {
 
     @Test
     public void playerCanOnlyEnterDigit() {
-        Game game = getGame("a\n3\n1\n6\n1\n7\n0\n8\n2\nN\n");
+        Game game = getGame("1\na\n3\n6\n1\n7\n0\n8\n2\n");
         game.gameLoop();
         Assert.assertTrue(recordedOutput.toString().contains("Please enter a valid number"));
     }
@@ -47,7 +47,7 @@ public class BoardChooserTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new TwoByTwoGameCreator(io).createGame();
+        return new TwoVsTwoGameCreator(io).createGame();
     }
 
     public FakeIO userInput(List<String> sizeChosen) {
