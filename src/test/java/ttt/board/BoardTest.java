@@ -3,10 +3,11 @@ package ttt.board;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
-import ttt.TwoVsTwoGameCreator;
 import ttt.SetupBoard;
 import ttt.Symbol;
+import ttt.TwoVsTwoGameCreator;
 import ttt.inputOutput.FakeIO;
+import ttt.player.PlayerCreator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -335,11 +336,13 @@ public class BoardTest {
     }
 
     private Game getThreeByThreeGame(FakeIO userInput) {
-        return new TwoVsTwoGameCreator(userInput).createGame();
+        PlayerCreator creator = new PlayerCreator(userInput);
+        return new TwoVsTwoGameCreator(userInput, creator).createGame();
     }
 
     private Game getFourByFourGame(FakeIO userInput) {
-        return new TwoVsTwoGameCreator(userInput).createGame();
+        PlayerCreator creator = new PlayerCreator(userInput);
+        return new TwoVsTwoGameCreator(userInput, creator).createGame();
     }
 
     private List<Integer> moves(int from, int to) {

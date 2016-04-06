@@ -10,9 +10,9 @@ public class TwoVsTwoGameCreator {
     private final PlayerCreator creator;
     private IO io;
 
-    public TwoVsTwoGameCreator(IO io) {
+    public TwoVsTwoGameCreator(IO io, PlayerCreator playerCreator) {
         this.io = io;
-        this.creator = new PlayerCreator(io);
+        this.creator = playerCreator;
     }
 
     public Game createGame() {

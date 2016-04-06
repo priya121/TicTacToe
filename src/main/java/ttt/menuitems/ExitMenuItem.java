@@ -18,4 +18,9 @@ public class ExitMenuItem implements MenuItem {
     public void perform() {
         io.showOutput("Bye!");
     }
+
+    @Override
+    public boolean shouldAppear() {
+        return true;
+    }
 }

@@ -6,6 +6,7 @@ import ttt.menuitems.ExitMenuItem;
 import ttt.menuitems.MenuItem;
 import ttt.menuitems.ReplayMenuItem;
 import ttt.menuitems.TwoPlayerMenuItem;
+import ttt.player.PlayerCreator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +18,9 @@ public class MenuDisplay {
 
     public MenuDisplay(IO io) {
         this.io = io;
-        MenuItem twoPlayer = new TwoPlayerMenuItem(io);
-        MenuItem replay = new ReplayMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        MenuItem twoPlayer = new TwoPlayerMenuItem(io, creator);
+        MenuItem replay = new ReplayMenuItem(io, creator);
         MenuItem exit = new ExitMenuItem(io);
         menuItems = Arrays.asList(twoPlayer, replay, exit);
     }
@@ -42,7 +44,9 @@ public class MenuDisplay {
     public void showMenuItems() {
         io.showOutput("Please choose from the following options: \n");
         for (MenuItem menuItem : menuItems) {
-            menuItem.show();
+            if (menuItem.shouldAppear()) {
+                menuItem.show();
+            }
         }
     }
 

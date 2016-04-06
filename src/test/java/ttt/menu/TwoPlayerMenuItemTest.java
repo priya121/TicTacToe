@@ -3,6 +3,7 @@ package ttt.menu;
 import org.junit.Test;
 import ttt.inputOutput.ConsoleIO;
 import ttt.menuitems.TwoPlayerMenuItem;
+import ttt.player.PlayerCreator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +19,8 @@ public class TwoPlayerMenuItemTest {
     @Test
     public void createsAHumanVHumanGame() {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n3\n0\n1\n2\n3\n4\n5\n6\n".getBytes()));
-        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io, creator);
         twoPlayer.perform();
         assertTrue(recordedOutput.toString().contains("Player X has won!"));
     }
@@ -26,7 +28,8 @@ public class TwoPlayerMenuItemTest {
     @Test
     public void createsAComputerVsComputerGame() {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream("4\n3\n".getBytes()));
-        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        TwoPlayerMenuItem twoPlayer = new TwoPlayerMenuItem(io, creator);
         twoPlayer.perform();
         assertTrue(recordedOutput.toString().contains("It's a draw!\n"));
     }

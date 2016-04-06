@@ -4,6 +4,7 @@ import org.junit.Test;
 import ttt.inputOutput.ConsoleIO;
 import ttt.player.AIComputerPlayer;
 import ttt.player.HumanPlayer;
+import ttt.player.PlayerCreator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +17,9 @@ import static org.junit.Assert.assertTrue;
 public class GameCreatorTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(convertUserInput(new ByteArrayInputStream(("1\n3\n").getBytes())));
+    ConsoleIO input = convertUserInput(new ByteArrayInputStream(("1\n3\n").getBytes()));
+    PlayerCreator creator = new PlayerCreator(input);
+    TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(input, creator);
 
     public ConsoleIO convertUserInput(InputStream userInput) {
         return new ConsoleIO(userInput, out);
@@ -26,16 +29,16 @@ public class GameCreatorTest {
     public void displaysGameTypesToUser() {
         newSetup.displayMessage();
         assertEquals("Hi, choose a game type (Enter 1 - 4): \n" +
-                     "1) Human vs Human \n" +
-                     "2) Human vs Computer \n" +
-                     "3) Computer vs Human \n" +
-                     "4) Computer vs Computer \n" +
-                     "Entering any other character will return a default Human v Human game:\n", recordedOutput.toString());
+                "1) Human vs Human \n" +
+                "2) Human vs Computer \n" +
+                "3) Computer vs Human \n" +
+                "4) Computer vs Computer \n" +
+                "Entering any other character will return a default Human v Human game:\n", recordedOutput.toString());
     }
 
     @Test
     public void createsTheRightTypeOfGameIfUserChoosesOne() {
-        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(convertUserInput(new ByteArrayInputStream(("1\n3\n").getBytes())));
+        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(input, creator);
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof HumanPlayer);
         assertTrue(game.playerTwo instanceof HumanPlayer);
@@ -43,7 +46,9 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightTypeOfGameIfUserChoosesTwo() {
-        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(convertUserInput(new ByteArrayInputStream(("2\n3\n").getBytes())));
+        ConsoleIO input = convertUserInput(new ByteArrayInputStream(("2\n3\n").getBytes()));
+        PlayerCreator creator = new PlayerCreator(input);
+        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(input, creator);
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof HumanPlayer);
         assertTrue(game.playerTwo instanceof AIComputerPlayer);
@@ -51,7 +56,9 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightGameIfUserChoosesThree() {
-        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(convertUserInput(new ByteArrayInputStream(("3\n3\n").getBytes())));
+        ConsoleIO input = convertUserInput(new ByteArrayInputStream(("3\n3\n").getBytes()));
+        PlayerCreator creator = new PlayerCreator(input);
+        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(input, creator);
         Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof AIComputerPlayer);
         assertTrue(game.playerTwo instanceof HumanPlayer);
@@ -59,8 +66,10 @@ public class GameCreatorTest {
 
     @Test
     public void createsTheRightGameIfUserChoosesFour() {
-        TwoVsTwoGameCreator gameCreator = new TwoVsTwoGameCreator(convertUserInput(new ByteArrayInputStream(("4\n3\n").getBytes())));
-        Game game = gameCreator.createGame();
+        ConsoleIO input = convertUserInput(new ByteArrayInputStream(("4\n3\n").getBytes()));
+        PlayerCreator creator = new PlayerCreator(input);
+        TwoVsTwoGameCreator newSetup = new TwoVsTwoGameCreator(input, creator);
+        Game game = newSetup.createGame();
         assertTrue(game.playerOne instanceof AIComputerPlayer);
         assertTrue(game.playerTwo instanceof AIComputerPlayer);
     }

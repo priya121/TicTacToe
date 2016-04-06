@@ -67,7 +67,8 @@ public class HumanPlayerTest {
 
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
-        return new TwoVsTwoGameCreator(io).createGame();
+        PlayerCreator creator = new PlayerCreator(io);
+        return new TwoVsTwoGameCreator(io, creator).createGame();
     }
 }
 

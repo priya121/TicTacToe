@@ -10,11 +10,10 @@ import ttt.player.PlayerCreator;
 public class ReplayMenuItem implements MenuItem {
     private final IO io;
     private final PlayerCreator creator;
-    private Game game;
 
-    public ReplayMenuItem(IO io) {
+    public ReplayMenuItem(IO io, PlayerCreator creator) {
         this.io = io;
-        this.creator = new PlayerCreator(io);
+        this.creator = creator;
     }
 
     @Override
@@ -28,8 +27,13 @@ public class ReplayMenuItem implements MenuItem {
         Player one = creator.createReplayX();
         Player two = creator.createReplayO();
         Board board = new BoardCreator(io).create();
-        game = new Game(board, io, one, two);
+        Game game = new Game(board, io, one, two);
         game.gameLoop();
+    }
+
+    @Override
+    public boolean shouldAppear() {
+        return creator.notFirstGame;
     }
 
     public String replayMessage() {

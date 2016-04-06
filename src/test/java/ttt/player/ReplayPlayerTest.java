@@ -47,7 +47,8 @@ public class ReplayPlayerTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new TwoVsTwoGameCreator(humanMoves).createGame();
+        PlayerCreator creator = new PlayerCreator(humanMoves);
+        return new TwoVsTwoGameCreator(humanMoves, creator).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

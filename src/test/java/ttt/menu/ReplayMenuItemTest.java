@@ -6,6 +6,7 @@ import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.menuitems.ReplayMenuItem;
 import ttt.menuitems.TwoPlayerMenuItem;
+import ttt.player.PlayerCreator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,20 +25,23 @@ public class ReplayMenuItemTest {
 
     @Before
     public void setUp() {
-        TwoPlayerMenuItem twoPlayerGame = new TwoPlayerMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        TwoPlayerMenuItem twoPlayerGame = new TwoPlayerMenuItem(io, creator);
         twoPlayerGame.perform();
     }
 
     @Test
     public void userReplayMessageDisplayedIfOptionChosen() {
-        ReplayMenuItem replay = new ReplayMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        ReplayMenuItem replay = new ReplayMenuItem(io, creator);
         assertEquals("Replaying game...", replay.replayMessage());
     }
 
     @Test
     public void replaysPreviousGame() {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n3\n2\n3\n".getBytes()));
-        ReplayMenuItem replay = new ReplayMenuItem(io);
+        PlayerCreator creator = new PlayerCreator(io);
+        ReplayMenuItem replay = new ReplayMenuItem(io, creator);
         replay.perform();
         assertTrue(recordedOutput.toString().contains("Player X has won!"));
         assertTrue(recordedOutput.toString().contains("Replaying game..."));

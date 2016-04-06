@@ -4,6 +4,7 @@ import org.junit.Test;
 import ttt.Game;
 import ttt.TwoVsTwoGameCreator;
 import ttt.inputOutput.FakeIO;
+import ttt.player.PlayerCreator;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -40,7 +41,8 @@ public class ObserverTest {
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
-        return new TwoVsTwoGameCreator(humanMoves).createGame();
+        PlayerCreator creator = new PlayerCreator(humanMoves);
+        return new TwoVsTwoGameCreator(humanMoves, creator).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

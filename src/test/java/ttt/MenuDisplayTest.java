@@ -28,14 +28,24 @@ public class MenuDisplayTest {
         assertEquals(greeting, recordedOutput.toString());
     }
 
+   @Test
+   public void displaysTwoByTwoGameAndExitOnFirstOnFirstMenuDisplay() {
+       String choice = "Please choose from the following options: \n\n" +
+               "1) Two Player Game\n" +
+               "3) Exit Game\n";
+       display.showMenuItems();
+       assertEquals(choice, recordedOutput.toString());
+   }
+
     @Test
-    public void displayMenuOfChoices() {
+    public void displayMenuOfChoicesAfterFirstGamePlayed() {
+        MenuDisplay display = new MenuDisplay(convertUserInput(new ByteArrayInputStream("1\n1\n3\n0\n1\n2\n3\n4\n5\n6\n3\n".getBytes())));
         String choice = "Please choose from the following options: \n\n" +
                 "1) Two Player Game\n" +
                 "2) Replay Game\n" +
                 "3) Exit Game\n";
-        display.showMenuItems();
-        assertEquals(choice, recordedOutput.toString());
+        display.start();
+        assertTrue(recordedOutput.toString().contains(choice));
     }
 
     @Test
