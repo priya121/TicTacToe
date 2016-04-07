@@ -26,7 +26,7 @@ public class MenuDisplay {
         MenuItem replay = new ReplayMenuItem(io, creator, size);
         MenuItem exit = new ExitMenuItem(io);
         this.menuItems = Arrays.asList(twoPlayer, replay, exit);
-        updateMenuItems();
+        itemsToDisplay();
     }
 
     public void start() {
@@ -35,7 +35,7 @@ public class MenuDisplay {
         while (gameType != 3) {
             if (menuItemChosen.shouldAppear()) {
                 menuItemChosen.perform();
-                updateMenuItems();
+                itemsToDisplay();
                 showMenuItems();
                 menuItemChosen = chooseGameType();
             }
@@ -47,7 +47,7 @@ public class MenuDisplay {
         showMenuItems();
     }
 
-    public void updateMenuItems() {
+    public void itemsToDisplay() {
         displayItems = new ArrayList<>();
         for (MenuItem item : menuItems) {
             if (item.shouldAppear()) {
