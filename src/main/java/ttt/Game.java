@@ -41,9 +41,7 @@ public class Game extends Observable {
         startTime = System.currentTimeMillis();
         while (board.gameNotOver()) {
             display();
-            computeCurrentPlayer(board);
-            move = currentPlayer.move(board);
-            board = board.markPlayer(move, currentPlayer.playerSymbol());
+            markBoard();
             time = System.currentTimeMillis();
             informObservers();
         }
@@ -53,6 +51,12 @@ public class Game extends Observable {
     private void display() {
         io.showOutput("Enter a position from 0 - " + (board.contentsOfBoard().size() - 1));
         showCurrentBoard();
+    }
+
+    private void markBoard() {
+        computeCurrentPlayer(board);
+        move = currentPlayer.move(board);
+        board = board.markPlayer(move, currentPlayer.playerSymbol());
     }
 
     private void informObservers() {

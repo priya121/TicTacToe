@@ -7,11 +7,11 @@ import java.util.List;
 
 public class GameLog implements AutoCloseable {
     public List<Move> moveList;
-    public boolean emptyList;
+    public boolean isEmpty;
 
     public GameLog() {
         this.moveList = receiveMoves();
-        this.emptyList = (moveList.size() == 0);
+        this.isEmpty = (moveList.size() == 0);
     }
 
     public List<Move> receiveMoves() {

@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MenuDisplay {
-    private final SizeChoice size;
     private IO io;
     public List<MenuItem> menuItems = new ArrayList<>();
     private List<MenuItem> displayItems = new ArrayList<>();
@@ -21,7 +20,7 @@ public class MenuDisplay {
 
     public MenuDisplay(IO io) {
         this.io = io;
-        this.size = new SizeChoice();
+        SizeChoice size = new SizeChoice();
         PlayerCreator creator = new PlayerCreator(io);
         MenuItem twoPlayer = new TwoPlayerMenuItem(io, creator, size);
         MenuItem replay = new ReplayMenuItem(io, creator, size);
@@ -31,8 +30,7 @@ public class MenuDisplay {
     }
 
     public void start() {
-        showGreeting();
-        showMenuItems();
+        initialDisplay();
         MenuItem menuItemChosen = chooseGameType();
         while (gameType != 3) {
             if (menuItemChosen.shouldAppear()) {
@@ -42,6 +40,11 @@ public class MenuDisplay {
                 menuItemChosen = chooseGameType();
             }
         }
+    }
+
+    private void initialDisplay() {
+        showGreeting();
+        showMenuItems();
     }
 
     public void updateMenuItems() {

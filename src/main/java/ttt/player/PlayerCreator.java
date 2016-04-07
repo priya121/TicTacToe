@@ -11,13 +11,13 @@ import static ttt.Symbol.X;
 
 public class PlayerCreator {
     private final IO io;
-    private final GameLog gameLog;
+    private final GameLog newGameLog;
     public boolean notFirstGame;
     private GameType choice;
 
     public PlayerCreator(IO io) {
         this.io = io;
-        this.gameLog = new GameLog();
+        this.newGameLog = new GameLog();
         notFirstGame = false;
     }
 
@@ -47,7 +47,7 @@ public class PlayerCreator {
     }
 
     private Player createPlayer(GameType choiceOne, GameType choiceTwo, Symbol player) {
-        notFirstGame = !gameLog.emptyList;
+        notFirstGame = !newGameLog.isEmpty;
          if (choice == choiceOne || choice == choiceTwo) {
             return new HumanPlayer(io, player);
         } else {
