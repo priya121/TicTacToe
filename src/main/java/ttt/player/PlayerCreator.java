@@ -42,6 +42,7 @@ public class PlayerCreator {
     }
 
     private Player createReplayPlayer(Symbol symbol) {
+        GameLog gameLog = new GameLog();
         return new ReplayPlayer(symbol, gameLog);
     }
 

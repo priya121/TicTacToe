@@ -2,6 +2,7 @@ package ttt.observers;
 
 import org.junit.Test;
 import ttt.Game;
+import ttt.SizeChoice;
 import ttt.TwoVsTwoGameCreator;
 import ttt.inputOutput.FakeIO;
 import ttt.player.PlayerCreator;
@@ -42,7 +43,8 @@ public class ObserverTest {
 
     private Game getFourByFourGame(FakeIO humanMoves) {
         PlayerCreator creator = new PlayerCreator(humanMoves);
-        return new TwoVsTwoGameCreator(humanMoves, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(humanMoves, creator, size).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

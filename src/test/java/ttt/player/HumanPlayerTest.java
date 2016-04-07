@@ -3,6 +3,7 @@ package ttt.player;
 import org.junit.Assert;
 import org.junit.Test;
 import ttt.Game;
+import ttt.SizeChoice;
 import ttt.TwoVsTwoGameCreator;
 import ttt.board.Board;
 import ttt.inputOutput.ConsoleIO;
@@ -68,7 +69,8 @@ public class HumanPlayerTest {
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
         PlayerCreator creator = new PlayerCreator(io);
-        return new TwoVsTwoGameCreator(io, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(io, creator, size).createGame();
     }
 }
 

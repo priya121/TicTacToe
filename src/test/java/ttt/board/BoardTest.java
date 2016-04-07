@@ -2,10 +2,7 @@ package ttt.board;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Game;
-import ttt.SetupBoard;
-import ttt.Symbol;
-import ttt.TwoVsTwoGameCreator;
+import ttt.*;
 import ttt.inputOutput.FakeIO;
 import ttt.player.PlayerCreator;
 
@@ -337,12 +334,14 @@ public class BoardTest {
 
     private Game getThreeByThreeGame(FakeIO userInput) {
         PlayerCreator creator = new PlayerCreator(userInput);
-        return new TwoVsTwoGameCreator(userInput, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(userInput, creator, size).createGame();
     }
 
     private Game getFourByFourGame(FakeIO userInput) {
         PlayerCreator creator = new PlayerCreator(userInput);
-        return new TwoVsTwoGameCreator(userInput, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(userInput, creator, size).createGame();
     }
 
     private List<Integer> moves(int from, int to) {

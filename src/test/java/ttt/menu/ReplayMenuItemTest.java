@@ -2,6 +2,7 @@ package ttt.menu;
 
 import org.junit.Before;
 import org.junit.Test;
+import ttt.SizeChoice;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.menuitems.ReplayMenuItem;
@@ -22,26 +23,27 @@ public class ReplayMenuItemTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     private FakeIO io = getFakeIO(Arrays.asList("1", "3", "0", "1", "2", "3", "4", "5", "6", "3"));
+    SizeChoice size = new SizeChoice();
 
     @Before
     public void setUp() {
         PlayerCreator creator = new PlayerCreator(io);
-        TwoPlayerMenuItem twoPlayerGame = new TwoPlayerMenuItem(io, creator);
+        TwoPlayerMenuItem twoPlayerGame = new TwoPlayerMenuItem(io, creator, size);
         twoPlayerGame.perform();
     }
 
     @Test
     public void userReplayMessageDisplayedIfOptionChosen() {
         PlayerCreator creator = new PlayerCreator(io);
-        ReplayMenuItem replay = new ReplayMenuItem(io, creator);
+        ReplayMenuItem replay = new ReplayMenuItem(io, creator, size);
         assertEquals("Replaying game...", replay.replayMessage());
     }
 
     @Test
     public void replaysPreviousGame() {
-        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n3\n2\n3\n".getBytes()));
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n2\n3\n".getBytes()));
         PlayerCreator creator = new PlayerCreator(io);
-        ReplayMenuItem replay = new ReplayMenuItem(io, creator);
+        ReplayMenuItem replay = new ReplayMenuItem(io, creator, size);
         replay.perform();
         assertTrue(recordedOutput.toString().contains("Player X has won!"));
         assertTrue(recordedOutput.toString().contains("Replaying game..."));

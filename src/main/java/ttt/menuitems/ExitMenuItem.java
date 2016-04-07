@@ -11,7 +11,7 @@ public class ExitMenuItem implements MenuItem {
 
     @Override
     public void show() {
-        io.showOutput("3) Exit Game");
+        io.showOutput("Exit Game");
     }
 
     @Override

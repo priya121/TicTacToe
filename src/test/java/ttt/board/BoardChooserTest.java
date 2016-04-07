@@ -2,10 +2,7 @@ package ttt.board;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ttt.Game;
-import ttt.SetupBoard;
-import ttt.Symbol;
-import ttt.TwoVsTwoGameCreator;
+import ttt.*;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.player.PlayerCreator;
@@ -49,7 +46,8 @@ public class BoardChooserTest {
     private Game getGame(String humanMoves) {
         ConsoleIO io = convertUserInput(new ByteArrayInputStream(humanMoves.getBytes()));
         PlayerCreator creator = new PlayerCreator(io);
-        return new TwoVsTwoGameCreator(io, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(io, creator, size).createGame();
     }
 
     public FakeIO userInput(List<String> sizeChosen) {

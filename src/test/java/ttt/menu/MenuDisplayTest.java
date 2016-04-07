@@ -1,6 +1,7 @@
-package ttt;
+package ttt.menu;
 
 import org.junit.Test;
+import ttt.MenuDisplay;
 import ttt.inputOutput.ConsoleIO;
 import ttt.inputOutput.FakeIO;
 import ttt.menuitems.ExitMenuItem;
@@ -31,8 +32,8 @@ public class MenuDisplayTest {
    @Test
    public void displaysTwoByTwoGameAndExitOnFirstOnFirstMenuDisplay() {
        String choice = "Please choose from the following options: \n\n" +
-               "1) Two Player Game\n" +
-               "3) Exit Game\n";
+               "1) " + "\nTwo Player Game\n" +
+               "2) " + "\nExit Game\n";
        display.showMenuItems();
        assertEquals(choice, recordedOutput.toString());
    }
@@ -41,9 +42,9 @@ public class MenuDisplayTest {
     public void displayMenuOfChoicesAfterFirstGamePlayed() {
         MenuDisplay display = new MenuDisplay(convertUserInput(new ByteArrayInputStream("1\n1\n3\n0\n1\n2\n3\n4\n5\n6\n3\n".getBytes())));
         String choice = "Please choose from the following options: \n\n" +
-                "1) Two Player Game\n" +
-                "2) Replay Game\n" +
-                "3) Exit Game\n";
+                "1) " + "\nTwo Player Game\n" +
+                "2) " + "\nReplay Game\n" +
+                "3) " + "\nExit Game\n";
         display.start();
         assertTrue(recordedOutput.toString().contains(choice));
     }
@@ -77,15 +78,8 @@ public class MenuDisplayTest {
     }
 
     @Test
-    public void userEntering2ReturnsReplayGameType() {
+    public void userEntering2ReturnsExitGameType() {
         FakeIO io = new FakeIO(Arrays.asList("2"));
-        MenuDisplay display = new MenuDisplay(io);
-        assertTrue(display.chooseGameType() instanceof ReplayMenuItem);
-    }
-
-    @Test
-    public void userEntering3ReturnsExitGameType() {
-        FakeIO io = new FakeIO(Arrays.asList("3"));
         MenuDisplay display = new MenuDisplay(io);
         assertTrue(display.chooseGameType() instanceof ExitMenuItem);
     }

@@ -20,7 +20,7 @@ public class ExitMenuItemTest {
     public void displaysExitMessageIfUserChoosesOption() {
         ExitMenuItem exit = new ExitMenuItem(io);
         exit.show();
-        assertTrue(recordedOutput.toString().contains("3) Exit Game\n"));
+        assertTrue(recordedOutput.toString().contains("Exit Game\n"));
     }
     
     @Test

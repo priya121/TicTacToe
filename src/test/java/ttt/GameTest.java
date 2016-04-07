@@ -97,12 +97,14 @@ public class GameTest {
 
     private Game getThreeByThreeGame(IO humanMoves) {
         PlayerCreator creator = new PlayerCreator(humanMoves);
-        return new TwoVsTwoGameCreator(humanMoves, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(humanMoves, creator, size).createGame();
     }
 
     private Game getFourByFourGame(FakeIO humanMoves) {
         PlayerCreator creator = new PlayerCreator(humanMoves);
-        return new TwoVsTwoGameCreator(humanMoves, creator).createGame();
+        SizeChoice size = new SizeChoice();
+        return new TwoVsTwoGameCreator(humanMoves, creator, size).createGame();
     }
 
     public FakeIO humanMoves(List<String> moves) {

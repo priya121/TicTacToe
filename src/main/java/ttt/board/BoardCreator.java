@@ -27,4 +27,8 @@ public class BoardCreator {
             }
             return new Board(Integer.parseInt(userInput));
     }
+
+    public int getSize() {
+        return Integer.parseInt(userInput);
+    }
 }

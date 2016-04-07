@@ -7,12 +7,14 @@ import ttt.player.Player;
 import ttt.player.PlayerCreator;
 
 public class TwoVsTwoGameCreator {
-    private final PlayerCreator creator;
+    private PlayerCreator creator;
+    private SizeChoice boardSize;
     private IO io;
 
-    public TwoVsTwoGameCreator(IO io, PlayerCreator playerCreator) {
+    public TwoVsTwoGameCreator(IO io, PlayerCreator playerCreator, SizeChoice boardSize) {
         this.io = io;
         this.creator = playerCreator;
+        this.boardSize = boardSize;
     }
 
     public Game createGame() {
@@ -21,6 +23,7 @@ public class TwoVsTwoGameCreator {
         Player playerOne = creator.createX();
         Player playerTwo = creator.createO();
         Board board = getBoard();
+        boardSize.setBoardSize(board.contentsOfBoard().size());
         return new Game(board, io, playerOne, playerTwo);
     }
 
