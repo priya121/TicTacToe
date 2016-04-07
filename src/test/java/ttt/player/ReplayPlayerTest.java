@@ -22,21 +22,23 @@ public class ReplayPlayerTest {
     public void generatesRightMoveForPlayerX() throws IOException {
         MoveObserver observer = moveObserverGame(game);
         observer.generateMoves();
-        GameLog gameLog = new GameLog();
-        ReplayPlayer playerX = new ReplayPlayer(Symbol.X, gameLog);
+        ReplayPlayer playerX = getReplayPlayer(Symbol.X);
         assertEquals(0, playerX.firstMove.index);
     }
 
     @Test
     public void generatesRightMoveForPlayerO() {
-        Game game = getFourByFourGame(humanMoves(Arrays.asList("1", "4", "0", "8", "1", "7", "3", "5", "2")));
         MoveObserver observer = moveObserverGame(game);
         observer.generateMoves();
-        GameLog gameLog = new GameLog();
-        ReplayPlayer playerO = new ReplayPlayer(Symbol.O, gameLog);
+        ReplayPlayer playerO = getReplayPlayer(Symbol.O);
         assertEquals(8, playerO.move(game.board));
     }
-    
+
+    private ReplayPlayer getReplayPlayer(Symbol symbol) {
+        GameLog gameLog = new GameLog();
+        return new ReplayPlayer(symbol, gameLog);
+    }
+
     private MoveObserver moveObserverGame(Game game) {
         MoveObserver moveObserver = new MoveObserver(game);
         game.gameLoop();

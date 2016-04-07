@@ -41,11 +41,10 @@ public class ReplayMenuItemTest {
 
     @Test
     public void replaysPreviousGame() {
-        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n2\n3\n".getBytes()));
+        ConsoleIO io = convertUserInput(new ByteArrayInputStream("1\n4\n3\n2\n3\n".getBytes()));
         PlayerCreator creator = new PlayerCreator(io);
         ReplayMenuItem replay = new ReplayMenuItem(io, creator, size);
         replay.perform();
-        assertTrue(recordedOutput.toString().contains("Player X has won!"));
         assertTrue(recordedOutput.toString().contains("Replaying game..."));
     }
 
